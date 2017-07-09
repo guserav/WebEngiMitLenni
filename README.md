@@ -1,3 +1,4 @@
+[![Build Status](https://api.travis-ci.org/guserav/WebEngiMitLenni.png)](https://travis-ci.org/guserav/WebEngiMitLenni)
 # WebEngiMitLenni
 ## Setup
 1. ```npm install```
