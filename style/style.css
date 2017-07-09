@@ -12,7 +12,7 @@ body{background: #EDD983;}
     min-width:  390px;
     background: #F6E69C;
     padding: 15px;
-    margin: 0px auto;
+    margin: 0 auto;
     height: 95vh;
     display: flex;
     flex-direction: column;
@@ -29,7 +29,7 @@ body{background: #EDD983;}
 
 }
 .chatlogs::-webkit-scrollbar{
-    width: 5px;
+    width: 10px;
 }
 .chatlogs::-webkit-scrollbar-thumb{
     border-radius: 5px;
@@ -194,7 +194,7 @@ body{background: #EDD983;}
     max-width: 250px;
     background: #F6E69C;
     padding: 15px;
-    margin: 0px auto;
+    margin: 0 auto;
     box-shadow: 0 2px 5px #ccc;
 
 }

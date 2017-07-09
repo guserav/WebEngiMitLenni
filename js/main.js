@@ -1,27 +1,23 @@
 textConverter = require('./textConversion');
 
 const apiurl = "http://danielrutz.de:3000/api";
+var username = "user12"; //müssen wir noch irgendwie beim einlogen bekommen
+
 
 window.onload = function startup(){
-
     loadlobbys();
-    testbuild();
 
-}
+};
 
 //test function vor message html build
-function testbuild(){
-    //informationen die man vom server bekommen müsste
-    var usernameS = "test";
-    var timeS = "ztest";
-    var textS = "texttest";
-    var whoS = "self"; //irgendwie bestimmen ob die nachricht von dir oder jemand anderem ist
-
-    var chatlogs = document.getElementById("chatlogs"); //chat container element
-
-    //build element (normal looped für alle nachrichten anfangen mit der ältesten)
+function buildmessage(usernameS,textS,timeS){
+    var chatlogs = document.getElementById("chatlogs");
     var divchat = document.createElement("div");
-    divchat.className = "chat self";
+    if(usernameS == username){
+        divchat.className = "chat self";
+    }else{
+        divchat.className = "chat friend";
+    }
     var pchat = document.createElement("p");
     pchat.className = "chat-message";
     pchat.innerHTML = '<br>'+textS;
@@ -34,24 +30,52 @@ function testbuild(){
     divchat.appendChild(pchat);
     pchat.insertBefore(szeit,pchat.firstChild);
     pchat.insertBefore(sname,pchat.firstChild);
-
     chatlogs.appendChild(divchat);
-
-    //scrolldown
-    chatlogs.scrollTop = chatlogs.scrollHeight;
 
 }
 
 
-function sendtext(){
-    var text = document.getElementById("textinput").value;
-    console.log(text);
+function loadmessage(room){
+    var messageurl = apiurl +"/chats/"+room;
 
 
+    //TODO  authenticaon not hardcoded/localstorage
+    var messagerequest = new Request(messageurl, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Basic ' + btoa('dhbw:dhbw-pw')
+        }
+
+    });
+
+    fetch(messagerequest)
+        .then(function(resp) {
+            return resp.json();
+        })
+        .then(function (data){
+            var chatlogs = document.getElementById("chatlogs");
+
+            data.forEach(function(item){
+                var usernameS = item.user;
+                var textS = item.message;
+
+                var timestamp = new Date(item.timestamp);
+                var h = timestamp.getHours(); var m =timestamp.getMinutes();
+                if(m < 10){ m = "0"+m}
+                var timeS =  h+":"+m;
 
 
-    
-    //TODO regex and emoticons (here or do loadmessages after and also load your text)
+                buildmessage(usernameS,textS,timeS);
+            });
+            //scrolldown
+            chatlogs.scrollTop = chatlogs.scrollHeight;
+
+
+        })
+        .catch(function(error) {
+            console.log("Error in loadlobbys:"+error);
+        });
+
 }
 
 
@@ -67,7 +91,6 @@ function loadlobbys(){
 
     });
 
-    //TODO filter lobby only for our lobbys
     fetch(roomrequest)
         .then(function(resp) {
             return resp.json();
@@ -83,7 +106,7 @@ function loadlobbys(){
                 newbutton.innerHTML = item;
                 divbutton.appendChild(newbutton);
                 document.getElementById("lobbylogs").appendChild(divbutton);
-            })
+            });
             switchlobby(data[0]);
 
         })
@@ -100,7 +123,7 @@ function loadlobbys(){
 function  switchlobby(name){
 
     //Html element anpassen
-    var lobbyA = document.getElementsByClassName("lobbyname")
+    var lobbyA = document.getElementsByClassName("lobbyname");
     for(var i=0; i<lobbyA.length;i++){
         lobbyA[i].style.backgroundColor = "#F2D769";
         if(lobbyA[i].innerHTML == name){
@@ -110,6 +133,7 @@ function  switchlobby(name){
     element.style.backgroundColor = "#E0C65B";
     document.getElementById("chatheader").innerHTML = name;
 
+    loadmessage(name);
     //TODO lade alle nachrichten, lade alle user
 
 
