@@ -1,6 +1,7 @@
 module.exports = {
     "globals":{
-        "module":true
+        "module":true,
+        "require":true
     },
     "extends": "eslint:recommended",
     "env":{

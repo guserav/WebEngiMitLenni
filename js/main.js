@@ -1,3 +1,4 @@
+textConverter = require('textConversion');
 
 const apiurl = "http://danielrutz.de:3000/api";
 

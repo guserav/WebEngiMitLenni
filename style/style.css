@@ -71,6 +71,30 @@ body{background: #EDD983;}
     font-size: 16px;
     }
 
+.chat .chat-message .emphasis{
+    font-weight: bold;
+}
+
+.chat .chat-message .strike{
+    text-decoration: line-through;
+}
+
+.chat .chat-message .italic{
+    font-style: italic;
+}
+
+.chat .chat-message .codeInLine{
+    //TODO format the inline code element
+}
+
+.chat .chat-message .codeBlock{
+    //TODO format the code blocks
+}
+
+.chat .chat-message .quote{
+    //TODO format as quoting
+}
+
 .friend .chat-message{
     background: white;
     text-align: left;
