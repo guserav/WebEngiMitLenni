@@ -57,29 +57,24 @@ body{background: #EDD983;}
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 
 
 }
+
 .chat .chat-message{
-
     width: 100%;
-
     padding: 5px;
     margin: 5px 10px 0 5px;
     border-radius: 10px;
     color: black;
     font-size: 16px;
+    }
 
-
-
-}
 .friend .chat-message{
     background: white;
     text-align: left;
     word-wrap: break-word;
-
-
 }
 .self .chat-message{
     background: #D1EFA0;
@@ -94,22 +89,25 @@ body{background: #EDD983;}
     clear:both;
     float:left;
 
-
-
-
 }
-.self{
+.self {
 
     max-width: 100%;
     display: inline-block;
-    clear:both;
-    float:right;
-
-
+    clear: both;
+    float: right;
+}
+.time{
+    font-size:12px;
 
 }
-
-
+.username{
+  font-size:14px;
+  font-weight: bold;
+}
+.username + .time{
+    margin-left: 10px;
+}
 /*start bottem section*/
 .chat-form {
     margin-top: 10px;

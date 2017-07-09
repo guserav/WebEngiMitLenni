@@ -1,11 +1,43 @@
 
 const apiurl = "http://danielrutz.de:3000/api";
 
-window.onload = startup();
-
-function startup(){
+window.onload = function startup(){
 
     loadlobbys();
+    testbuild();
+
+}
+
+//test function vor message html build
+function testbuild(){
+    //informationen die man vom server bekommen müsste
+    var usernameS = "test";
+    var timeS = "ztest";
+    var textS = "texttest";
+    var whoS = "self"; //irgendwie bestimmen ob die nachricht von dir oder jemand anderem ist
+
+    var chatlogs = document.getElementById("chatlogs"); //chat container element
+
+    //build element (normal looped für alle nachrichten anfangen mit der ältesten)
+    var divchat = document.createElement("div");
+    divchat.className = "chat self";
+    var pchat = document.createElement("p");
+    pchat.className = "chat-message";
+    pchat.innerHTML = '<br>'+textS;
+    var sname = document.createElement("span");
+    sname.className = "username";
+    sname.innerHTML = usernameS;
+    var szeit = document.createElement("span");
+    szeit.className = "time";
+    szeit.innerHTML = timeS;
+    divchat.appendChild(pchat);
+    pchat.insertBefore(szeit,pchat.firstChild);
+    pchat.insertBefore(sname,pchat.firstChild);
+
+    chatlogs.appendChild(divchat);
+
+    //scrolldown
+    chatlogs.scrollTop = chatlogs.scrollHeight;
 
 }
 
@@ -15,6 +47,9 @@ function sendtext(){
     console.log(text);
 
 
+
+
+    
     //TODO regex and emoticons (here or do loadmessages after and also load your text)
 }
 
