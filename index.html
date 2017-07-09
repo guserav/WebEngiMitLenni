@@ -4,63 +4,114 @@
     <meta charset="UTF-8">
     <title>TCC</title>
     <link rel="stylesheet" type="text/css" href="style/style.css">
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="build/main.bundle.js"></script>
 
 </head>
 <body>
-    <div class="totalW">
+<div class="totalW">
 
 
-        <!--Topbar-->
-        <div class="top">
-<div class="name"><p>Toller Chat Client</p>
-</div><ul class="topbar">
+    <!--Topbar-->
+    <div class="top">
+        <div class="name"><p>Toller Chat Client</p>
+        </div>
+        <ul class="topbar">
 
-    <li><a href="#">About</a></li>
-    <li><a href="#">Options</a></li>
-</ul></div>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Options</a></li>
+        </ul>
+    </div>
 
 
-<div class="wrapper">
+    <div class="wrapper">
 
-    <!-- Linkes Menü -->
-<div class="sidemenu">
-    <div id="lobbylogs" class="lobbylogs">
-        <!--Nachher raus machen, beispiel lobbynamen
-                <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">LennartXLennart</button></div>
-                <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">Public</button></div>
-                <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">Lobby3</button></div>
-        -->
+        <!-- Linkes Menü -->
+        <div class="sidemenu">
+            <div id="lobbylogs" class="lobbylogs">
+                <!--Nachher raus machen, beispiel lobbynamen
+                        <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">LennartXLennart</button></div>
+                        <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">Public</button></div>
+                        <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">Lobby3</button></div>
+                -->
             </div>
-
 
 
         </div>
 
-            <!-- Rechtes Menü -->
-<div class="chatbox">
-    <div class="chatheader">
-        <p id="chatheader">Nameofchat</p>
+        <!-- Rechtes Menü -->
+        <div class="chatbox">
+            <div class="chatheader">
+                <p id="chatheader">Nameofchat</p>
+
+            </div>
+            <div id="chatlogs" class="chatlogs">
+
+                <!-- beispiel chat nachrichten -->
+                <div class="chat friend"><p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>
+                    Hey </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br>ey, was geht </p></div>
+                <div class="chat friend"><p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>
+                    nichts und bei dir? </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br> Neun Gefährten machen sich auf eine gefährliche Reise,um die
+                    Zukunft Mittelerdes zu retten. Allen voran der Hobbit Frodo, auserwählt,den einen Ring ins Land
+                    Modor zu tragen und ihn zu vernichten. Doch die dunklenMächte wollen die Herrschaft über Mittelerde
+                    erlangen, und ein erbitterter Kampf beginnt. </p></div>
+                <div class="chat friend"><p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>
+                    Ohhh, okay. </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br>wirklichspannenddaswasichhierhabehieristeinGanzlangeswortumwordwrwapzuzeigennichtwar
+                </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br> Neun Gefährten machen sich auf eine gefährliche Reise,um die
+                    Zukunft Mittelerdes zu retten. Allen voran der Hobbit Frodo, auserwählt,den einen Ring ins Land
+                    Modor zu tragen und ihn zu vernichten. Doch die dunklenMächte wollen die Herrschaft über Mittelerde
+                    erlangen, und ein erbitterter Kampf beginnt. </p></div>
+                <div class="chat friend"><p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>
+                    Ohhh, okay. </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br> Ciao </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br> Neun Gefährten machen sich auf eine gefährliche Reise,um die
+                    Zukunft Mittelerdes zu retten. Allen voran der Hobbit Frodo, auserwählt,den einen Ring ins Land
+                    Modor zu tragen und ihn zu vernichten. Doch die dunklenMächte wollen die Herrschaft über Mittelerde
+                    erlangen, und ein erbitterter Kampf beginnt. </p></div>
+                <div class="chat friend"><p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>
+                    Ohhh, okay. </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br>wirklichspannenddaswasichhierhabehieristeinGanzlangeswortumwordwrwapzuzeigennichtwar
+                </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br> Neun Gefährten machen sich auf eine gefährliche Reise,um die
+                    Zukunft Mittelerdes zu retten. Allen voran der Hobbit Frodo, auserwählt,den einen Ring ins Land
+                    Modor zu tragen und ihn zu vernichten. Doch die dunklenMächte wollen die Herrschaft über Mittelerde
+                    erlangen, und ein erbitterter Kampf beginnt. </p></div>
+                <div class="chat friend"><p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>
+                    Ohhh, okay. </p></div>
+                <div class="chat self"><p class="chat-message"><span class="username">Name</span><span
+                        class="time">Zeit</span><br> Ciao </p></div>
+
+                <!--This is the template for the messages
+                <div class="chat friend/self">
+                    <p class="chat-message">
+                        <span class="username">{{username}}</span>
+                        <span class="time">{{time}}</span><br>
+                        {{text}}
+                    </p>
+                </div>
+                -->
+            </div>
+            <div class="chat-form">
+                <textarea id="textinput" placeholder="Write a message..."></textarea>
+                <button id="textsend" onclick="sendtext()">Send</button>
+
+            </div>
+
+        </div>
+
 
     </div>
-    <div id="chatlogs" class="chatlogs">
-
-        <!-- beispiel chat nachrichten
-        <div class="chat friend">  <p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>  Hey </p></div>
-        <div class="chat self">    <p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>ey, was geht </p></div>
-        -->
-
-    </div>
-    <div class="chat-form">
-        <textarea id="textinput" placeholder="Write a message..."></textarea>
-        <button id="textsend" onclick="sendtext()">Send</button>
-
-    </div>
-
 </div>
-
-
-</div>
-    </div>
 </body>
 </html>
