@@ -14,11 +14,9 @@ window.onload = function startup() {
     userbutton.addEventListener("click", function () {
 
         if (switcher == 0) {
-            console.log("test");
             listuser();
             switcher = 1;
         } else {
-            console.log("test2");
             delistuser();
             switcher = 0;
         }
