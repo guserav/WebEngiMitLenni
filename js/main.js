@@ -11,8 +11,8 @@ window.onload = function startup() {
     loadlobbys();
 };
 
- function listuser() {
-listofuser.style.width = "25%";
+     function listuser() {
+        listofuser.style.width = "25%";
         userbutton.onclick =function () {delistuser();};
         userbutton.style.backgroundColor = "#E0C65B";
 
@@ -35,7 +35,7 @@ listofuser.style.width = "25%";
 
                 var userarray = [];
                 data.forEach(function(item){
-                    varusernameS= item.user;
+                    var usernameS= item.user;
 
                     if(userarray.indexOf(usernameS) <= -1){
                         userarray.push(usernameS);
