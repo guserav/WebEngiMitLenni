@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>TCC</title>
     <link rel="stylesheet" type="text/css" href="style/style.css">
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="build/main.bundle.js" async></script>
+
 
 </head>
 <body>
+
 <div class="totalW">
 
 
@@ -17,8 +19,8 @@
         </div>
         <ul class="topbar">
 
-            <li><a href="#">About</a></li>
             <li><a href="#">Options</a></li>
+            <li><a href="#">About</a></li>
         </ul>
     </div>
 
@@ -46,8 +48,9 @@
 <div class="chatbox">
     <div class="chatheader">
         <p id="chatheader">Nameofchat</p>
-        <button id="userlist" onclick="listuser()">Users</button>
-        <button id="scroll" onclick="scrolldown()">Jump</button>
+
+        <button id="userlist" >Users</button>
+        <button id="scroll" >Jump</button>
     </div>
 
 
@@ -70,7 +73,7 @@
             </div>
             <div class="chat-form">
                 <textarea id="textinput" placeholder="Write a message..."></textarea>
-                <button id="textsend" onclick="sendtext()">Send</button>
+                <button id="textsend" >Send</button>
 
             </div>
 
@@ -79,5 +82,6 @@
 
     </div>
 </div>
+
 </body>
 </html>
