@@ -164,6 +164,38 @@ body{background: #EDD983;}
 .username + .time{
     margin-left: 10px;
 }
+
+/*userlist*/
+.chatlogs .userlist {
+    height: 77%;
+    width: 0;
+    z-index: 1;
+    position: absolute;
+    margin: -15px;
+    background-color: #faf2cb;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    transition: 0.5s;
+}
+.userlist li {
+    padding: 8px 8px 8px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+    word-wrap: break-word;
+    transition: 0.3s
+}
+.userlist::-webkit-scrollbar{
+    width: 10px;
+}
+.userlist::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+
+    background: rgba(0,0,0,.1);
+}
+
+
 /*start bottem section*/
 .chat-form {
     margin-top: 10px;
@@ -304,11 +336,10 @@ body{background: #EDD983;}
 .wrapper > *{
     flex: 1 100%;
 }
-@media all {
-    .chatbox{ flex: 5 0;}
-    .sidemenu{ order: 1;}
-    .chatbox{order: 2;}
-}
+.chatbox{ flex: 5 0;}
+.sidemenu{ order: 1;}
+.chatbox{order: 2;}
+
 
 
 /*start topbar*/

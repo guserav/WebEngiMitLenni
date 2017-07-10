@@ -5,14 +5,68 @@ var username = "user12"; //müssen wir noch irgendwie beim einlogen bekommen
 
 
 window.onload = function startup() {
+    window.chatlogs = document.getElementById("chatlogs");
+    window.userbutton = document.getElementById("userlist");
 
-    var chatlogs = document.getElementById("chatlogs");
     loadlobbys();
 };
+    
+    function listuser() {
+        listofuser.style.width = "25%";
+        userbutton.onclick = function () {delistuser();};
+        userbutton.style.backgroundColor = "#E0C65B";
+
+
+        var userurl = apiurl +"/chats/"+document.getElementById("chatheader").innerHTML;
+
+        //Todo authentication not hardcoded
+        var userrequest = new Request(userurl, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Basic ' + btoa('dhbw:dhbw-pw')
+            }
+
+        });
+        fetch(userrequest)
+            .then(function(resp) {
+                return resp.json();
+            })
+            .then(function (data){
+
+                var userarray = [];
+                data.forEach(function(item){
+                    var usernameS = item.user;
+
+                    if(userarray.indexOf(usernameS) <= -1){
+                        userarray.push(usernameS);
+                    }
+                });
+
+                userarray.sort();
+                document.getElementById("listul").innerHTML = "";
+                userarray.forEach(function(item){
+                    var userli = document.createElement("li");
+                    userli.innerHTML = item;
+                    document.getElementById("listul").appendChild(userli);
+                });
+
+            })
+            .catch(function(error) {
+                console.log("Error in loadlobbys:"+error);
+            });
+
+
+    }
+    function delistuser() {
+        listofuser.style.width = "0";
+        userbutton.onclick = function () { listuser();};
+        userbutton.style.backgroundColor = "#F2D769";
+
+    }
+
 
     function scrolldown() {
         chatlogs.scrollTop = chatlogs.scrollHeight;
-
     }
 
     function sendtext() {
@@ -47,6 +101,15 @@ window.onload = function startup() {
 
         var messageurl = apiurl +"/chats/"+room;
         chatlogs.innerHTML = "";
+        var listdiv = document.createElement("div");
+        listdiv.className = "userlist";
+        listdiv.id = "userlister";
+        var listul = document.createElement("ul");
+        listul.id = "listul";
+        listdiv.appendChild(listul);
+        chatlogs.appendChild(listdiv);
+        window.listofuser = document.getElementById("userlister");
+
 
         //TODO  authenticaon not hardcoded/localstorage
         var messagerequest = new Request(messageurl, {
@@ -61,8 +124,6 @@ window.onload = function startup() {
                 return resp.json();
             })
             .then(function (data){
-                console.log(data);
-
                 data.forEach(function(item){
                     var usernameS = item.user;
                     var textS = item.message;

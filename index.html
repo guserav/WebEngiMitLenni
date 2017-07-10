@@ -25,6 +25,8 @@
 
     <!-- Linkes Menü -->
 <div class="sidemenu">
+    <!-- Userlist -->
+
     <div id="lobbylogs" class="lobbylogs">
         <!--Nachher raus machen, beispiel lobbynamen
                 <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">LennartXLennart</button></div>
@@ -37,13 +39,17 @@
 
         </div>
 
-            <!-- Rechtes Menü -->
+
+
+    <!-- Rechtes Menü -->
 <div class="chatbox">
     <div class="chatheader">
         <p id="chatheader">Nameofchat</p>
-        <button id="userlist">Users</button>
+        <button id="userlist" onclick="listuser()">Users</button>
         <button id="scroll" onclick="scrolldown()">Jump</button>
     </div>
+
+
     <div id="chatlogs" class="chatlogs">
 
         <!-- beispiel chat nachrichten
