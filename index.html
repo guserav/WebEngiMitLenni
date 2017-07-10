@@ -4,24 +4,26 @@
     <meta charset="UTF-8">
     <title>TCC</title>
     <link rel="stylesheet" type="text/css" href="style/style.css">
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="build/main.bundle.js"></script>
 
 </head>
 <body>
-    <div class="totalW">
+<div class="totalW">
 
 
-        <!--Topbar-->
-        <div class="top">
-<div class="name"><p>Toller Chat Client</p>
-</div><ul class="topbar">
+    <!--Topbar-->
+    <div class="top">
+        <div class="name"><p>Toller Chat Client</p>
+        </div>
+        <ul class="topbar">
 
-    <li><a href="#">About</a></li>
-    <li><a href="#">Options</a></li>
-</ul></div>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Options</a></li>
+        </ul>
+    </div>
 
 
-<div class="wrapper">
+    <div class="wrapper">
 
     <!-- Linkes Menü -->
 <div class="sidemenu">
@@ -34,7 +36,6 @@
                 <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">Lobby3</button></div>
         -->
             </div>
-
 
 
         </div>
@@ -57,17 +58,26 @@
         <div class="chat self">    <p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>ey, was geht </p></div>
         -->
 
-    </div>
-    <div class="chat-form">
-        <textarea id="textinput" placeholder="Write a message..."></textarea>
-        <button id="textsend" onclick="sendtext()">Send</button>
+                <!--This is the template for the messages
+                <div class="chat friend/self">
+                    <p class="chat-message">
+                        <span class="username">{{username}}</span>
+                        <span class="time">{{time}}</span><br>
+                        {{text}}
+                    </p>
+                </div>
+                -->
+            </div>
+            <div class="chat-form">
+                <textarea id="textinput" placeholder="Write a message..."></textarea>
+                <button id="textsend" onclick="sendtext()">Send</button>
+
+            </div>
+
+        </div>
+
 
     </div>
-
 </div>
-
-
-</div>
-    </div>
 </body>
 </html>

@@ -75,7 +75,7 @@ module.exports = {
                 //inline Code
                 lines[i] = lines[i].replace(/`([^`]+)`/g, '<span class="codeInLine">$1</span>');
 
-                const quoteLevelThisLine = countOccurrences(/(&gt;)*/g.exec(lines[i])[0],'&gt;');
+                const quoteLevelThisLine = countOccurrences((/(&gt;)*/g.exec(lines[i]) || [''])[0],'&gt;');
                 if(quoteLevelThisLine !== quoteLevel){
                     for(let j = quoteLevel; j < quoteLevelThisLine; j++){
                         result += '<span class="quote">';
@@ -86,13 +86,13 @@ module.exports = {
                     quoteLevel = quoteLevelThisLine;
                 }
 
-                if(/^|(>+) ?#{1,6}.+$/g.test(lines[i])){
+                if(/(^|(>+)) ?#{1,6}.+$/g.test(lines[i])){
                     const headingType = countOccurrences(/#{1,6}/.exec(lines[i])[0], '#');
-                    result += lines[i].replace(/^|(>+) ?#{1,6}(.+)#*^/g, '<h' + headingType + '>$1</h'+ headingType + '>');
+                    result += lines[i].replace(/(^|(>+)) ?#{1,6}(.+?)#*$/g, '<h' + headingType + '>$3</h'+ headingType + '>');
                     continue;
                 }
             }
-            if(/^(>+) ?```$/.test(lines[i])){
+            if(/^(>*) ?```$/.test(lines[i])){
                 if(!inCodeBlock){//start Code block
                     result += '<p class="codeBlock">';
                 } else {//end Code block
@@ -112,6 +112,7 @@ module.exports = {
         //close left open tags
         if(inCodeBlock){
             result += '</p>';
+            console.log("i was also here and ended a paragraph");
         }
         for(let j = quoteLevel; j > 0; j--){
             result += '</span>';

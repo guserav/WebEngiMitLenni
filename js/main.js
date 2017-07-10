@@ -1,4 +1,4 @@
-textConverter = require('./textConversion');
+const textConverter = require('./textConversion');
 
 const apiurl = "http://danielrutz.de:3000/api";
 var username = "user12"; //müssen wir noch irgendwie beim einlogen bekommen
@@ -10,10 +10,10 @@ window.onload = function startup() {
 
     loadlobbys();
 };
-    
-    function listuser() {
-        listofuser.style.width = "25%";
-        userbutton.onclick = function () {delistuser();};
+
+ function listuser() {
+listofuser.style.width = "25%";
+        userbutton.onclick =function () {delistuser();};
         userbutton.style.backgroundColor = "#E0C65B";
 
 
@@ -35,7 +35,7 @@ window.onload = function startup() {
 
                 var userarray = [];
                 data.forEach(function(item){
-                    var usernameS = item.user;
+                    varusernameS= item.user;
 
                     if(userarray.indexOf(usernameS) <= -1){
                         userarray.push(usernameS);
@@ -45,9 +45,8 @@ window.onload = function startup() {
                 userarray.sort();
                 document.getElementById("listul").innerHTML = "";
                 userarray.forEach(function(item){
-                    var userli = document.createElement("li");
-                    userli.innerHTML = item;
-                    document.getElementById("listul").appendChild(userli);
+    var userli = document.createElement("li");
+                    userli.innerHTML = item; document.getElementById("listul").appendChild(userli);
                 });
 
             })
@@ -65,8 +64,7 @@ window.onload = function startup() {
     }
 
 
-    function scrolldown() {
-        chatlogs.scrollTop = chatlogs.scrollHeight;
+    function scrolldown() {chatlogs.scrollTop = chatlogs.scrollHeight;
     }
 
     function sendtext() {
@@ -74,25 +72,25 @@ window.onload = function startup() {
     }
 
     function buildmessage(usernameS,textS,timeS){
-        var divchat = document.createElement("div");
-        if(usernameS == username){
-            divchat.className = "chat self";
-        }else{
-            divchat.className = "chat friend";
-        }
-        var pchat = document.createElement("p");
-        pchat.className = "chat-message";
-        pchat.innerHTML = '<br>'+textS;
-        var sname = document.createElement("span");
-        sname.className = "username";
-        sname.innerHTML = usernameS;
-        var szeit = document.createElement("span");
-        szeit.className = "time";
-        szeit.innerHTML = timeS;
-        divchat.appendChild(pchat);
-        pchat.insertBefore(szeit,pchat.firstChild);
-        pchat.insertBefore(sname,pchat.firstChild);
-        chatlogs.appendChild(divchat);
+    var divchat = document.createElement("div");
+    if(usernameS == username){
+        divchat.className = "chat self";
+    }else{
+        divchat.className = "chat friend";
+    }
+    var pchat = document.createElement("p");
+    pchat.className = "chat-message";
+    pchat.innerHTML = '<br>'+textConverter.applyStyling(textConverter.removeHTML(textS));
+    var sname = document.createElement("span");
+    sname.className = "username";
+    sname.innerHTML = usernameS;
+    var szeit = document.createElement("span");
+    szeit.className = "time";
+    szeit.innerHTML = timeS;
+    divchat.appendChild(pchat);
+    pchat.insertBefore(szeit,pchat.firstChild);
+    pchat.insertBefore(sname,pchat.firstChild);
+    chatlogs.appendChild(divchat);
 
     }
 
@@ -141,8 +139,8 @@ window.onload = function startup() {
 
 
             })
-            .catch(function(error) {
-                console.log("Error in loadlobbys:"+error);
+            .catch(function (error) {
+                console.log("Error in loadlobbys:" + error);
             });
 
     }
@@ -193,9 +191,9 @@ window.onload = function startup() {
 
         //Html element anpassen
         var lobbyA = document.getElementsByClassName("lobbyname");
-        for(var i=0; i<lobbyA.length;i++){
+        for (var i = 0; i < lobbyA.length; i++) {
             lobbyA[i].style.backgroundColor = "#F2D769";
-            if(lobbyA[i].innerHTML == name){
+            if (lobbyA[i].innerHTML == name) {
                 var element = lobbyA[i];
             }
         }
