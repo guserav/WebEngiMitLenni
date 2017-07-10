@@ -7,15 +7,25 @@ var username = "user12"; //müssen wir noch irgendwie beim einlogen bekommen
 window.onload = function startup() {
     window.chatlogs = document.getElementById("chatlogs");
     window.userbutton = document.getElementById("userlist");
-
     loadlobbys();
-    userbutton.addEventListener("click", function(){
-        listuser();
+    var switcher = 0;
+
+    userbutton.addEventListener("click", function () {
+
+        if (switcher == 0) {
+            console.log("test");
+            listuser();
+            switcher = 1;
+        } else {
+            console.log("test2");
+            delistuser();
+            switcher = 0;
+        }
     });
-    document.getElementById("scroll").addEventListener("click",function(){
+    document.getElementById("scroll").addEventListener("click", function () {
         scrolldown();
     });
-    document.getElementById("textsend").addEventListener("click",function(){
+    document.getElementById("textsend").addEventListener("click", function () {
         sendtext();
     });
 
@@ -110,9 +120,6 @@ function loadmessage(room) {
 
 function listuser() {
     document.getElementById("userlister").style.width = "25%";
-    userbutton. EventListener("click", function(){
-        delistuser();
-    });
     userbutton.style.backgroundColor = "#E0C65B";
 
 
@@ -157,10 +164,7 @@ function listuser() {
 
 }
 function delistuser() {
-    listofuser.style.width = "0";
-    userbutton.addEventListener("click", function(){
-        listuser();
-    });
+    document.getElementById("userlister").style.width = "0";
     userbutton.style.backgroundColor = "#F2D769";
 
 }
