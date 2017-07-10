@@ -2,12 +2,20 @@ const textConverter = require('./textConversion');
 
 const apiurl = "http://danielrutz.de:3000/api";
 let username = "user12"; //müssen wir noch irgendwie beim einlogen bekommen
+
 let chatlogs = null;
+let textinput = null;
 let userbutton = null;
+/**
+ * Stores the current room displayed to the user
+ * @type {String}
+ */
+let currentRoom = null;
 
 window.onload = function startup() {
     chatlogs = document.getElementById("chatlogs");
     userbutton = document.getElementById("userlist");
+    textinput = document.getElementById("textinput");
     loadlobbys();
     let switcher = 0;
 
@@ -37,7 +45,56 @@ function scrolldown() {
 }
 
 function sendtext() {
-    console.log("jop");
+    let messageurl = apiurl + "/chats/" + currentRoom;
+    chatlogs.innerHTML = "";
+    let listdiv = document.createElement("div");
+    listdiv.className = "userlist";
+    listdiv.id = "userlister";
+    let listul = document.createElement("ul");
+    listul.id = "listul";
+    listdiv.appendChild(listul);
+    chatlogs.appendChild(listdiv);
+
+
+    //TODO  authenticaon not hardcoded/localstorage
+    let messagerequest = new Request(messageurl, {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Basic ' + btoa('dhbw:dhbw-pw'),
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+            "roomID":currentRoom,
+            "user":username,
+            "message":textinput.value
+        })
+    });
+    fetch(messagerequest)
+        .then(function (resp) {
+            return resp.json();
+        })
+        .then(function (data) {
+            data.forEach(function (item) {
+                let usernameS = item.user;
+                let textS = item.message;
+
+                let timestamp = new Date(item.timestamp);
+                let h = timestamp.getHours();
+                let m = timestamp.getMinutes();
+                if (m < 10) {
+                    m = "0" + m;
+                }
+                let timeS = h + ":" + m;
+
+                buildmessage(usernameS, textS, timeS);
+            });
+
+            scrolldown();
+        })
+        .catch(function (error) {
+            console.log("Error in sending message:" + error);
+        });
 }
 
 function buildmessage(usernameS, textS, timeS) {
@@ -225,6 +282,7 @@ function switchlobby(name) {
     document.getElementById("chatheader").innerHTML = name;
 
     loadmessage(name);
+    currentRoom = name;
     //TODO lade alle nachrichten, lade alle user
 
 
