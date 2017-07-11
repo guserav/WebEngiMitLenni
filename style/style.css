@@ -139,6 +139,34 @@ body {
 / / TODO format as quoting
 }
 
+.chat .chat-message .heading {
+/ / TODO format as heading display: block;
+}
+
+.chat .chat-message .h1 {
+/ / TODO format as heading
+}
+
+.chat .chat-message .h2 {
+/ / TODO format as heading
+}
+
+.chat .chat-message .h3 {
+/ / TODO format as heading
+}
+
+.chat .chat-message .h4 {
+/ / TODO format as heading
+}
+
+.chat .chat-message .h5 {
+/ / TODO format as heading
+}
+
+.chat .chat-message .h6 {
+/ / TODO format as heading
+}
+
 .friend .chat-message {
     background: white;
     text-align: left;
@@ -295,6 +323,10 @@ body {
     background: #EDD983;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+.lobbylogs .lobbyMessagesUnread {
+/ / TODO format the unread messages
 }
 
 .lobbylogs::-webkit-scrollbar {
