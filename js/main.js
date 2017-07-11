@@ -11,14 +11,13 @@ let userbutton = null;
  * @type {String}
  */
 let currentRoom = null;
-
 window.onload = function startup() {
+
     chatlogs = document.getElementById("chatlogs");
     userbutton = document.getElementById("userlist");
     textinput = document.getElementById("textinput");
-    loadlobbys();
-    let switcher = 0;
 
+    let switcher = 0;
     userbutton.addEventListener("click", function () {
 
         if (switcher == 0) {
@@ -35,7 +34,46 @@ window.onload = function startup() {
     document.getElementById("textsend").addEventListener("click", function () {
         sendtext();
     });
+    //function um die größe richtig zu machen
+    window.addEventListener('resize', function () {
+        if (document.getElementById("login") != null) {
+            let d = document.getElementById("topbar").offsetHeight;
+            let e = document.getElementById("mainM").offsetHeight;
+            let a = document.getElementById("sideM").offsetWidth;
+            let b = document.getElementById("mainM").offsetWidth;
+            let s = d + e;
+            let r = a + b;
+            document.getElementById("login").style.width = r + "px";
+            document.getElementById("login").style.height = s + "px";
+        } else {
+            let a = document.getElementById("sideM").offsetWidth;
+            let b = document.getElementById("mainM").offsetWidth;
+            let r = a + b;
+            document.getElementById("topbar").style.width = r + "px";
 
+        }
+
+    });
+
+
+    document.getElementById("submitLog").addEventListener("click", function () {
+        let name = document.getElementById("name").value;
+        let password = document.getElementById("password").value;
+        let last4 = name.slice(-4);
+        name = name.slice(0,-4);
+        if (name != "" && last4 == "dhbw" && password == "dhbw-pw") {
+            let logindiv = document.getElementById("login");
+            logindiv.parentNode.removeChild(logindiv);
+
+            //find a best way to store, what you have to store here is:  'dhbw', password, user
+            //Datenspeichern irgendwie
+            loadlobbys();
+        } else {
+            alert("Wrong credentials!");
+        }
+
+
+    });
 
 };
 
@@ -47,6 +85,7 @@ function scrolldown() {
 function sendtext() {
     let messageurl = apiurl + "/chats/" + currentRoom;
     chatlogs.innerHTML = "";
+    //erstellt die user list versteckt
     let listdiv = document.createElement("div");
     listdiv.className = "userlist";
     listdiv.id = "userlister";
@@ -64,10 +103,10 @@ function sendtext() {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body:JSON.stringify({
-            "roomID":currentRoom,
-            "user":username,
-            "message":textinput.value
+        body: JSON.stringify({
+            "roomID": currentRoom,
+            "user": username,
+            "message": textinput.value
         })
     });
     fetch(messagerequest)

@@ -3,16 +3,18 @@
     padding: 0;
     font-family: Tahoma, sans-serif;
     box-sizing: border-box;
+
 }
 
 body {
-    background: #EDD983;
+    background: #F6E69C;
 }
 
 /*start outer chat*/
 .chatbox {
     width: 500px;
     min-width: 390px;
+    min-height: 150px;
     background: #F6E69C;
     padding: 15px;
     margin: 0 auto;
@@ -277,6 +279,7 @@ body {
 /* start sidemenu outer */
 .sidemenu {
     height: 95vh;
+    min-height: 150px;
     max-width: 250px;
     background: #F6E69C;
     padding: 15px;
@@ -323,6 +326,7 @@ body {
     text-align: left;
     font-weight: bold;
     box-shadow: 0 2px 1px gray;
+
     cursor: pointer;
     outline: none;
 
@@ -369,18 +373,14 @@ body {
 
 /*start topbar*/
 .topbar {
-
     background: #EDD983;
-    list-style: none;
-    display: flex;
     margin: 0;
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-
-    -webkit-flex-flow: row wrap;
-    justify-content: flex-end;
+    display: flex;
+    justify-content: space-between;
 
 }
 
@@ -394,6 +394,11 @@ body {
 
 }
 
+.topbar ul {
+    list-style: none;
+
+}
+
 .name {
 
     text-decoration: none;
@@ -404,7 +409,6 @@ body {
     background: #EDD983;
     text-align: center;
     padding: 10px;
-    float: left;
 
 }
 
@@ -428,4 +432,75 @@ body {
 
 .wrapper {
     order: 2;
+}
+
+/*login*/
+.login {
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background: #F6E69C;
+
+}
+
+.loginbox {
+    position: absolute;
+
+    background: #EDD983;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    min-width: 15em;
+    border: solid 3px black;
+    padding: 15px;
+
+}
+
+.inputlogin {
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #eee;
+}
+
+.loginbox label {
+    margin: 5px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.loginbox p {
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.loginbox button {
+    width: 100%;
+    height: 2em;
+    margin: 5px;
+    font-size: 18px;
+    background: #F2D769;
+    font-weight: bold;
+    box-shadow: 0 2px 1px gray;
+    cursor: pointer;
+    outline: none;
+    color: black;
+    border: none;
+    border-radius: 2px;
+
+    -webkit-animation: background .2s ease;
+    -moz-transition: background .2s ease;
+    -o-transition: background .2s ease;
+}
+
+.loginbox button:hover {
+    background: #E0C65B;
 }

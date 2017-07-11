@@ -10,13 +10,28 @@
 </head>
 <body>
 
+<div id="login" class="login">
+
+    <div class="loginbox">
+        <p>Login for Toller Chat Client</p>
+        <label>Username</label>
+        <input type="text" placeholder="Enter Username + 'dhbw'" id="name" class="inputlogin" required>
+
+        <label>Password</label>
+        <input type="password" placeholder="Enter Password" id="password" class="inputlogin" required>
+        <button id="submitLog">Login</button>
+
+    </div>
+
+</div>
+
+
 <div class="totalW">
 
 
     <!--Topbar-->
-    <div class="top">
-        <div class="name"><p>Toller Chat Client</p>
-        </div>
+    <div id="topbar" class="topbar">
+        <p class="name">Toller Chat Client</p>
         <ul class="topbar">
 
             <li><a href="#">Options</a></li>
@@ -25,10 +40,10 @@
     </div>
 
 
-    <div class="wrapper">
+    <div id="mainW" class="wrapper">
 
         <!-- Linkes Menü -->
-        <div class="sidemenu">
+        <div id="sideM" class="sidemenu">
             <!-- Userlist -->
 
             <div id="lobbylogs" class="lobbylogs">
@@ -44,7 +59,7 @@
 
 
         <!-- Rechtes Menü -->
-        <div class="chatbox">
+        <div id="mainM" class="chatbox">
             <div class="chatheader">
                 <p id="chatheader">Nameofchat</p>
 
@@ -81,6 +96,7 @@
 
     </div>
 </div>
+
 
 </body>
 </html>
