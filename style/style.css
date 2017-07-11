@@ -377,6 +377,34 @@ body {
 
 }
 
+.lobbyMessagesUnread{
+    display: block;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 1em;
+
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.lobbyMessagesRead{
+    display: block;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em;
+    font-weight: bold;
+    background-color: #FF6200;
+    color: white;
+    text-align: center;
+    font-size: 1em;
+
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
 /* start flexbox section*/
 .wrapper {
     display: -webkit-box;
