@@ -77,7 +77,6 @@ window.onload = function startup() {
             logindiv.parentNode.removeChild(logindiv);
 
 
-
             apiUserName = last4;
             passwordUser = password;
             username = name;
@@ -264,6 +263,15 @@ function updateRoomMessages(room, data) {
     }
     if (currentRoom === null) {
         switchlobby(room);
+    }else{
+
+        let lobbys = document.getElementsByClassName("lobbyname");
+        for (let i = 0; i < lobbys.length; i++) {
+            if (lobbys[i].innerHTML === currentRoom) {
+                lobbys[i].style.backgroundColor = "#E0C65B";
+            }
+        }
+
     }
 
     updateSreenData();
