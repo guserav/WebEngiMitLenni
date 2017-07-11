@@ -71,7 +71,7 @@ window.onload = function startup() {
         let name = document.getElementById("name").value;
         const password = document.getElementById("password").value;
         let last4 = name.slice(-4);
-        name = name.slice(0,-4);
+        name = name.slice(0, -4);
         if (name != "" && last4 == "dhbw" && password == "dhbw-pw") {
             let logindiv = document.getElementById("login");
             logindiv.parentNode.removeChild(logindiv);
@@ -287,15 +287,16 @@ function loadmessage(room) {
 }
 
 /**
- * TODO write JSDoc
- */
+ * Opens the side menu which displays a lisst of users
+ * request all users of the current lobby and displays them
+ * changes the color of the button to open the side menu to "selected" color
+ * */
 function listuser() {
     document.getElementById("userlister").style.width = "25%";
     userbutton.style.backgroundColor = "#E0C65B";
 
     let userurl = apiurl + "/chats/" + document.getElementById("chatheader").innerHTML;
 
-    //Todo authentication not hardcoded
     let userrequest = new Request(userurl, {
         method: 'GET',
         headers: {
@@ -333,7 +334,8 @@ function listuser() {
 }
 
 /**
- * TODO write JSDoc
+ * Closes the side menu which displays all users
+ * changes the color of the button to open the side menu back to normal
  */
 function delistuser() {
     document.getElementById("userlister").style.width = "0";
