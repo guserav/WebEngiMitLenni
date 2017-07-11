@@ -50,7 +50,7 @@ window.onload = function startup() {
     });
     //function um die größe richtig zu machen
     window.addEventListener('resize', function () {
-        if (document.getElementById("login") != null) {
+        if (document.getElementById("login") !== null) {
             let d = document.getElementById("topbar").offsetHeight;
             let e = document.getElementById("mainM").offsetHeight;
             let a = document.getElementById("sideM").offsetWidth;
@@ -72,7 +72,7 @@ window.onload = function startup() {
         const password = document.getElementById("password").value;
         let last4 = name.slice(-4);
         name = name.slice(0, -4);
-        if (name != "" && last4 == "dhbw" && password == "dhbw-pw") {
+        if (name !== "" && last4 === "dhbw" && password === "dhbw-pw") {
             let logindiv = document.getElementById("login");
             logindiv.parentNode.removeChild(logindiv);
 
@@ -426,6 +426,8 @@ function switchlobby(name) {
     element.parentNode.childNodes[1].className = 'lobbyMessagesRead';
     element.parentNode.childNodes[1].innerHTML = '0';
     document.getElementById("chatheader").innerHTML = name;
+    textinput.value = "";
+    textinput.focus();
 
     displayAllMessages(name);
 }
