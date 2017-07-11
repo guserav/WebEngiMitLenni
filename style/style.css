@@ -377,7 +377,7 @@ body {
 
 }
 
-.lobbyMessagesUnread{
+.lobbyMessagesRead{
     display: block;
     height: 1.5em;
     width: 1.5em;
@@ -390,7 +390,7 @@ body {
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
-.lobbyMessagesRead{
+.lobbyMessagesUnread{
     display: block;
     height: 1.5em;
     width: 1.5em;

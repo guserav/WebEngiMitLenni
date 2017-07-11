@@ -76,6 +76,8 @@ window.onload = function startup() {
             let logindiv = document.getElementById("login");
             logindiv.parentNode.removeChild(logindiv);
 
+
+
             apiUserName = last4;
             passwordUser = password;
             username = name;
@@ -117,8 +119,8 @@ function buildMessageFromAPI(item) {
     if (m < 10) {
         m = '0' + m;
     }
-    if (h < 10) {
-        h = '0' + m;
+    if (h == 0) {
+        h = '0' + h;
     }
     let timeS = h + ":" + m;
 
@@ -185,6 +187,7 @@ function sendtext() {
                 messageStorage[storedCurrentRoom].messages = data;
                 updateSreenData();
                 scrolldown();
+                textinput.value = '';
             })
             .catch(function (error) {
                 console.error("Error in sending message:" + error);
@@ -237,6 +240,10 @@ function updateSreenData() {
             messageStorage[lobbyA[i].innerHTML].lastSeenLength = messageStorage[lobbyA[i].innerHTML].messages.length;
         } else {
             lobbyA[i].parentNode.childNodes[1].innerHTML = messageStorage[lobbyA[i].innerHTML].messages.length - messageStorage[lobbyA[i].innerHTML].lastSeenLength;
+            if(lobbyA[i].parentNode.childNodes[1].innerHTML>0){
+                lobbyA[i].parentNode.childNodes[1].className = 'lobbyMessagesUnread';
+
+            }
         }
     }
 }
@@ -378,7 +385,7 @@ function loadlobbys() {
                 newbutton.innerHTML = item;
 
                 const unreadMessageSpan = document.createElement('span');
-                unreadMessageSpan.className = 'lobbyMessagesUnread';
+                unreadMessageSpan.className = 'lobbyMessagesRead';
                 unreadMessageSpan.innerHTML = '0';
 
                 divbutton.appendChild(newbutton);
@@ -399,6 +406,7 @@ function loadlobbys() {
 function switchlobby(name) {
     //Html element anpassen
     let lobbyA = document.getElementsByClassName("lobbyname");
+
     let element;
     for (let i = 0; i < lobbyA.length; i++) {
         lobbyA[i].style.backgroundColor = "#F2D769";
@@ -407,6 +415,8 @@ function switchlobby(name) {
         }
     }
     element.style.backgroundColor = "#E0C65B";
+    element.parentNode.childNodes[1].className = 'lobbyMessagesRead';
+    element.parentNode.childNodes[1].innerHTML = '0';
     document.getElementById("chatheader").innerHTML = name;
 
     displayAllMessages(name);
