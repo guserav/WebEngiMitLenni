@@ -34,7 +34,7 @@ module.exports = {
      * ~text~ gets wrapped in a span: <span class="strike" />
      * _text_ gets wrapped in a span: <span class="italic" />
      *
-     * # prefixed lines into heading
+     * # prefixed lines into heading of form <span class="heading hX">text</span>
      *
      * --- or *** or * * *  or - - - into a horizontal line
      *
@@ -88,7 +88,7 @@ module.exports = {
 
                 if(/(^|(>+)) ?#{1,6}.+$/g.test(lines[i])){
                     const headingType = countOccurrences(/#{1,6}/.exec(lines[i])[0], '#');
-                    result += lines[i].replace(/(^|(>+)) ?#{1,6}(.+?)#*$/g, '<h' + headingType + '>$3</h'+ headingType + '>');
+                    result += lines[i].replace(/(^|(>+)) ?#{1,6}(.+?)#*$/g, '<span class="heading h"' + headingType + '>$3</span>');
                     continue;
                 }
             }
