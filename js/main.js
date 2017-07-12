@@ -208,7 +208,7 @@ function sendtext() {
         const messagerequest = new Request(messageurl, {
             method: 'POST',
             headers: {
-                'Authorization': 'Basic ' + btoa('dhbw:dhbw-pw'),
+                'Authorization': getBasicAuthHeader(),
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -482,6 +482,7 @@ function switchlobby(name) {
 
     displayAllMessages(name);
 }
+
 
 
 
