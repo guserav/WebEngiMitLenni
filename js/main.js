@@ -431,10 +431,11 @@ function loadlobbys() {
                     switchlobby(this.innerHTML);
                 };
                 newbutton.innerHTML = item;
+                newbutton.style.backgroundColor = (item === currentRoom)? colorBackgroundChannelSelected : colorBackgroundChannel;
 
                 const unreadMessageSpan = document.createElement('span');
                 if(messageStorage[item] !== undefined){
-                    unreadMessageSpan.innerHTML = messageStorage[item].messages.length - messageStorage[item].lastSeenLength;
+                    unreadMessageSpan.innerHTML = '' + (messageStorage[item].messages.length - messageStorage[item].lastSeenLength);
                 } else {
                     unreadMessageSpan.innerHTML = '0';
                 }
