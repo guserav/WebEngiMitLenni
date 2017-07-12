@@ -319,11 +319,11 @@ function updateRoomMessages(room, data) {
     if (currentRoom === null) {
         switchlobby(room);
 
-    }else if(doswitch === true){
+    } else if (doswitch === true) {
         doswitch = false;
         switchlobby(room);
 
-    }else {
+    } else {
 
         let lobbys = document.getElementsByClassName('lobbyname');
         for (let i = 0; i < lobbys.length; i++) {
@@ -421,10 +421,10 @@ function delistuser() {
  */
 function loadlobbys() {
 
-    /*if (clockUpdate === null) {
+    if (clockUpdate === null) {
         clockUpdate = setInterval(loadlobbys, updateIntervall);
     }
-    */
+
     let roomurl = apiurl + '/chats';
 
     //request object
@@ -440,6 +440,7 @@ function loadlobbys() {
             return resp.json();
         })
         .then(function (data) {
+            console.log(data);
             document.getElementById('lobbylogs').innerHTML = '';
 
             data.forEach(function (item) {
@@ -500,6 +501,10 @@ function switchlobby(name) {
     document.getElementById('chatheader').innerHTML = name;
     textinput.value = '';
     textinput.focus();
+
+    //try to scroll but not correctly
+    //document.getElementById('lobbylogs').scrollTop = element.offsetTop;
+
     displayAllMessages(name);
 
 
@@ -510,7 +515,7 @@ function switchlobby(name) {
  * creates new lobby and switches to it if there is no lobby with the enterd name
  * switches to lobby if there is a lobby with the entered name
  * @param {String} name
-*/
+ */
 function createlobby(name) {
     let lobbyA = document.getElementsByClassName('lobbyname');
     let create = true;
@@ -520,7 +525,7 @@ function createlobby(name) {
             create = false;
         }
     }
-    if(create) {
+    if (create) {
 
 
         let msg = username + ' has joined this room!';
