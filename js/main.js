@@ -272,6 +272,7 @@ function updateSreenData() {
         if (lobbyA[i].innerHTML === currentRoom) {
             for (let j = messageStorage[lobbyA[i].innerHTML].lastSeenLength; j < messageStorage[lobbyA[i].innerHTML].messages.length; j++) {
                 buildMessageFromAPI(messageStorage[lobbyA[i].innerHTML].messages[j]);
+                scrolldown();
             }
             messageStorage[lobbyA[i].innerHTML].lastSeenLength = messageStorage[lobbyA[i].innerHTML].messages.length;
         } else {
@@ -308,7 +309,6 @@ function updateRoomMessages(room, data) {
                 lobbys[i].style.backgroundColor = "#E0C65B";
             }
         }
-
     }
 
     updateSreenData();
