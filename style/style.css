@@ -22,6 +22,10 @@ body {
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 5px #ccc;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
 
 }
 
@@ -313,6 +317,51 @@ body {
     padding: 15px;
     margin: 0 auto;
     box-shadow: 0 2px 5px #ccc;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+}
+.lobbycreate{
+    margin-top: 10px;
+    display: flex;
+    height: 8%;
+    min-height: 50px;
+    width: 100%;
+}
+#lobbyinput {
+    padding: 10px;
+    background: white;
+    height: 90%;
+    width: 80%;
+    border: 1px solid #eee;
+    font-size: 14px;
+    color: #333;
+}
+
+.lobbycreate button {
+    background: #F2D769;
+    padding: 5px 15px;
+    font-size: 14px;
+    height: 90%;
+    font-weight: bold;
+    color: black;
+    border: none;
+    margin: 0 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 1px gray;
+    cursor: pointer;
+    outline: none;
+    -webkit-animation: background .2s ease;
+    -moz-transition: background .2s ease;
+    -o-transition: background .2s ease;
+
+}
+
+.lobbycreate button:hover {
+    background: #E0C65B;
 
 }
 

@@ -14,6 +14,11 @@ let textinput = null;
 let userbutton = null;
 
 /**
+ * Stores the check if after loadlobbys a switch should occur
+ * @type {boolean}
+ */
+let doswitch = false;
+/**
  * Stores the current room displayed to the user
  * @type {String}
  */
@@ -71,7 +76,7 @@ window.onload = function startup() {
     });
 
     /* for multi key maping
-    map idea borrowed from https://stackoverflow.com/questions/10655202/detect-multiple-keys-on-single-keypress-event-in-jquery
+     map idea borrowed from https://stackoverflow.com/questions/10655202/detect-multiple-keys-on-single-keypress-event-in-jquery
      */
     let map = {13: false, 16: false};
     textinput.addEventListener('keydown', function (event) {
@@ -81,7 +86,7 @@ window.onload = function startup() {
                 //default function of enter gets called, press shift first
                 map[13] = false;
             }
-            if(map[13]){
+            if (map[13]) {
                 event.preventDefault();
                 document.getElementById('textsend').click();
             }
@@ -93,7 +98,16 @@ window.onload = function startup() {
         }
     });
 
+    document.getElementById('lobbycreate').addEventListener('click', function () {
+        let createdname = document.getElementById('lobbyinput').value;
+        createlobby(createdname);
+    });
 
+    document.getElementById('lobbyinput').addEventListener('keypress', function (event) {
+        if (event.keyCode === 13) {
+            document.getElementById('lobbycreate').click();
+        }
+    });
 
     document.getElementById('password').addEventListener('keypress', function (event) {
         if (event.keyCode === 13) {
@@ -304,7 +318,12 @@ function updateRoomMessages(room, data) {
     }
     if (currentRoom === null) {
         switchlobby(room);
-    } else {
+
+    }else if(doswitch === true){
+        doswitch = false;
+        switchlobby(room);
+
+    }else {
 
         let lobbys = document.getElementsByClassName('lobbyname');
         for (let i = 0; i < lobbys.length; i++) {
@@ -401,10 +420,11 @@ function delistuser() {
  * Loads all lobbys form the API and updates the data stored in the messageStorage for every room
  */
 function loadlobbys() {
-    if (clockUpdate === null) {
+
+    /*if (clockUpdate === null) {
         clockUpdate = setInterval(loadlobbys, updateIntervall);
     }
-
+    */
     let roomurl = apiurl + '/chats';
 
     //request object
@@ -421,6 +441,7 @@ function loadlobbys() {
         })
         .then(function (data) {
             document.getElementById('lobbylogs').innerHTML = '';
+
             data.forEach(function (item) {
                 const divbutton = document.createElement('div');
                 divbutton.className = 'lobby';
@@ -431,16 +452,16 @@ function loadlobbys() {
                     switchlobby(this.innerHTML);
                 };
                 newbutton.innerHTML = item;
-                newbutton.style.backgroundColor = (item === currentRoom)? colorBackgroundChannelSelected : colorBackgroundChannel;
+                newbutton.style.backgroundColor = (item === currentRoom) ? colorBackgroundChannelSelected : colorBackgroundChannel;
 
                 const unreadMessageSpan = document.createElement('span');
-                if(messageStorage[item] !== undefined){
+                if (messageStorage[item] !== undefined) {
                     unreadMessageSpan.innerHTML = '' + (messageStorage[item].messages.length - messageStorage[item].lastSeenLength);
                 } else {
                     unreadMessageSpan.innerHTML = '0';
                 }
 
-                if(unreadMessageSpan.innerHTML === '0'){
+                if (unreadMessageSpan.innerHTML === '0') {
                     unreadMessageSpan.className = 'lobbyMessagesRead';
                 } else {
                     unreadMessageSpan.className = 'lobbyMessagesUnRead';
@@ -449,12 +470,14 @@ function loadlobbys() {
                 divbutton.appendChild(newbutton);
                 divbutton.appendChild(unreadMessageSpan);
                 document.getElementById('lobbylogs').appendChild(divbutton);
+
                 loadmessage(item);
             });
         })
         .catch(function (error) {
             console.error('Error in loadlobbys:' + error);
         });
+
 }
 
 /**
@@ -462,14 +485,12 @@ function loadlobbys() {
  * @param {String} name
  */
 function switchlobby(name) {
-    //Html element anpassen
     let lobbyA = document.getElementsByClassName('lobbyname');
-
     let element;
     for (let i = 0; i < lobbyA.length; i++) {
         if (lobbyA[i].innerHTML === name) {
             element = lobbyA[i];
-        }else{
+        } else {
             lobbyA[i].style.backgroundColor = colorBackgroundChannel;
         }
     }
@@ -479,10 +500,56 @@ function switchlobby(name) {
     document.getElementById('chatheader').innerHTML = name;
     textinput.value = '';
     textinput.focus();
-
     displayAllMessages(name);
+
+
 }
 
 
+/**
+ * creates new lobby and switches to it if there is no lobby with the enterd name
+ * switches to lobby if there is a lobby with the entered name
+ * @param {String} name
+*/
+function createlobby(name) {
+    let lobbyA = document.getElementsByClassName('lobbyname');
+    let create = true;
+    for (let i = 0; i < lobbyA.length; i++) {
+        if (lobbyA[i].innerHTML === name) {
+            switchlobby(name);
+            create = false;
+        }
+    }
+    if(create) {
+
+
+        let msg = username + ' has joined this room!';
+        const newlobby = apiurl + '/chats/' + name;
+        const newlobbyrequest = new Request(newlobby, {
+            method: 'POST',
+            headers: {
+                'Authorization': getBasicAuthHeader(),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'roomID': name,
+                'user': username,
+                'message': msg
+            })
+        });
+        //?unnötig vlt? check replacement possible
+        fetch(newlobbyrequest)
+            .then(function () {
+            })
+            .catch(function (error) {
+                console.error('Error in sending message:' + error);
+            });
+        currentRoom = name;
+        doswitch = true;
+        loadlobbys();
+    }
+    document.getElementById('lobbyinput').value = "";
+
+}
 
 
