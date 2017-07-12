@@ -1,9 +1,12 @@
 const textConverter = require('./textConversion');
-const apiurl = "http://danielrutz.de:3000/api";
+const apiurl = 'http://danielrutz.de:3000/api';
 const updateIntervall = 5000;
 
+const colorBackgroundChannel = '#F2D769';
+const colorBackgroundChannelSelected = '#E0C65B';
+
 let apiUserName = null;
-let username = "UNEXPECTED_USERNAME";
+let username = 'UNEXPECTED_USERNAME';
 let passwordUser = null;
 
 let chatlogs = null;
@@ -27,12 +30,12 @@ let messageStorage = {};
 let clockUpdate = null;
 
 window.onload = function startup() {
-    chatlogs = document.getElementById("chatlogs");
-    userbutton = document.getElementById("userlist");
-    textinput = document.getElementById("textinput");
+    chatlogs = document.getElementById('chatlogs');
+    userbutton = document.getElementById('userlist');
+    textinput = document.getElementById('textinput');
 
     let switcher = 0;
-    userbutton.addEventListener("click", function () {
+    userbutton.addEventListener('click', function () {
 
         if (switcher == 0) {
             listuser();
@@ -42,28 +45,28 @@ window.onload = function startup() {
             switcher = 0;
         }
     });
-    document.getElementById("scroll").addEventListener("click", function () {
+    document.getElementById('scroll').addEventListener('click', function () {
         scrolldown();
     });
-    document.getElementById("textsend").addEventListener("click", function () {
+    document.getElementById('textsend').addEventListener('click', function () {
         sendtext();
     });
     //function um die größe richtig zu machen
     window.addEventListener('resize', function () {
-        if (document.getElementById("login") !== null) {
-            let d = document.getElementById("topbar").offsetHeight;
-            let e = document.getElementById("mainM").offsetHeight;
-            let a = document.getElementById("sideM").offsetWidth;
-            let b = document.getElementById("mainM").offsetWidth;
+        if (document.getElementById('login') !== null) {
+            let d = document.getElementById('topbar').offsetHeight;
+            let e = document.getElementById('mainM').offsetHeight;
+            let a = document.getElementById('sideM').offsetWidth;
+            let b = document.getElementById('mainM').offsetWidth;
             let s = d + e;
             let r = a + b;
-            document.getElementById("login").style.width = r + "px";
-            document.getElementById("login").style.height = s + "px";
+            document.getElementById('login').style.width = r + 'px';
+            document.getElementById('login').style.height = s + 'px';
         } else {
-            let a = document.getElementById("sideM").offsetWidth;
-            let b = document.getElementById("mainM").offsetWidth;
+            let a = document.getElementById('sideM').offsetWidth;
+            let b = document.getElementById('mainM').offsetWidth;
             let r = a + b;
-            document.getElementById("topbar").style.width = r + "px";
+            document.getElementById('topbar').style.width = r + 'px';
         }
     });
 
@@ -80,7 +83,7 @@ window.onload = function startup() {
             }
             if(map[13]){
                 event.preventDefault();
-                document.getElementById("textsend").click();
+                document.getElementById('textsend').click();
             }
         }
     });
@@ -92,25 +95,25 @@ window.onload = function startup() {
 
 
 
-    document.getElementById("password").addEventListener('keypress', function (event) {
+    document.getElementById('password').addEventListener('keypress', function (event) {
         if (event.keyCode === 13) {
-            document.getElementById("submitLog").click();
+            document.getElementById('submitLog').click();
         }
     });
 
 
-    document.getElementById("submitLog").addEventListener("click", function () {
-        let name = document.getElementById("name").value;
-        const password = document.getElementById("password").value;
+    document.getElementById('submitLog').addEventListener('click', function () {
+        let name = document.getElementById('name').value;
+        const password = document.getElementById('password').value;
         let last4 = name.slice(-4);
         name = name.slice(0, -4);
-        if (name !== "" && last4 === "dhbw" && password === "dhbw-pw") {
-            document.getElementById("password").removeEventListener('keypress', function (event) {
+        if (name !== '' && last4 === 'dhbw' && password === 'dhbw-pw') {
+            document.getElementById('password').removeEventListener('keypress', function (event) {
                 if (event.keyCode === 13) {
-                    document.getElementById("submitLog").click();
+                    document.getElementById('submitLog').click();
                 }
             });
-            let logindiv = document.getElementById("login");
+            let logindiv = document.getElementById('login');
             logindiv.parentNode.removeChild(logindiv);
 
 
@@ -120,7 +123,7 @@ window.onload = function startup() {
 
             loadlobbys();
         } else {
-            alert("Wrong credentials!");
+            alert('Wrong credentials!');
         }
     });
 };
@@ -158,7 +161,7 @@ function buildMessageFromAPI(item) {
     if (h == 0) {
         h = '0' + h;
     }
-    let timeS = h + ":" + m;
+    let timeS = h + ':' + m;
 
     buildmessage(usernameS, textS, timeS);
 }
@@ -173,20 +176,20 @@ function buildMessageFromAPI(item) {
  * @param {String} timeS
  */
 function buildmessage(usernameS, textS, timeS) {
-    let divchat = document.createElement("div");
+    let divchat = document.createElement('div');
     if (usernameS == username) {
-        divchat.className = "chat self";
+        divchat.className = 'chat self';
     } else {
-        divchat.className = "chat friend";
+        divchat.className = 'chat friend';
     }
-    let pchat = document.createElement("p");
-    pchat.className = "chat-message";
-    pchat.innerHTML = '<br>' + textConverter.applyStyling(textConverter.removeHTML(textS));
-    let sname = document.createElement("span");
-    sname.className = "username";
+    let pchat = document.createElement('p');
+    pchat.className = 'chat-message';
+    pchat.innerHTML = '<br />' + textConverter.applyStyling(textConverter.removeHTML(textS));
+    let sname = document.createElement('span');
+    sname.className = 'username';
     sname.innerHTML = usernameS;
-    let szeit = document.createElement("span");
-    szeit.className = "time";
+    let szeit = document.createElement('span');
+    szeit.className = 'time';
     szeit.innerHTML = timeS;
     divchat.appendChild(pchat);
     pchat.insertBefore(szeit, pchat.firstChild);
@@ -201,7 +204,7 @@ function sendtext() {
     const chatMessage = textinput.value;
     const storedCurrentRoom = currentRoom; //store the current Room to not be changed by the user while request ist running
     if (chatMessage != '') {
-        const messageurl = apiurl + "/chats/" + storedCurrentRoom;
+        const messageurl = apiurl + '/chats/' + storedCurrentRoom;
         const messagerequest = new Request(messageurl, {
             method: 'POST',
             headers: {
@@ -210,9 +213,9 @@ function sendtext() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "roomID": currentRoom,
-                "user": username,
-                "message": textinput.value
+                'roomID': currentRoom,
+                'user': username,
+                'message': textinput.value
             })
         });
         fetch(messagerequest)
@@ -226,7 +229,7 @@ function sendtext() {
                 textinput.value = '';
             })
             .catch(function (error) {
-                console.error("Error in sending message:" + error);
+                console.error('Error in sending message:' + error);
             });
     }
 }
@@ -237,12 +240,12 @@ function sendtext() {
  */
 function displayAllMessages(room) {
     currentRoom = room;
-    chatlogs.innerHTML = "";
-    let listdiv = document.createElement("div");
-    listdiv.className = "userlist";
-    listdiv.id = "userlister";
-    let listul = document.createElement("ul");
-    listul.id = "listul";
+    chatlogs.innerHTML = '';
+    let listdiv = document.createElement('div');
+    listdiv.className = 'userlist';
+    listdiv.id = 'userlister';
+    let listul = document.createElement('ul');
+    listul.id = 'listul';
     listdiv.appendChild(listul);
     chatlogs.appendChild(listdiv);
 
@@ -258,7 +261,7 @@ function displayAllMessages(room) {
  * This is done with the data provided in messageStorage
  */
 function updateSreenData() {
-    let lobbyA = document.getElementsByClassName("lobbyname");
+    let lobbyA = document.getElementsByClassName('lobbyname');
 
     if (currentRoom === null) {
         throw new Error('Could not display null room');
@@ -303,10 +306,10 @@ function updateRoomMessages(room, data) {
         switchlobby(room);
     } else {
 
-        let lobbys = document.getElementsByClassName("lobbyname");
+        let lobbys = document.getElementsByClassName('lobbyname');
         for (let i = 0; i < lobbys.length; i++) {
             if (lobbys[i].innerHTML === currentRoom) {
-                lobbys[i].style.backgroundColor = "#E0C65B";
+                lobbys[i].style.backgroundColor = '#E0C65B';
             }
         }
     }
@@ -318,7 +321,7 @@ function updateRoomMessages(room, data) {
  * @param room
  */
 function loadmessage(room) {
-    let messageurl = apiurl + "/chats/" + room;
+    let messageurl = apiurl + '/chats/' + room;
 
     let messagerequest = new Request(messageurl, {
         method: 'GET',
@@ -334,7 +337,7 @@ function loadmessage(room) {
             updateRoomMessages(room, data);
         })
         .catch(function (error) {
-            console.error("Error in loadlobbys:" + error);
+            console.error('Error in loadlobbys:' + error);
         });
 }
 
@@ -344,10 +347,10 @@ function loadmessage(room) {
  * changes the color of the button to open the side menu to "selected" color
  * */
 function listuser() {
-    document.getElementById("userlister").style.width = "25%";
-    userbutton.style.backgroundColor = "#E0C65B";
+    document.getElementById('userlister').style.width = '25%';
+    userbutton.style.backgroundColor = '#E0C65B';
 
-    let userurl = apiurl + "/chats/" + document.getElementById("chatheader").innerHTML;
+    let userurl = apiurl + '/chats/' + document.getElementById('chatheader').innerHTML;
 
     let userrequest = new Request(userurl, {
         method: 'GET',
@@ -372,16 +375,16 @@ function listuser() {
             });
 
             userarray.sort();
-            document.getElementById("listul").innerHTML = "";
+            document.getElementById('listul').innerHTML = '';
             userarray.forEach(function (item) {
-                let userli = document.createElement("li");
+                let userli = document.createElement('li');
                 userli.innerHTML = item;
-                document.getElementById("listul").appendChild(userli);
+                document.getElementById('listul').appendChild(userli);
             });
 
         })
         .catch(function (error) {
-            console.error("Error in loadlobbys:" + error);
+            console.error('Error in loadlobbys:' + error);
         });
 }
 
@@ -390,8 +393,8 @@ function listuser() {
  * changes the color of the button to open the side menu back to normal
  */
 function delistuser() {
-    document.getElementById("userlister").style.width = "0";
-    userbutton.style.backgroundColor = "#F2D769";
+    document.getElementById('userlister').style.width = '0';
+    userbutton.style.backgroundColor = '#F2D769';
 }
 
 /**
@@ -402,7 +405,7 @@ function loadlobbys() {
         clockUpdate = setInterval(loadlobbys, updateIntervall);
     }
 
-    let roomurl = apiurl + "/chats";
+    let roomurl = apiurl + '/chats';
 
     //request object
     let roomrequest = new Request(roomurl, {
@@ -430,8 +433,17 @@ function loadlobbys() {
                 newbutton.innerHTML = item;
 
                 const unreadMessageSpan = document.createElement('span');
-                unreadMessageSpan.className = 'lobbyMessagesRead';
-                unreadMessageSpan.innerHTML = '0';
+                if(messageStorage[item] !== undefined){
+                    unreadMessageSpan.innerHTML = messageStorage[item].messages.length - messageStorage[item].lastSeenLength;
+                } else {
+                    unreadMessageSpan.innerHTML = '0';
+                }
+
+                if(unreadMessageSpan.innerHTML === '0'){
+                    unreadMessageSpan.className = 'lobbyMessagesRead';
+                } else {
+                    unreadMessageSpan.className = 'lobbyMessagesUnRead';
+                }
 
                 divbutton.appendChild(newbutton);
                 divbutton.appendChild(unreadMessageSpan);
@@ -440,7 +452,7 @@ function loadlobbys() {
             });
         })
         .catch(function (error) {
-            console.error("Error in loadlobbys:" + error);
+            console.error('Error in loadlobbys:' + error);
         });
 }
 
@@ -450,22 +462,21 @@ function loadlobbys() {
  */
 function switchlobby(name) {
     //Html element anpassen
-    let lobbyA = document.getElementsByClassName("lobbyname");
+    let lobbyA = document.getElementsByClassName('lobbyname');
 
     let element;
     for (let i = 0; i < lobbyA.length; i++) {
         if (lobbyA[i].innerHTML === name) {
             element = lobbyA[i];
         }else{
-            lobbyA[i].style.backgroundColor = "#F2D769";
-
+            lobbyA[i].style.backgroundColor = colorBackgroundChannel;
         }
     }
-    element.style.backgroundColor = "#E0C65B";
+    element.style.backgroundColor = colorBackgroundChannelSelected;
     element.parentNode.childNodes[1].className = 'lobbyMessagesRead';
     element.parentNode.childNodes[1].innerHTML = '0';
-    document.getElementById("chatheader").innerHTML = name;
-    textinput.value = "";
+    document.getElementById('chatheader').innerHTML = name;
+    textinput.value = '';
     textinput.focus();
 
     displayAllMessages(name);
