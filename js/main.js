@@ -67,12 +67,49 @@ window.onload = function startup() {
         }
     });
 
+    /* for multi key maping
+    map idea borrowed from https://stackoverflow.com/questions/10655202/detect-multiple-keys-on-single-keypress-event-in-jquery
+     */
+    let map = {13: false, 16: false};
+    textinput.addEventListener('keydown', function (event) {
+        if (event.keyCode in map) {
+            map[event.keyCode] = true;
+            if (map[13] && map[16]) {
+                //default function of enter gets called, press shift first
+                map[13] = false;
+            }
+            if(map[13]){
+                event.preventDefault();
+                document.getElementById("textsend").click();
+            }
+        }
+    });
+    textinput.addEventListener('keyup', function (event) {
+        if (event.keyCode in map) {
+            map[event.keyCode] = false;
+        }
+    });
+
+
+
+    document.getElementById("password").addEventListener('keypress', function (event) {
+        if (event.keyCode === 13) {
+            document.getElementById("submitLog").click();
+        }
+    });
+
+
     document.getElementById("submitLog").addEventListener("click", function () {
         let name = document.getElementById("name").value;
         const password = document.getElementById("password").value;
         let last4 = name.slice(-4);
         name = name.slice(0, -4);
         if (name !== "" && last4 === "dhbw" && password === "dhbw-pw") {
+            document.getElementById("password").removeEventListener('keypress', function (event) {
+                if (event.keyCode === 13) {
+                    document.getElementById("submitLog").click();
+                }
+            });
             let logindiv = document.getElementById("login");
             logindiv.parentNode.removeChild(logindiv);
 
@@ -239,7 +276,7 @@ function updateSreenData() {
             messageStorage[lobbyA[i].innerHTML].lastSeenLength = messageStorage[lobbyA[i].innerHTML].messages.length;
         } else {
             lobbyA[i].parentNode.childNodes[1].innerHTML = messageStorage[lobbyA[i].innerHTML].messages.length - messageStorage[lobbyA[i].innerHTML].lastSeenLength;
-            if(lobbyA[i].parentNode.childNodes[1].innerHTML>0){
+            if (lobbyA[i].parentNode.childNodes[1].innerHTML > 0) {
                 lobbyA[i].parentNode.childNodes[1].className = 'lobbyMessagesUnread';
 
             }
@@ -263,7 +300,7 @@ function updateRoomMessages(room, data) {
     }
     if (currentRoom === null) {
         switchlobby(room);
-    }else{
+    } else {
 
         let lobbys = document.getElementsByClassName("lobbyname");
         for (let i = 0; i < lobbys.length; i++) {
