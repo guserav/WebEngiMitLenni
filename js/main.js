@@ -454,9 +454,11 @@ function switchlobby(name) {
 
     let element;
     for (let i = 0; i < lobbyA.length; i++) {
-        lobbyA[i].style.backgroundColor = "#F2D769";
         if (lobbyA[i].innerHTML === name) {
             element = lobbyA[i];
+        }else{
+            lobbyA[i].style.backgroundColor = "#F2D769";
+
         }
     }
     element.style.backgroundColor = "#E0C65B";
