@@ -528,7 +528,7 @@ function createlobby(name) {
     if (create) {
 
 
-        let msg = username + ' has joined this room!';
+
         const newlobby = apiurl + '/chats/' + name;
         const newlobbyrequest = new Request(newlobby, {
             method: 'POST',
@@ -539,7 +539,7 @@ function createlobby(name) {
             body: JSON.stringify({
                 'roomID': name,
                 'user': username,
-                'message': msg
+                'message': ' Server created this room'
             })
         });
         //?unnötig vlt? check replacement possible
