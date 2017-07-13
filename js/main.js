@@ -442,8 +442,8 @@ function loadlobbys() {
         .then(function (data) {
 
             /* borrowed from stack overflow https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript*/
-            data.sort(function (a, b) {
-                return a.toLowerCase().localeCompare(b.toLowerCase());
+            data.sort(function (first, sec) {
+                return first.toLowerCase().localeCompare(sec.toLowerCase());
             });
 
             document.getElementById('lobbylogs').innerHTML = '';
@@ -507,8 +507,7 @@ function switchlobby(name) {
     textinput.value = '';
     textinput.focus();
 
-    //try to scroll but not correctly
-    //document.getElementById('lobbylogs').scrollTop = element.offsetTop;
+    document.getElementById('lobbylogs').scrollTop = element.offsetTop-65;
 
     displayAllMessages(name);
 
