@@ -14,7 +14,7 @@ example:
 1. ```npm install```
 2. ```npm run watch```
 3. ```open a new cygwin window```
-3. ```npm start in new window``` 
+3. ```npm start (in new window)``` 
 4. start developing
 5. in the first window will be all information
 

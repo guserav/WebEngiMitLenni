@@ -440,7 +440,12 @@ function loadlobbys() {
             return resp.json();
         })
         .then(function (data) {
-            console.log(data);
+
+            /* borrowed from stack overflow https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript*/
+            data.sort(function (a, b) {
+                return a.toLowerCase().localeCompare(b.toLowerCase());
+            });
+
             document.getElementById('lobbylogs').innerHTML = '';
 
             data.forEach(function (item) {
@@ -539,7 +544,7 @@ function createlobby(name) {
             body: JSON.stringify({
                 'roomID': name,
                 'user': username,
-                'message': ' Server created this room'
+                'message': ' Server created this room!'
             })
         });
         //?unnötig vlt? check replacement possible
