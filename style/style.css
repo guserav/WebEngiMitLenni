@@ -133,6 +133,7 @@ body {
 
 .chat .chat-message .codeInLine {
 / / TODO format the inline code element
+    font-family: monospace;
 }
 
 .chat .chat-message .codeBlock {

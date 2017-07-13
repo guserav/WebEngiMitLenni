@@ -39,6 +39,7 @@ module.exports = {
      * --- or *** or * * *  or - - - into a horizontal line
      *
      * `text` wrapped in span: <span class="codeInLine" />
+     * if there is a odd number of ` than there is a ` imagined at the end of the line
      *
      * > formats the following line as quote: <span class="quote" />
      *
@@ -58,40 +59,6 @@ module.exports = {
         let inCodeBlock = false;
         let quoteLevel = 0;
         for(let i = 0; i < lines.length; i++){
-            if(!inCodeBlock){
-                if(/^([-*] ?){3,}$/g.test(lines[i])){
-                    result += '<hr />';
-                    continue;
-                }
-                //emphasis text
-                lines[i] = lines[i].replace(/\*([^*]+)\*/g, '<span class="emphasis">$1</span>');
-
-                //strike through text
-                lines[i] = lines[i].replace(/~([^~]+)~/g, '<span class="strike">$1</span>');
-
-                //italic text
-                lines[i] = lines[i].replace(/_([^_]+)_/g, '<span class="italic">$1</span>');
-
-                //inline Code
-                lines[i] = lines[i].replace(/`([^`]+)`/g, '<span class="codeInLine">$1</span>');
-
-                const quoteLevelThisLine = countOccurrences((/(&gt;)*/g.exec(lines[i]) || [''])[0],'&gt;');
-                if(quoteLevelThisLine !== quoteLevel){
-                    for(let j = quoteLevel; j < quoteLevelThisLine; j++){
-                        result += '<span class="quote">';
-                    }
-                    for(let j = quoteLevel; j > quoteLevelThisLine; j--){
-                        result += '</span>';
-                    }
-                    quoteLevel = quoteLevelThisLine;
-                }
-
-                if(/(^|((&gt;)+)) ?#{1,6}.+$/g.test(lines[i])){
-                    const headingType = countOccurrences(/#{1,6}/.exec(lines[i])[0], '#');
-                    result += lines[i].replace(/(^|((&gt;)+)) ?#{1,6}(.+?)#*$/g, '<span class="heading h"' + headingType + '>$3</span>');
-                    continue;
-                }
-            }
             if(/^((&gt;)*) ?```$/.test(lines[i])){
                 if(!inCodeBlock){//start Code block
                     result += '<p class="codeBlock">';
@@ -103,6 +70,40 @@ module.exports = {
                 if(inCodeBlock){
                     result += lines[i] + '\n';
                 } else {
+                    if(/^([-*] ?){3,}$/g.test(lines[i])){
+                        result += '<hr />';
+                        continue;
+                    }
+
+                    let splitLine = lines[i].split('`');
+                    lines[i] = '';
+                    for(let j = 0; j < splitLine.length; j += 2){
+                        //emphasis text
+                        splitLine[j] = splitLine[j].replace(/\*([^*]+)\*/g, '<span class="emphasis">$1</span>');
+                        //strike through text
+                        splitLine[j] = splitLine[j].replace(/~([^~]+)~/g, '<span class="strike">$1</span>');
+                        //italic text
+                        splitLine[j] = splitLine[j].replace(/_([^_]+)_/g, '<span class="italic">$1</span>');
+
+                        lines[i] += splitLine[j] + ((j + 1 < splitLine.length)?('<span class="codeInLine">' + splitLine[j+1] + '</span>'):'');
+                    }
+
+                    const quoteLevelThisLine = countOccurrences((/(&gt;)*/g.exec(lines[i]) || [''])[0],'&gt;');
+                    if(quoteLevelThisLine !== quoteLevel){
+                        for(let j = quoteLevel; j < quoteLevelThisLine; j++){
+                            result += '<span class="quote">';
+                        }
+                        for(let j = quoteLevel; j > quoteLevelThisLine; j--){
+                            result += '</span>';
+                        }
+                        quoteLevel = quoteLevelThisLine;
+                    }
+
+                    if(/(^|((&gt;)+)) ?#{1,6}.+$/g.test(lines[i])){
+                        const headingType = countOccurrences(/#{1,6}/.exec(lines[i])[0], '#');
+                        result += lines[i].replace(/(^|((&gt;)+)) ?#{1,6}(.+?)#*$/g, '<span class="heading h"' + headingType + '>$3</span>');
+                        continue;
+                    }
                     result += lines[i] + '<br />';
                 }
             }
