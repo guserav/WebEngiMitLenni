@@ -2,6 +2,20 @@
  * Created by erik on 09.07.2017.
  */
 
+/**
+ *
+ * @type {[{regex:regex, url:String, alt:String}]}
+ */
+const emojis = [
+    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
+    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
+    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
+    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
+    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
+    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
+    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
+    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'}
+];
 
 /**
  * Counts the occurrences  of the subString in string
@@ -133,5 +147,11 @@ module.exports = {
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&apos;');
+    },
+
+    replaceEmojis: function (string) {
+        emojis.forEach(function (obj) {
+            string.replace(obj.regex, '<img class="emoji" src="' + obj.url + '" alt="' + obj.alt + '" />');
+        });
     }
 };

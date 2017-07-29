@@ -182,7 +182,11 @@ body {
     background: #D1EFA0;
     text-align: left;
     word-wrap: break-word;
+}
 
+.emoji {
+/ / TODO format writly width: 15 px;
+    height: 15px;
 }
 
 .friend {
