@@ -122,31 +122,43 @@ window.onload = function startup() {
 
 
     document.getElementById('submitLog').addEventListener('click', function () {
-        let displayname = document.getElementById('displayname').value;
-        let name = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+        username = document.getElementById('displayname').value;
+        apiUserName = document.getElementById('username').value;
+        passwordUser = document.getElementById('password').value;
 
-        if (name === 'dhbw' && password === 'dhbw-pw') {
-            if (/[<>"'&]/g.test(displayname)) {
-                alert('The Username shouldn\'t contain <>"\'&');
-            } else {
-                document.getElementById('password').removeEventListener('keypress', function (event) {
-                    if (event.keyCode === 13) {
-                        document.getElementById('submitLog').click();
-                    }
-                });
-                let logindiv = document.getElementById('login');
-                logindiv.parentNode.removeChild(logindiv);
-
-                apiUserName = name;
-                passwordUser = password;
-                username = displayname;
-
-                loadlobbys();
-            }
-
+        if (/[<>"'&]/g.test(username)) {
+            alert('The Username shouldn\'t contain <>"\'&');
         } else {
-            alert('Wrong credentials!');
+
+            let roomUrl = apiurl + '/chats';
+            //request object
+            let roomRequest = new Request(roomUrl, {
+                method: 'GET',
+                headers: {
+                    'Authorization': getBasicAuthHeader()
+                }
+            });
+
+            fetch(roomRequest)
+                .then(function (resp) {
+                    if (resp.ok === true) {
+                        document.getElementById('password').removeEventListener('keypress', function (event) {
+                            if (event.keyCode === 13) {
+                                document.getElementById('submitLog').click();
+                            }
+                        });
+                        let logindiv = document.getElementById('login');
+                        logindiv.parentNode.removeChild(logindiv);
+
+                        loadlobbys();
+                    } else {
+                        alert('Wrong credentials!');
+                    }
+                })
+                .catch(function (err) {
+                    console.log('Login failed ', err);
+                    alert('No connection to server');
+                });
         }
     });
 };
