@@ -117,25 +117,29 @@ window.onload = function startup() {
 
 
     document.getElementById('submitLog').addEventListener('click', function () {
-        let name = document.getElementById('name').value;
+        let displayname = document.getElementById('displayname');
+        let name = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        let last4 = name.slice(-4);
-        name = name.slice(0, -4);
-        if (name !== '' && last4 === 'dhbw' && password === 'dhbw-pw') {
-            document.getElementById('password').removeEventListener('keypress', function (event) {
-                if (event.keyCode === 13) {
-                    document.getElementById('submitLog').click();
-                }
-            });
-            let logindiv = document.getElementById('login');
-            logindiv.parentNode.removeChild(logindiv);
 
+        if (name === 'dhbw' && password === 'dhbw-pw') {
+            if (/[<>"'&]/g.test(displayname)) {
+                alert('The Username shouldn\'t contain <>"\'&');
+            } else {
+                document.getElementById('password').removeEventListener('keypress', function (event) {
+                    if (event.keyCode === 13) {
+                        document.getElementById('submitLog').click();
+                    }
+                });
+                let logindiv = document.getElementById('login');
+                logindiv.parentNode.removeChild(logindiv);
 
-            apiUserName = last4;
-            passwordUser = password;
-            username = name;
+                apiUserName = name;
+                passwordUser = password;
+                username = displayname;
 
-            loadlobbys();
+                loadlobbys();
+            }
+
         } else {
             alert('Wrong credentials!');
         }
@@ -446,7 +450,9 @@ function loadlobbys() {
                 return first.toLowerCase().localeCompare(sec.toLowerCase());
             });
 
-            document.getElementById('lobbylogs').innerHTML = '';
+            let newLobbylogs = document.createElement('div');
+            newLobbylogs.className = 'lobbylogs';
+            newLobbylogs.id = 'lobbylogs';
 
             data.forEach(function (item) {
                 const divbutton = document.createElement('div');
@@ -475,10 +481,12 @@ function loadlobbys() {
 
                 divbutton.appendChild(newbutton);
                 divbutton.appendChild(unreadMessageSpan);
-                document.getElementById('lobbylogs').appendChild(divbutton);
-
-                loadmessage(item);
+                newLobbylogs.appendChild(divbutton);
             });
+
+            document.getElementById('lobbylogs').parentNode.replaceChild(newLobbylogs, document.getElementById('lobbylogs'));
+
+            data.forEach(loadmessage);
         })
         .catch(function (error) {
             console.error('Error in loadlobbys:' + error);
