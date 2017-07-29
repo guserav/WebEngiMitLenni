@@ -34,20 +34,25 @@ let messageStorage = {};
 
 let clockUpdate = null;
 
+/**
+ * Is true if the list of Users is displayed and false otherwise
+ * @type {boolean}
+ */
+let isUserListDisplayed = false;
+
 window.onload = function startup() {
     chatlogs = document.getElementById('chatlogs');
     userbutton = document.getElementById('userlist');
     textinput = document.getElementById('textinput');
 
-    let switcher = 0;
     userbutton.addEventListener('click', function () {
 
-        if (switcher == 0) {
-            listuser();
-            switcher = 1;
-        } else {
+        if (isUserListDisplayed) {
             delistuser();
-            switcher = 0;
+            isUserListDisplayed = false;
+        } else {
+            listuser();
+            isUserListDisplayed = true;
         }
     });
     document.getElementById('scroll').addEventListener('click', function () {
@@ -117,7 +122,7 @@ window.onload = function startup() {
 
 
     document.getElementById('submitLog').addEventListener('click', function () {
-        let displayname = document.getElementById('displayname');
+        let displayname = document.getElementById('displayname').value;
         let name = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
@@ -164,7 +169,7 @@ function getBasicAuthHeader() {
 
 /**
  * Generates the message from the object the api has produced
- * @param {{user:{String}, message:{String}, timestamp:{number}}} item
+ * @param {{user:String, message:String, timestamp:number}} item
  */
 function buildMessageFromAPI(item) {
     const usernameS = item.user;
@@ -176,7 +181,7 @@ function buildMessageFromAPI(item) {
     if (m < 10) {
         m = '0' + m;
     }
-    if (h == 0) {
+    if (h < 10) {
         h = '0' + h;
     }
     let timeS = h + ':' + m;
@@ -195,7 +200,7 @@ function buildMessageFromAPI(item) {
  */
 function buildmessage(usernameS, textS, timeS) {
     let divchat = document.createElement('div');
-    if (usernameS == username) {
+    if (usernameS === username) {
         divchat.className = 'chat self';
     } else {
         divchat.className = 'chat friend';
@@ -221,7 +226,7 @@ function buildmessage(usernameS, textS, timeS) {
 function sendtext() {
     const chatMessage = textinput.value;
     const storedCurrentRoom = currentRoom; //store the current Room to not be changed by the user while request ist running
-    if (chatMessage != '') {
+    if (chatMessage !== '') {
         const messageurl = apiurl + '/chats/' + storedCurrentRoom;
         const messagerequest = new Request(messageurl, {
             method: 'POST',
@@ -388,18 +393,18 @@ function listuser() {
         })
         .then(function (data) {
 
-            let userarray = [];
+            let userArray = [];
             data.forEach(function (item) {
                 let usernameS = item.user;
 
-                if (userarray.indexOf(usernameS) <= -1) {
-                    userarray.push(usernameS);
+                if (userArray.indexOf(usernameS) <= -1) {
+                    userArray.push(usernameS);
                 }
             });
 
-            userarray.sort();
+            userArray.sort();
             document.getElementById('listul').innerHTML = '';
-            userarray.forEach(function (item) {
+            userArray.forEach(function (item) {
                 let userli = document.createElement('li');
                 userli.innerHTML = item;
                 document.getElementById('listul').appendChild(userli);
@@ -429,17 +434,17 @@ function loadlobbys() {
         clockUpdate = setInterval(loadlobbys, updateIntervall);
     }
 
-    let roomurl = apiurl + '/chats';
+    let roomUrl = apiurl + '/chats';
 
     //request object
-    let roomrequest = new Request(roomurl, {
+    let roomRequest = new Request(roomUrl, {
         method: 'GET',
         headers: {
             'Authorization': getBasicAuthHeader()
         }
     });
 
-    fetch(roomrequest)
+    fetch(roomRequest)
         .then(function (resp) {
             return resp.json();
         })
@@ -550,15 +555,12 @@ function createlobby(name) {
             },
             body: JSON.stringify({
                 'roomID': name,
-                'user': username,
-                'message': ' Server created this room!'
+                'user': 'Server',
+                'message': username + ' created this room!'
             })
         });
         //?unnötig vlt? check replacement possible
-        fetch(newlobbyrequest)
-            .then(function () {
-            })
-            .catch(function (error) {
+        fetch(newlobbyrequest).catch(function (error) {
                 console.error('Error in sending message:' + error);
             });
         currentRoom = name;
