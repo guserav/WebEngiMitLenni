@@ -489,8 +489,10 @@ function loadlobbys() {
                 newLobbylogs.appendChild(divbutton);
             });
 
-            document.getElementById('lobbylogs').parentNode.replaceChild(newLobbylogs, document.getElementById('lobbylogs'));
-
+            let oldLobbyLogs = document.getElementById('lobbylogs');
+            const saveScrolling = oldLobbyLogs.scrollTop;//To remove jump to top
+            oldLobbyLogs.parentNode.replaceChild(newLobbylogs, oldLobbyLogs);
+            newLobbylogs.scrollTop = saveScrolling;
             data.forEach(loadmessage);
         })
         .catch(function (error) {
@@ -560,7 +562,8 @@ function createlobby(name) {
             })
         });
         //?unnötig vlt? check replacement possible
-        fetch(newlobbyrequest).catch(function (error) {
+        fetch(newlobbyrequest)
+            .catch(function (error) {
                 console.error('Error in sending message:' + error);
             });
         currentRoom = name;
