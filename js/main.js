@@ -167,6 +167,11 @@ let currentRoom = null;
  * }}}
  */
 let messageStorage = {};
+/**
+ * Stores the current Lobby view (true for used/false for other)
+ * @type {boolean}
+ */
+let lobbyview = true;
 
 let clockUpdate = null;
 
@@ -242,6 +247,20 @@ window.onload = function startup() {
     document.getElementById('lobbycreate').addEventListener('click', function () {
         let createdname = document.getElementById('lobbyinput').value;
         createlobby(createdname);
+    });
+
+    document.getElementById('lobbyIN').addEventListener('click', function () {
+        document.getElementById('lobbyIN').style.backgroundColor = '#E0C65B';
+        document.getElementById('lobbyOUT').style.backgroundColor = '#F2D769';
+        lobbyview = true;
+        loadlobbys();
+    });
+
+    document.getElementById('lobbyOUT').addEventListener('click', function () {
+        document.getElementById('lobbyOUT').style.backgroundColor = '#E0C65B';
+        document.getElementById('lobbyIN').style.backgroundColor = '#F2D769';
+        lobbyview = false;
+        loadlobbys();
     });
 
     document.getElementById('lobbyinput').addEventListener('keypress', function (event) {
@@ -564,10 +583,37 @@ function listuser() {
 
         })
         .catch(function (error) {
-            console.error('Error in loadlobbys:' + error);
+            console.error('Error in listuser:' + error);
         });
 }
 
+/**
+ * Retruns true if a user is in a chat room /false if not
+ */
+function checkuser(room) {
+    let userurl = apiurl + '/chats/' + room + '/users';
+
+    let userrequestNew = new Request(userurl, {
+        method: 'GET',
+        headers: {
+            'Authorization': getBasicAuthHeader()
+        }
+    });
+    fetch(userrequestNew)
+        .then(function (resp) {
+            return resp.json();
+        })
+        .then(function (data) {
+            
+            // if(data.indexOf(username) > -1)
+            // lobby view used with this function to load correct lobbys
+
+
+        })
+        .catch(function (error) {
+            console.error('Error in checkuser:' + error);
+        });
+}
 /**
  * Closes the side menu which displays all users
  * changes the color of the button to open the side menu back to normal
@@ -612,6 +658,8 @@ function loadlobbys() {
             newLobbylogs.id = 'lobbylogs';
 
             data.forEach(function (item) {
+
+
                 const divbutton = document.createElement('div');
                 divbutton.className = 'lobby';
 
@@ -645,7 +693,9 @@ function loadlobbys() {
             const saveScrolling = oldLobbyLogs.scrollTop;//To remove jump to top
             oldLobbyLogs.parentNode.replaceChild(newLobbylogs, oldLobbyLogs);
             newLobbylogs.scrollTop = saveScrolling;
+
             data.forEach(loadmessage);
+
         })
         .catch(function (error) {
             console.error('Error in loadlobbys:' + error);
@@ -674,7 +724,7 @@ function switchlobby(name) {
     textinput.value = '';
     textinput.focus();
 
-    document.getElementById('lobbylogs').scrollTop = element.offsetTop-130;
+    document.getElementById('lobbylogs').scrollTop = element.offsetTop - 130;
 
     displayAllMessages(name);
 
@@ -697,7 +747,6 @@ function createlobby(name) {
         }
     }
     if (create) {
-
 
 
         const newlobby = apiurl + '/chats/' + name;
