@@ -1,17 +1,17 @@
 ##Alle Punkte Formel
 Authentication:
 
-1. ```Split dhbw and username ```
-2. ```Localstrogae für username```
+1. ```Split dhbw and username ``` (done)
+2. ```Localstrogae für username``` (done)
 3. ```url paste```
 
 List chat rooms:
-1. ```erstellen```
-2. ```switch to```
-3. ```notifaction```
+1. ```erstellen``` (done)
+2. ```switch to``` (done)
+3. ```notifaction``` (done)
 
 Support smileys:
-1. ```basic```
+1. ```basic``` 
 2. ```mehrere``` 
 3. ```libary + convertieren in die libary functions```
 
@@ -20,24 +20,24 @@ Overall:
 ```Timestemp, Name, markup langauge (slack/markdown)```
 
 Send messages:
-1. ```enter + auto focus schreib feld (shitf +enter zeilenumbruch)```
+1. ```enter + auto focus schreib feld (shitf +enter zeilenumbruch)``` (done)
 2. ```autocomplete + „/-bot“```
 
 
 Display new messages:
-1. ```design```
-2. ```notfications pop up```
+1. ```design``` 
+2. ```notfications pop up``` (done)
 
 
 Display historic messages:
-1. ```unterteilen in beschreibe und unbeschreibene chanels```
+1. ```unterteilen in beschreibe und unbeschreibene chanels``` (lennart)
 
 List and color users in room:
-1. ```List, button, sortiert```
+1. ```List, button, sortiert```(done)
 2. ```Color noch machen```
 
 Your chocie:
-1. ```Collect everything + 2te js datei```
+1. ```Collect everything/Converter```
 2. ```New one?```
 
 HTML:
