@@ -150,7 +150,7 @@ let textinput = null;
 let userbutton = null;
 
 /**
- * Stores the check if after loadlobbys a switch should occur
+ * Stores the name to check if after loadlobbys a switch should occur
  * @type {boolean}
  */
 let doswitch = false;
@@ -480,8 +480,8 @@ function updateRoomMessages(room, data) {
     if (currentRoom === null) {
         switchlobby(room);
 
-    } else if (doswitch === true) {
-        doswitch = false;
+    } else if (room === doswitch) {
+        doswitch = '';
         switchlobby(room);
 
     } else {
@@ -719,7 +719,7 @@ function createlobby(name) {
                 console.error('Error in sending message:' + error);
             });
         currentRoom = name;
-        doswitch = true;
+        doswitch = name;
         loadlobbys();
     }
     document.getElementById('lobbyinput').value = '';
