@@ -1,6 +1,7 @@
 const textConverter = require('./textConversion');
 const apiurl = 'http://danielrutz.de:3000/api';
 const updateIntervall = 5000;
+const cookieNameForDisplayName = 'displayName';
 
 const colorBackgroundChannel = '#F2D769';
 const colorBackgroundChannelSelected = '#E0C65B';
@@ -150,6 +151,8 @@ window.onload = function startup() {
                         let logindiv = document.getElementById('login');
                         logindiv.parentNode.removeChild(logindiv);
 
+                        setCookie(cookieNameForDisplayName, username, 12);
+
                         loadlobbys();
                     } else {
                         alert('Wrong credentials!');
@@ -161,6 +164,8 @@ window.onload = function startup() {
                 });
         }
     });
+
+    document.getElementById('displayname').value = getCookie(cookieNameForDisplayName);
 };
 
 /**
@@ -582,8 +587,44 @@ function createlobby(name) {
         doswitch = true;
         loadlobbys();
     }
-    document.getElementById('lobbyinput').value = "";
+    document.getElementById('lobbyinput').value = '';
+}
 
+/**
+ * Sets a cookie with the specified value and name. It will expire in the specified amount of hours.
+ *
+ * The cookie will either will be created or overwritten
+ *
+ * Inspired by https://www.w3schools.com/js/js_cookies.asp
+ *
+ * @param name {String} the cookies name
+ * @param value {String} the value to store
+ * @param hours {Number} the number of hours till the cookie will expire
+ */
+function setCookie(name, value, hours) {
+    let d = new Date();
+    d.setTime(d.getTime() + (hours * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + '; expires=' + d.toUTCString() + '; path=/';
+}
+
+/**
+ * Gets the value stored in the cookie specified or returns a empty string if not send
+ *
+ * Inspired by https://www.w3schools.com/js/js_cookies.asp
+ *
+ * @param name {String} the name of the cookie
+ * @return {String}
+ */
+function getCookie(name) {
+    name = name + '=';
+    let splitCookies = decodeURIComponent(document.cookie).split(';');
+    for (let i = 0; i < splitCookies.length; i++) {
+        let c = splitCookies[i].replace(/^ */g, '');
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return '';
 }
 
 
