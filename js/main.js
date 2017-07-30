@@ -674,7 +674,7 @@ function switchlobby(name) {
     textinput.value = '';
     textinput.focus();
 
-    document.getElementById('lobbylogs').scrollTop = element.offsetTop-65;
+    document.getElementById('lobbylogs').scrollTop = element.offsetTop-130;
 
     displayAllMessages(name);
 
@@ -710,7 +710,7 @@ function createlobby(name) {
             body: JSON.stringify({
                 'roomID': name,
                 'user': 'Server',
-                'message': username + ' created this room!'
+                'message': 'The Server created this room!'
             })
         });
         //?unnötig vlt? check replacement possible
