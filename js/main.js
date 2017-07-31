@@ -590,7 +590,7 @@ function listuser() {
 /**
  * Retruns true if a user is in a chat room /false if not
  */
-function checkuser(room) {
+function checkuser(room, fn) {
     let userurl = apiurl + '/chats/' + room + '/users';
 
     let userrequestNew = new Request(userurl, {
@@ -604,9 +604,8 @@ function checkuser(room) {
             return resp.json();
         })
         .then(function (data) {
-            
-            // if(data.indexOf(username) > -1)
-            // lobby view used with this function to load correct lobbys
+
+            fn(data.indexOf(username) > -1);
 
 
         })
@@ -658,35 +657,45 @@ function loadlobbys() {
             newLobbylogs.id = 'lobbylogs';
 
             data.forEach(function (item) {
+                checkuser(item, function (returnChek) {
+                    if ((returnChek && lobbyview)||(!returnChek && !lobbyview)) {
+
+                        const divbutton = document.createElement('div');
+                        divbutton.className = 'lobby';
+
+                        const newbutton = document.createElement('button');
+                        newbutton.className = 'lobbyname';
+                        newbutton.onclick = function () {
+                            switchlobby(this.innerHTML);
+                        };
+                        newbutton.innerHTML = item;
+                        newbutton.style.backgroundColor = (item === currentRoom) ? colorBackgroundChannelSelected : colorBackgroundChannel;
+
+                        const unreadMessageSpan = document.createElement('span');
+                        if (messageStorage[item] !== undefined) {
+                            unreadMessageSpan.innerHTML = '' + (messageStorage[item].messages.length - messageStorage[item].lastSeenLength);
+                        } else {
+                            unreadMessageSpan.innerHTML = '0';
+                        }
+
+                        if (unreadMessageSpan.innerHTML === '0') {
+                            unreadMessageSpan.className = 'lobbyMessagesRead';
+                        } else {
+                            unreadMessageSpan.className = 'lobbyMessagesUnRead';
+                        }
+
+                        divbutton.appendChild(newbutton);
+                        divbutton.appendChild(unreadMessageSpan);
+                        newLobbylogs.appendChild(divbutton);
+                    }
 
 
-                const divbutton = document.createElement('div');
-                divbutton.className = 'lobby';
 
-                const newbutton = document.createElement('button');
-                newbutton.className = 'lobbyname';
-                newbutton.onclick = function () {
-                    switchlobby(this.innerHTML);
-                };
-                newbutton.innerHTML = item;
-                newbutton.style.backgroundColor = (item === currentRoom) ? colorBackgroundChannelSelected : colorBackgroundChannel;
 
-                const unreadMessageSpan = document.createElement('span');
-                if (messageStorage[item] !== undefined) {
-                    unreadMessageSpan.innerHTML = '' + (messageStorage[item].messages.length - messageStorage[item].lastSeenLength);
-                } else {
-                    unreadMessageSpan.innerHTML = '0';
-                }
+                });
 
-                if (unreadMessageSpan.innerHTML === '0') {
-                    unreadMessageSpan.className = 'lobbyMessagesRead';
-                } else {
-                    unreadMessageSpan.className = 'lobbyMessagesUnRead';
-                }
 
-                divbutton.appendChild(newbutton);
-                divbutton.appendChild(unreadMessageSpan);
-                newLobbylogs.appendChild(divbutton);
+
             });
 
             let oldLobbyLogs = document.getElementById('lobbylogs');
