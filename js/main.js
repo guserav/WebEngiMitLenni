@@ -149,6 +149,19 @@ let chatlogs = null;
 let textinput = null;
 let userbutton = null;
 
+/**global array save for asyncrhon tasks
+ * @type {array}
+ * */
+let allRooms = [];
+let userCheck = [];
+let currentView = [];
+let secView = [];
+
+/** define if a loadlobby is currently happening(false = no, true = yes)*
+ * @type {boolean}
+ */
+let currentLoad = false;
+let switchLobbyView = true;
 /**
  * Stores the name to check if after loadlobbys a switch should occur
  * @type {boolean}
@@ -248,19 +261,13 @@ window.onload = function startup() {
         let createdname = document.getElementById('lobbyinput').value;
         createlobby(createdname);
     });
-
     document.getElementById('lobbyIN').addEventListener('click', function () {
-        document.getElementById('lobbyIN').style.backgroundColor = '#E0C65B';
-        document.getElementById('lobbyOUT').style.backgroundColor = '#F2D769';
-        lobbyview = true;
-        loadlobbys();
+        switchTolobbyOUT();
     });
 
     document.getElementById('lobbyOUT').addEventListener('click', function () {
-        document.getElementById('lobbyOUT').style.backgroundColor = '#E0C65B';
-        document.getElementById('lobbyIN').style.backgroundColor = '#F2D769';
-        lobbyview = false;
-        loadlobbys();
+        switchTolobbyIN();
+
     });
 
     document.getElementById('lobbyinput').addEventListener('keypress', function (event) {
@@ -321,6 +328,26 @@ window.onload = function startup() {
 
     document.getElementById('displayname').value = getCookie(cookieNameForDisplayName);
 };
+
+function switchTolobbyIN() {
+    if (switchLobbyView && !currentLoad) {
+        switchLobbyView = false;
+        document.getElementById('lobbyOUT').style.backgroundColor = '#E0C65B';
+        document.getElementById('lobbyIN').style.backgroundColor = '#F2D769';
+        lobbyview = false;
+        loadlobbys();
+    }
+}
+
+function switchTolobbyOUT() {
+    if (switchLobbyView && !currentLoad) {
+        switchLobbyView = false;
+        document.getElementById('lobbyIN').style.backgroundColor = '#E0C65B';
+        document.getElementById('lobbyOUT').style.backgroundColor = '#F2D769';
+        lobbyview = true;
+        loadlobbys();
+    }
+}
 
 /**
  * Scrolls down the chat that is currently shown
@@ -536,7 +563,7 @@ function loadmessage(room) {
             updateRoomMessages(room, data);
         })
         .catch(function (error) {
-            console.error('Error in loadlobbys:' + error);
+            console.error('Error in loadmessage:' + error);
         });
 }
 
@@ -590,7 +617,7 @@ function listuser() {
 /**
  * Retruns true if a user is in a chat room /false if not
  */
-function checkuser(room, fn) {
+function checkuser(room, rooms) {
     let userurl = apiurl + '/chats/' + room + '/users';
 
     let userrequestNew = new Request(userurl, {
@@ -599,13 +626,22 @@ function checkuser(room, fn) {
             'Authorization': getBasicAuthHeader()
         }
     });
+
     fetch(userrequestNew)
         .then(function (resp) {
             return resp.json();
         })
         .then(function (data) {
+            let userIN = (data.indexOf(username) > -1);
+            if ((userIN && lobbyview) || (!userIN && !lobbyview)) {
 
-            fn(data.indexOf(username) > -1);
+                userCheck.push(true);
+            } else {
+                userCheck.push(false);
+
+            }
+            allRooms.shift();
+            loadforeach(rooms);
 
 
         })
@@ -613,6 +649,67 @@ function checkuser(room, fn) {
             console.error('Error in checkuser:' + error);
         });
 }
+/** insync version for load of lobby that in the lobby view*/
+function loadforeach(data) {
+    if (allRooms.length > 0) {
+        checkuser(allRooms[0], data);
+
+    } else {
+        let newLobbylogs = document.createElement('div');
+        newLobbylogs.className = 'lobbylogs';
+        newLobbylogs.id = 'lobbylogs';
+        currentView = [];
+        secView = [];
+        data.forEach(function (item) {
+            if (userCheck[0]) {
+
+                const divbutton = document.createElement('div');
+                divbutton.className = 'lobby';
+
+                const newbutton = document.createElement('button');
+                newbutton.className = 'lobbyname';
+                newbutton.onclick = function () {
+                    switchlobby(this.innerHTML);
+                };
+                newbutton.innerHTML = item;
+                newbutton.style.backgroundColor = (item === currentRoom) ? colorBackgroundChannelSelected : colorBackgroundChannel;
+
+                const unreadMessageSpan = document.createElement('span');
+                if (messageStorage[item] !== undefined) {
+                    unreadMessageSpan.innerHTML = '' + (messageStorage[item].messages.length - messageStorage[item].lastSeenLength);
+                } else {
+                    unreadMessageSpan.innerHTML = '0';
+                }
+
+                if (unreadMessageSpan.innerHTML === '0') {
+                    unreadMessageSpan.className = 'lobbyMessagesRead';
+                } else {
+                    unreadMessageSpan.className = 'lobbyMessagesUnRead';
+                }
+
+                divbutton.appendChild(newbutton);
+                divbutton.appendChild(unreadMessageSpan);
+                newLobbylogs.appendChild(divbutton);
+                currentView.push(item);
+            }
+            secView.push(item);
+            userCheck.shift();
+        });
+        let oldLobbyLogs = document.getElementById('lobbylogs');
+        const saveScrolling = oldLobbyLogs.scrollTop;//To remove jump to top
+        oldLobbyLogs.parentNode.replaceChild(newLobbylogs, oldLobbyLogs);
+        newLobbylogs.scrollTop = saveScrolling;
+        data.forEach(loadmessage);
+        currentLoad = false;
+        if (!switchLobbyView) {
+            switchlobby(document.getElementById('lobbylogs').firstChild.firstChild.innerHTML);
+        }
+        switchLobbyView = true;
+
+    }
+
+}
+
 /**
  * Closes the side menu which displays all users
  * changes the color of the button to open the side menu back to normal
@@ -626,90 +723,43 @@ function delistuser() {
  * Loads all lobbys form the API and updates the data stored in the messageStorage for every room
  */
 function loadlobbys() {
-
-    if (clockUpdate === null) {
-        clockUpdate = setInterval(loadlobbys, updateIntervall);
-    }
-
-    let roomUrl = apiurl + '/chats';
-
-    //request object
-    let roomRequest = new Request(roomUrl, {
-        method: 'GET',
-        headers: {
-            'Authorization': getBasicAuthHeader()
+    if (!currentLoad) {
+        currentLoad = true;
+        if (clockUpdate === null) {
+            clockUpdate = setInterval(loadlobbys, updateIntervall);
         }
-    });
 
-    fetch(roomRequest)
-        .then(function (resp) {
-            return resp.json();
-        })
-        .then(function (data) {
+        let roomUrl = apiurl + '/chats';
 
-            /* borrowed from stack overflow https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript*/
-            data.sort(function (first, sec) {
-                return first.toLowerCase().localeCompare(sec.toLowerCase());
-            });
-
-            let newLobbylogs = document.createElement('div');
-            newLobbylogs.className = 'lobbylogs';
-            newLobbylogs.id = 'lobbylogs';
-
-            data.forEach(function (item) {
-                checkuser(item, function (returnChek) {
-                    if ((returnChek && lobbyview)||(!returnChek && !lobbyview)) {
-
-                        const divbutton = document.createElement('div');
-                        divbutton.className = 'lobby';
-
-                        const newbutton = document.createElement('button');
-                        newbutton.className = 'lobbyname';
-                        newbutton.onclick = function () {
-                            switchlobby(this.innerHTML);
-                        };
-                        newbutton.innerHTML = item;
-                        newbutton.style.backgroundColor = (item === currentRoom) ? colorBackgroundChannelSelected : colorBackgroundChannel;
-
-                        const unreadMessageSpan = document.createElement('span');
-                        if (messageStorage[item] !== undefined) {
-                            unreadMessageSpan.innerHTML = '' + (messageStorage[item].messages.length - messageStorage[item].lastSeenLength);
-                        } else {
-                            unreadMessageSpan.innerHTML = '0';
-                        }
-
-                        if (unreadMessageSpan.innerHTML === '0') {
-                            unreadMessageSpan.className = 'lobbyMessagesRead';
-                        } else {
-                            unreadMessageSpan.className = 'lobbyMessagesUnRead';
-                        }
-
-                        divbutton.appendChild(newbutton);
-                        divbutton.appendChild(unreadMessageSpan);
-                        newLobbylogs.appendChild(divbutton);
-                    }
-
-
-
-
-                });
-
-
-
-            });
-
-            let oldLobbyLogs = document.getElementById('lobbylogs');
-            const saveScrolling = oldLobbyLogs.scrollTop;//To remove jump to top
-            oldLobbyLogs.parentNode.replaceChild(newLobbylogs, oldLobbyLogs);
-            newLobbylogs.scrollTop = saveScrolling;
-
-            data.forEach(loadmessage);
-
-        })
-        .catch(function (error) {
-            console.error('Error in loadlobbys:' + error);
+        //request object
+        let roomRequest = new Request(roomUrl, {
+            method: 'GET',
+            headers: {
+                'Authorization': getBasicAuthHeader()
+            }
         });
 
+        fetch(roomRequest)
+            .then(function (resp) {
+                return resp.json();
+            })
+            .then(function (data) {
+
+                /* borrowed from stack overflow https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript*/
+                data.sort(function (first, sec) {
+                    return first.toLowerCase().localeCompare(sec.toLowerCase());
+                });
+
+                allRooms = data.slice();
+                userCheck = [];
+                loadforeach(data);
+
+
+            })
+            .catch(function (error) {
+                console.error('Error in loadlobbys:' + error);
+            });
+    }
 }
 
 /**
@@ -749,13 +799,30 @@ function switchlobby(name) {
 function createlobby(name) {
     let lobbyA = document.getElementsByClassName('lobbyname');
     let create = true;
-    for (let i = 0; i < lobbyA.length; i++) {
-        if (lobbyA[i].innerHTML === name) {
-            switchlobby(name);
-            create = false;
+
+
+    if (currentView.indexOf(name) > -1) {
+        for (let i = 0; i < lobbyA.length; i++) {
+            if (lobbyA[i].innerHTML === name) {
+                switchlobby(name);
+                create = false;
+            }
+        }
+    } else if (secView.indexOf(name) > -1) {
+        if (lobbyview) {
+            switchTolobbyIN();
+        } else {
+            switchTolobbyOUT();
+        }
+        for (let i = 0; i < lobbyA.length; i++) {
+            if (lobbyA[i].innerHTML === name) {
+                switchlobby(name);
+                create = false;
+            }
         }
     }
     if (create) {
+        switchTolobbyIN();
 
 
         const newlobby = apiurl + '/chats/' + name;
@@ -781,8 +848,8 @@ function createlobby(name) {
         loadlobbys();
     }
     document.getElementById('lobbyinput').value = '';
-}
 
+}
 /**
  * Sets a cookie with the specified value and name. It will expire in the specified amount of hours.
  *
