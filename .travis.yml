@@ -3,7 +3,7 @@ node_js:
   - "node"
 script:
   - npm run test
-  - npm run webpack
+#  - npm run webpack
 cache:
   directories:
     - "node_modules"
