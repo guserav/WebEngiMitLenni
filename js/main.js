@@ -1,6 +1,66 @@
+const apiurl = 'http://danielrutz.de:3000/api';
+const updateIntervall = 5000;
+const cookieNameForDisplayName = 'displayName';
+
+const colorBackgroundChannel = '#F2D769';
+const colorBackgroundChannelSelected = '#E0C65B';
+
+let apiUserName = null;
+let username = 'UNEXPECTED_USERNAME';
+let passwordUser = null;
+
+let chatlogs = null;
+let textinput = null;
+let userbutton = null;
+
+/**global array save for asyncrhon tasks
+ * @type {array}
+ * */
+let allRooms = [];
+let userCheck = [];
+let currentView = [];
+let secView = [];
+
+/** define if a loadlobby is currently happening(false = no, true = yes)*
+ * @type {boolean}
+ */
+let currentLoad = false;
+let switchLobbyView = true;
+/**
+ * Stores the name to check if after loadlobbys a switch should occur
+ * @type {String}
+ */
+let doswitch = '';
+/**
+ * Stores the current room displayed to the user
+ * @type {String}
+ */
+let currentRoom = null;
+/**
+ * This stores the
+ * @type {{room:{
+ *      messages:[String]
+ *      lastSeenLength:{number}
+ * }}}
+ */
+let messageStorage = {};
+/**
+ * Stores the current Lobby view (true for used/false for other)
+ * @type {boolean}
+ */
+let lobbyview = true;
+
+let clockUpdate = null;
+
+/**
+ * Is true if the list of Users is displayed and false otherwise
+ * @type {boolean}
+ */
+let isUserListDisplayed = false;
+
 /**
  *
- * @type {[{regex:regex, url:String, alt:String}]}
+ * @type {[{regex:RegExp, url:String, alt:String}]}
  */
 const emojis = [
     {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
@@ -133,66 +193,6 @@ const textConverter = {
         });
     }
 };
-
-const apiurl = 'http://danielrutz.de:3000/api';
-const updateIntervall = 5000;
-const cookieNameForDisplayName = 'displayName';
-
-const colorBackgroundChannel = '#F2D769';
-const colorBackgroundChannelSelected = '#E0C65B';
-
-let apiUserName = null;
-let username = 'UNEXPECTED_USERNAME';
-let passwordUser = null;
-
-let chatlogs = null;
-let textinput = null;
-let userbutton = null;
-
-/**global array save for asyncrhon tasks
- * @type {array}
- * */
-let allRooms = [];
-let userCheck = [];
-let currentView = [];
-let secView = [];
-
-/** define if a loadlobby is currently happening(false = no, true = yes)*
- * @type {boolean}
- */
-let currentLoad = false;
-let switchLobbyView = true;
-/**
- * Stores the name to check if after loadlobbys a switch should occur
- * @type {String}
- */
-let doswitch = '';
-/**
- * Stores the current room displayed to the user
- * @type {String}
- */
-let currentRoom = null;
-/**
- * This stores the
- * @type {{room:{
- *      messages:[String]
- *      lastSeenLength:{number}
- * }}}
- */
-let messageStorage = {};
-/**
- * Stores the current Lobby view (true for used/false for other)
- * @type {boolean}
- */
-let lobbyview = true;
-
-let clockUpdate = null;
-
-/**
- * Is true if the list of Users is displayed and false otherwise
- * @type {boolean}
- */
-let isUserListDisplayed = false;
 
 window.onload = function startup() {
     chatlogs = document.getElementById('chatlogs');
