@@ -164,9 +164,9 @@ let currentLoad = false;
 let switchLobbyView = true;
 /**
  * Stores the name to check if after loadlobbys a switch should occur
- * @type {boolean}
+ * @type {String}
  */
-let doswitch = false;
+let doswitch = '';
 /**
  * Stores the current room displayed to the user
  * @type {String}
@@ -484,8 +484,9 @@ function displayAllMessages(room) {
 function updateSreenData() {
     let lobbyA = document.getElementsByClassName('lobbyname');
 
-    if (currentRoom === null) {
-        throw new Error('Could not display null room');
+    if (currentRoom === null) { //do nochtin gif no room exist to display
+        chatlogs.innerHTML = '';
+        return;
     }
 
     for (let i = 0; i < lobbyA.length; i++) {
@@ -523,10 +524,8 @@ function updateRoomMessages(room, data) {
     } else {
         messageStorage[room].messages = data;
     }
-    if (currentRoom === null) {
-        switchlobby(room);
 
-    } else if (room === doswitch) {
+    if (room === doswitch) {
         doswitch = '';
         switchlobby(room);
 
@@ -563,7 +562,7 @@ function loadmessage(room) {
             updateRoomMessages(room, data);
         })
         .catch(function (error) {
-            console.error('Error in loadmessage:' + error);
+            console.error('Error in loadmessage:', error);
         });
 }
 
@@ -646,7 +645,7 @@ function checkuser(room, rooms) {
 
         })
         .catch(function (error) {
-            console.error('Error in checkuser:' + error);
+            console.error('Error in checkuser:', error);
         });
 }
 /** insync version for load of lobby that in the lobby view*/
@@ -702,7 +701,11 @@ function loadforeach(data) {
         data.forEach(loadmessage);
         currentLoad = false;
         if (!switchLobbyView) {
-            switchlobby(document.getElementById('lobbylogs').firstChild.firstChild.innerHTML);
+            if(document.getElementById('lobbylogs').firstChild !== null){
+                switchlobby(document.getElementById('lobbylogs').firstChild.firstChild.innerHTML);
+            } else {
+                switchlobby(null);
+            }
         }
         switchLobbyView = true;
 
@@ -767,6 +770,11 @@ function loadlobbys() {
  * @param {String} name
  */
 function switchlobby(name) {
+    if(name === null){
+        currentRoom = name;
+        chatlogs.innerHTML = '';
+        return;
+    }
     let lobbyA = document.getElementsByClassName('lobbyname');
     let element;
     for (let i = 0; i < lobbyA.length; i++) {
