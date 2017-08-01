@@ -392,7 +392,7 @@ function buildMessageFromAPI(item) {
  *
  * Should be called by buildMessageFromAPI()
  *
- * @param {String} usernameS
+ * @param {String} usernameS the username that can contain reserved characters if from the API
  * @param {String} textS
  * @param {String} timeS
  */
@@ -408,7 +408,7 @@ function buildmessage(usernameS, textS, timeS) {
     pchat.innerHTML = '<br />' + textConverter.applyStyling(textConverter.removeHTML(textS));
     let sname = document.createElement('span');
     sname.className = 'username';
-    sname.innerHTML = usernameS;
+    sname.innerHTML = textConverter.removeHTML(usernameS);
     let szeit = document.createElement('span');
     szeit.className = 'time';
     szeit.innerHTML = timeS;
