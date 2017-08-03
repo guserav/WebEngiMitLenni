@@ -259,7 +259,14 @@ window.onload = function startup() {
 
     document.getElementById('lobbycreate').addEventListener('click', function () {
         let createdname = document.getElementById('lobbyinput').value;
-        createlobby(createdname);
+        if(createdname.length>15){
+            alert("LobbyName is wrong!. Lobby Name max length is 15");
+            document.getElementById('lobbyinput').value = '';
+            return;
+        }
+        if(createdname !== ""){
+            createlobby(createdname);
+        }
     });
     document.getElementById('lobbyIN').addEventListener('click', function () {
         switchTolobbyOUT();
