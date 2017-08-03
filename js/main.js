@@ -224,7 +224,7 @@ window.onload = function startup() {
         scrolldown();
     });
     document.getElementById('textsend').addEventListener('click', function () {
-        if(document.getElementById('chatheader').innerHTML === 'No Lobby selected'){
+        if (document.getElementById('chatheader').innerHTML === 'No Lobby selected') {
             alert('You have to select a Lobby');
             return;
         }
@@ -275,12 +275,12 @@ window.onload = function startup() {
     document.getElementById('lobbycreate').addEventListener('click', function () {
         let createdname = document.getElementById('lobbyinput').value;
         createdname = textConverter.applyStyling(textConverter.removeHTML(createdname));
-        if(createdname.length>15){
+        if (createdname.length > 15) {
             alert("LobbyName is wrong!. Lobby Name max length is 15");
             document.getElementById('lobbyinput').value = '';
             return;
         }
-        if(createdname !== ""){
+        if (createdname !== "") {
             createlobby(createdname);
         }
     });
@@ -496,8 +496,10 @@ function displayAllMessages(room) {
     listdiv.appendChild(listul);
     chatlogs.appendChild(listdiv);
 
-    messageStorage[room].lastSeenLength = messageStorage[room].messages.length;
-    messageStorage[room].messages.forEach(buildMessageFromAPI);
+    if (messageStorage[room] !== undefined) {
+        messageStorage[room].lastSeenLength = messageStorage[room].messages.length;
+        messageStorage[room].messages.forEach(buildMessageFromAPI);
+    }
     scrolldown();
 
     updateSreenData();
@@ -567,6 +569,7 @@ function updateRoomMessages(room, data) {
 
     updateSreenData();
 }
+
 /**
  * Requests the messages for the specified room and stores it in to messageStorage
  * @param room
@@ -674,6 +677,7 @@ function checkuser(room, rooms) {
             console.error('Error in checkuser:', error);
         });
 }
+
 /** insync version for load of lobby that in the lobby view*/
 function loadforeach(data) {
     if (allRooms.length > 0) {
@@ -727,7 +731,7 @@ function loadforeach(data) {
         data.forEach(loadmessage);
         currentLoad = false;
         if (!switchLobbyView) {
-            if(document.getElementById('lobbylogs').firstChild !== null){
+            if (document.getElementById('lobbylogs').firstChild !== null) {
                 switchlobby(document.getElementById('lobbylogs').firstChild.firstChild.innerHTML);
             } else {
                 switchlobby(null);
@@ -796,7 +800,7 @@ function loadlobbys() {
  * @param {String} name
  */
 function switchlobby(name) {
-    if(name === null){
+    if (name === null) {
         currentRoom = name;
         chatlogs.innerHTML = '';
         return;
@@ -884,6 +888,7 @@ function createlobby(name) {
     document.getElementById('lobbyinput').value = '';
 
 }
+
 /**
  * Sets a cookie with the specified value and name. It will expire in the specified amount of hours.
  *
