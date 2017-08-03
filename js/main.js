@@ -259,6 +259,7 @@ window.onload = function startup() {
 
     document.getElementById('lobbycreate').addEventListener('click', function () {
         let createdname = document.getElementById('lobbyinput').value;
+        createdname = textConverter.applyStyling(textConverter.removeHTML(createdname));
         if(createdname.length>15){
             alert("LobbyName is wrong!. Lobby Name max length is 15");
             document.getElementById('lobbyinput').value = '';
