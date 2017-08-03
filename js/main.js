@@ -13,9 +13,14 @@ let chatlogs = null;
 let textinput = null;
 let userbutton = null;
 
-/**global array save for asyncrhon tasks
- * @type {array}
- * */
+/**
+ * global array save for asyncrhon tasks
+ * allRooms = copy of all lobbys
+ * userCheck = array of all users in the current needed room
+ * currentView = all Lobbys that a "Used"-view
+ * secView = all Lobbys that a in "Others"-View
+ * @type {Array}
+ */
 let allRooms = [];
 let userCheck = [];
 let currentView = [];
@@ -25,7 +30,13 @@ let secView = [];
  * @type {boolean}
  */
 let currentLoad = false;
-let switchLobbyView = true;
+/**
+ * tracker  for request of switching the lobby
+ * true = no request
+ * false = request running
+ * @type {boolean}
+ */
+let switchLobbyView = false;
 /**
  * Stores the name to check if after loadlobbys a switch should occur
  * @type {String}
@@ -274,11 +285,11 @@ window.onload = function startup() {
         }
     });
     document.getElementById('lobbyIN').addEventListener('click', function () {
-        switchTolobbyOUT();
+        switchTolobbyIN();
     });
 
     document.getElementById('lobbyOUT').addEventListener('click', function () {
-        switchTolobbyIN();
+        switchTolobbyOUT();
 
     });
 
@@ -341,7 +352,7 @@ window.onload = function startup() {
     document.getElementById('displayname').value = getCookie(cookieNameForDisplayName);
 };
 
-function switchTolobbyIN() {
+function switchTolobbyOUT() {
     if (switchLobbyView && !currentLoad) {
         document.getElementById('chatheader').innerHTML = 'No Lobby selected';
 
@@ -353,7 +364,7 @@ function switchTolobbyIN() {
     }
 }
 
-function switchTolobbyOUT() {
+function switchTolobbyIN() {
     if (switchLobbyView && !currentLoad) {
         document.getElementById('chatheader').innerHTML = 'No Lobby selected';
         switchLobbyView = false;
