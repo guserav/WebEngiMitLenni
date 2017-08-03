@@ -213,6 +213,10 @@ window.onload = function startup() {
         scrolldown();
     });
     document.getElementById('textsend').addEventListener('click', function () {
+        if(document.getElementById('chatheader').innerHTML === 'No Lobby selected'){
+            alert('You have to select a Lobby');
+            return;
+        }
         sendtext();
     });
     //function um die größe richtig zu machen
@@ -339,6 +343,8 @@ window.onload = function startup() {
 
 function switchTolobbyIN() {
     if (switchLobbyView && !currentLoad) {
+        document.getElementById('chatheader').innerHTML = 'No Lobby selected';
+
         switchLobbyView = false;
         document.getElementById('lobbyOUT').style.backgroundColor = '#E0C65B';
         document.getElementById('lobbyIN').style.backgroundColor = '#F2D769';
@@ -349,6 +355,7 @@ function switchTolobbyIN() {
 
 function switchTolobbyOUT() {
     if (switchLobbyView && !currentLoad) {
+        document.getElementById('chatheader').innerHTML = 'No Lobby selected';
         switchLobbyView = false;
         document.getElementById('lobbyIN').style.backgroundColor = '#E0C65B';
         document.getElementById('lobbyOUT').style.backgroundColor = '#F2D769';
