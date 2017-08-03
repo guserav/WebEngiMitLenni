@@ -354,7 +354,7 @@ body {
     font-weight: bold;
     color: black;
     border: none;
-    margin: 0 10px;
+    margin: 0 0 0 10px;
     border-radius: 5px;
     box-shadow: 0 2px 1px gray;
     cursor: pointer;
@@ -369,6 +369,37 @@ body {
     background: #E0C65B;
 
 }
+
+.markALL {
+    margin-top: 10px;
+    min-height: 25px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+.markALL button{
+    width: 100%;
+    background: #F2D769;
+    padding: 5px 15px;
+    font-size: 14px;
+    height: 90%;
+    font-weight: bold;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 1px gray;
+    cursor: pointer;
+    outline: none;
+    -webkit-animation: background .2s ease;
+    -moz-transition: background .2s ease;
+    -o-transition: background .2s ease;
+}
+.markALL button:hover {
+    background: #E0C65B;
+
+}
+
 
 .lobbylogs {
     padding: 10px;
@@ -485,6 +516,7 @@ body {
     color: white;
     text-align: center;
     font-size: 1em;
+    word-wrap: normal;
 
     -moz-border-radius: 50%;
     border-radius: 50%;

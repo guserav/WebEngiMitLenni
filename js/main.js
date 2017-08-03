@@ -288,11 +288,26 @@ window.onload = function startup() {
         switchTolobbyIN();
     });
 
+    document.getElementById('markAllasSeen').addEventListener('click', function () {
+
+        let lobbyA = document.getElementsByClassName('lobbyname');
+
+
+        for (let i = 0; i < lobbyA.length; i++) {
+            if (messageStorage[lobbyA[i].innerHTML] === undefined) {
+                continue;
+            }
+
+
+            messageStorage[lobbyA[i].innerHTML].lastSeenLength = messageStorage[lobbyA[i].innerHTML].messages.length;
+            lobbyA[i].parentNode.childNodes[1].innerHTML = 0;
+            lobbyA[i].parentNode.childNodes[1].className = 'lobbyMessagesRead';
+        }
+    });
     document.getElementById('lobbyOUT').addEventListener('click', function () {
         switchTolobbyOUT();
 
     });
-
     document.getElementById('lobbyinput').addEventListener('keypress', function (event) {
         if (event.keyCode === 13) {
             document.getElementById('lobbycreate').click();
