@@ -157,7 +157,6 @@ let clockUpdate = null;
  */
 let isUserListDisplayed = false;
 
-let logedIN = false;
 
 /**
  *
@@ -533,26 +532,26 @@ function applySettings() {
     //swap stylesheet and change js colors
     swapStyleSheet(styleValue);
     switch (styleValue) {
-        case 'style/style.css':
-            colorBackgroundChannel = '#F2D769';
-            colorBackgroundChannelSelected = '#E0C65B';
-            break;
-        case 'style/style2.css':
-            colorBackgroundChannel = '#F53240';
-            colorBackgroundChannelSelected = '#FB7D6D';
-            break;
-        case 'style/style3.css':
-            colorBackgroundChannel = '#F2D769';
-            colorBackgroundChannelSelected = '#E0C65B';
-            break;
-        case 'style/style4.css':
-            colorBackgroundChannel = '#F2D769';
-            colorBackgroundChannelSelected = '#E0C65B';
-            break;
-        case 'style/style5.css':
-            colorBackgroundChannel = '#F2D769';
-            colorBackgroundChannelSelected = '#E0C65B';
-            break;
+    case 'style/style.css':
+        colorBackgroundChannel = '#F2D769';
+        colorBackgroundChannelSelected = '#E0C65B';
+        break;
+    case 'style/style2.css':
+        colorBackgroundChannel = '#F53240';
+        colorBackgroundChannelSelected = '#FB7D6D';
+        break;
+    case 'style/style3.css':
+        colorBackgroundChannel = '#F2D769';
+        colorBackgroundChannelSelected = '#E0C65B';
+        break;
+    case 'style/style4.css':
+        colorBackgroundChannel = '#F2D769';
+        colorBackgroundChannelSelected = '#E0C65B';
+        break;
+    case 'style/style5.css':
+        colorBackgroundChannel = '#F2D769';
+        colorBackgroundChannelSelected = '#E0C65B';
+        break;
     }
     if (userbutton !== null) {
         userbutton.style.backgroundColor = colorBackgroundChannel;
