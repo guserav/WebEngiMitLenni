@@ -425,8 +425,9 @@ function swapStyleSheet(sheet) {
 function saveOptions() {
     fontsizeValue = document.getElementById('fontsize').value;
     styleValue = document.getElementById('styleSheet').value;
+    //set fontsize
     document.getElementsByTagName('body')[0].style.fontSize = fontsizeValue;
-
+    //swap stylesheet and change js colors
     swapStyleSheet(styleValue);
     switch (styleValue) {
         case 'style/style.css':
@@ -450,6 +451,14 @@ function saveOptions() {
             colorBackgroundChannelSelected = '#E0C65B';
             break;
     }
+    if (lobbyview) {
+        document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannelSelected;
+        document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannel;
+    } else {
+        document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannelSelected;
+        document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannel;
+    }
+
 
 }
 
