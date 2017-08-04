@@ -178,43 +178,83 @@ body {
 }
 
 .chat .chat-message .codeInLine {
-/ / TODO format the inline code element font-family: monospace;
+    font-family: monospace;
+    background-color: #D7F2AD;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 2px;
+    padding: 1px 4px;
 }
 
 .chat .chat-message .codeBlock {
+    /*  font-family: monospace;
+    background-color: #D7F2AD;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 2px;
+    padding: 1px 4px;*/
 / / TODO format the code blocks
 }
 
 .chat .chat-message .quote {
-/ / TODO format as quoting
+    font-size: 0.9em;
+    padding: 0 0.7em;
+    color: #3B3535;
+    border-left: 0.25em solid rgba(128, 128, 128, 0.4) ;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+
+
 }
 
+/*heading start*/
 .chat .chat-message .heading {
-/ / TODO format as heading display: block;
+    display: block;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: bold;
 }
 
 .chat .chat-message .h1 {
-/ / TODO format as heading
+    font-size: 2em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
 }
 
 .chat .chat-message .h2 {
-/ / TODO format as heading
+    font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
 }
 
 .chat .chat-message .h3 {
-/ / TODO format as heading
+    font-size: 1.17em;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
 }
 
 .chat .chat-message .h4 {
-/ / TODO format as heading
+    -webkit-margin-before: 1.33em;
+    -webkit-margin-after: 1.33em;
+
 }
 
 .chat .chat-message .h5 {
-/ / TODO format as heading
+    font-size: 0.83em;
+    -webkit-margin-before: 1.67em;
+    -webkit-margin-after: 1.67em;
 }
 
 .chat .chat-message .h6 {
-/ / TODO format as heading
+    font-size: 0.67em;
+    -webkit-margin-before: 2.33em;
+    -webkit-margin-after: 2.33em;
+}
+
+.emoji {
+/ / TODO format writly
+    display: inline-block;
+    width: 1.2em;
+    height:  1.2em;
 }
 
 .friend .chat-message {
@@ -227,11 +267,6 @@ body {
     background: #D1EFA0;
     text-align: left;
     word-wrap: break-word;
-}
-
-.emoji {
-/ / TODO format writly width: 15 px;
-    height: 15px;
 }
 
 .friend {

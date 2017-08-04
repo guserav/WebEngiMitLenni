@@ -118,6 +118,7 @@ const textConverter = {
      * ~text~ gets wrapped in a span: <span class="strike" />
      * _text_ gets wrapped in a span: <span class="italic" />
      *
+     *
      * # prefixed lines into heading of form <span class="heading hX">text</span>
      *
      * --- or *** or * * *  or - - - into a horizontal line
@@ -133,6 +134,8 @@ const textConverter = {
      *  wrapped in to <p class="codeBlock">block</p>
      *
      *  everything in a code block is not formatted with the rules above
+     *
+     *
      *
      * @param {String} string
      * @returns {String}
