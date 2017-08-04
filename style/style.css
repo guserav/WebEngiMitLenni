@@ -198,11 +198,10 @@ body {
     font-size: 0.9em;
     padding: 0 0.7em;
     color: #3B3535;
-    border-left: 0.25em solid rgba(128, 128, 128, 0.4) ;
+    border-left: 0.25em solid rgba(128, 128, 128, 0.4);
     display: block;
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
-
 
 }
 
@@ -251,10 +250,9 @@ body {
 }
 
 .emoji {
-/ / TODO format writly
-    display: inline-block;
+/ / TODO format writly display: inline-block;
     width: 1.2em;
-    height:  1.2em;
+    height: 1.2em;
 }
 
 .friend .chat-message {
@@ -300,7 +298,7 @@ body {
 }
 
 /*userlist*/
-.chatlogs .userlist {
+.userlist {
     height: 78%;
     width: 0;
     z-index: 1;
@@ -313,11 +311,11 @@ body {
 }
 
 .userlist li {
-    padding: 8px 8px 8px 16px;
+    display: list-item;
+    list-style-position: inside;
+    padding: 8px 8px 2px 16px;
     text-decoration: none;
     font-size: 1.25em;
-    color: black;
-    display: block;
     word-wrap: break-word;
     transition: 0.3s
 }

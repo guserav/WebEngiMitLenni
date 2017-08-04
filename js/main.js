@@ -4,6 +4,54 @@ const cookieNameForDisplayName = 'displayName';
 
 let colorBackgroundChannel = '#F2D769';
 let colorBackgroundChannelSelected = '#E0C65B';
+/* colors take from https://stackoverflow.com/questions/10014271/generate-random-color-distinguishable-to-humans (modifey slightly to better fit with design)
+*
+* */
+const Colors = {};
+/* max amount of different colors = 40 => max amount of users 40 + 1 (yourself)*/
+Colors.names = {
+    greener: "#93AE1C",
+    brownyellow: "#7E5D12",
+    blue: "#0000ff",
+    brown: "#a52a2a",
+    magenta: "#ff00ff",
+    maroon: "#800000",
+    navy: "#000080",
+    olive: "#808000",
+    orange: "#ffa500",
+    pink: "#ffc0cb",
+    purple: "#800080",
+    red: "#ff0000",
+    silver: "#c0c0c0",
+    darkblue: "#00008b",
+    darkcyan: "#008b8b",
+    darkgrey: "#a9a9a9",
+    darkgreen: "#006400",
+    darkkhaki: "#bdb76b",
+    darkmagenta: "#8b008b",
+    darkolivegreen: "#556b2f",
+    darkorange: "#ff8c00",
+    darkorchid: "#9932cc",
+    darkred: "#8b0000",
+    darksalmon: "#e9967a",
+    darkviolet: "#9400d3",
+    fuchsia: "#ff00ff",
+    aqua: "#00ffff",
+    blackich: "363636",
+    green: "#008000",
+    indigo: "#4b0082",
+    khaki: "#f0e68c",
+    violet: "#800080",
+    lightblue: "#add8e6",
+    lightcyan: "#e0ffff",
+    lightgreen: "#90ee90",
+    lightgrey: "#d3d3d3",
+    lightpink: "#ffb6c1",
+    lightyellow: "#ffffe0",
+    cyan: "#00ffff",
+    lime: "#00ff00",
+    yellow: "#ffff00"
+};
 
 let apiUserName = null;
 let username = 'UNEXPECTED_USERNAME';
@@ -12,6 +60,24 @@ let passwordUser = null;
 let chatlogs = null;
 let textinput = null;
 let userbutton = null;
+/**
+ * 2Dimensional Array for the storage of usersnames and their colors
+ * @type {Array}
+ */
+let users2colors = [];
+for (let i = 0; i < 41; i++) {
+    users2colors[i] = [];
+}
+let indexCounter = 0;
+/**
+ * fill 2 dimensional array with colors
+ */
+for (let key in  Colors.names) {
+    if (Colors.names.hasOwnProperty(key)) {
+        users2colors[indexCounter].push(Colors.names[key], '');
+    }
+    indexCounter++;
+}
 
 /**
  * global array save for asyncrhon tasks
@@ -230,11 +296,9 @@ const textConverter = {
 };
 
 window.onload = function startup() {
-
     chatlogs = document.getElementById('chatlogs');
     userbutton = document.getElementById('userlist');
     textinput = document.getElementById('textinput');
-
     userbutton.addEventListener('click', function () {
 
         if (isUserListDisplayed) {
@@ -395,12 +459,15 @@ window.onload = function startup() {
         }
     });
     document.getElementById('displayname').value = getCookie(cookieNameForDisplayName);
+
+
 };
 
 /**
  * opens and cloeses the option menu and resetts the values if needed
  */
 function listOptions() {
+
     let optionsMenu = document.getElementById('optionMenu');
 
     if (optionsMenu.style.zIndex === '-5' || optionsMenu.style.zIndex === '') {
@@ -427,6 +494,7 @@ function saveOptions() {
     styleValue = document.getElementById('styleSheet').value;
     //set fontsize
     document.getElementsByTagName('body')[0].style.fontSize = fontsizeValue;
+
     //swap stylesheet and change js colors
     swapStyleSheet(styleValue);
     switch (styleValue) {
@@ -451,6 +519,7 @@ function saveOptions() {
             colorBackgroundChannelSelected = '#E0C65B';
             break;
     }
+    userbutton.style.backgroundColor = colorBackgroundChannel;
     if (lobbyview) {
         document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannelSelected;
         document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannel;
@@ -461,6 +530,7 @@ function saveOptions() {
 
 
 }
+
 
 /**
  * switch to the "Other"-Lobbyview and reloads the lobbys
@@ -529,6 +599,7 @@ function buildMessageFromAPI(item) {
     buildmessage(usernameS, textS, timeS);
 }
 
+
 /**
  * Build a message and adds it to the DOM in the current displayed chat.
  *
@@ -551,6 +622,7 @@ function buildmessage(usernameS, textS, timeS) {
     let sname = document.createElement('span');
     sname.className = 'username';
     sname.innerHTML = textConverter.removeHTML(usernameS);
+    sname.style.color = getColorForUser(usernameS);
     let szeit = document.createElement('span');
     szeit.className = 'time';
     szeit.innerHTML = timeS;
@@ -558,6 +630,75 @@ function buildmessage(usernameS, textS, timeS) {
     pchat.insertBefore(szeit, pchat.firstChild);
     pchat.insertBefore(sname, pchat.firstChild);
     chatlogs.appendChild(divchat);
+}
+
+/**
+ * retruns a string of a hexcode which is either newly asigned to the parameter name or already was asigned to its name
+ * @param name
+ * @returns {*}
+ */
+function getColorForUser(name) {
+    if (name === username) {
+        return '#000000';
+    }
+    for (let i = 0; i < users2colors.length; i++) {
+        if (users2colors[i][1] === name) {
+            return users2colors[i][0];
+        } else if (users2colors[i][1] === '') {
+            users2colors[i][1] = name;
+            return users2colors[i][0];
+        }
+    }
+    return '#000000';
+
+}
+
+/**
+ * Opens the side menu which displays a lisst of users
+ * request all users of the current lobby and displays them
+ * changes the color of the button to open the side menu to "selected" color
+ * */
+function listuser() {
+    document.getElementById('userlister').style.width = '25%';
+    userbutton.style.backgroundColor = colorBackgroundChannelSelected;
+    let userurl = apiurl + '/chats/' + document.getElementById('chatheader').innerHTML;
+    let userrequest = new Request(userurl, {
+        method: 'GET',
+        headers: {
+            'Authorization': getBasicAuthHeader()
+        }
+
+    });
+
+
+    fetch(userrequest)
+        .then(function (resp) {
+            return resp.json();
+        })
+        .then(function (data) {
+
+            let userArray = [];
+            data.forEach(function (item) {
+                let usernameS = item.user;
+
+                if (userArray.indexOf(usernameS) <= -1) {
+                    userArray.push(usernameS);
+                }
+            });
+
+            userArray.sort();
+            document.getElementById('listol').innerHTML = '';
+            userArray.forEach(function (item) {
+                let userli = document.createElement('li');
+                userli.innerHTML = item;
+                userli.style.color = getColorForUser(item);
+                document.getElementById('listol').appendChild(userli);
+            });
+
+        })
+        .catch(function (error) {
+            console.error('Error in listuser:' + error);
+        });
 }
 
 /**
@@ -616,10 +757,13 @@ function displayAllMessages(room) {
     let listdiv = document.createElement('div');
     listdiv.className = 'userlist';
     listdiv.id = 'userlister';
-    let listul = document.createElement('ul');
-    listul.id = 'listul';
-    listdiv.appendChild(listul);
+    let listol = document.createElement('ol');
+    listol.id = 'listol';
+    listdiv.appendChild(listol);
     chatlogs.appendChild(listdiv);
+    users2colors.forEach(function (item) {
+        item[1] = '';
+    });
 
     if (messageStorage[room] !== undefined) {
         messageStorage[room].lastSeenLength = messageStorage[room].messages.length;
@@ -722,52 +866,6 @@ function loadmessage(room) {
         });
 }
 
-/**
- * Opens the side menu which displays a lisst of users
- * request all users of the current lobby and displays them
- * changes the color of the button to open the side menu to "selected" color
- * */
-function listuser() {
-    document.getElementById('userlister').style.width = '25%';
-    userbutton.style.backgroundColor = colorBackgroundChannelSelected;
-
-    let userurl = apiurl + '/chats/' + document.getElementById('chatheader').innerHTML;
-
-    let userrequest = new Request(userurl, {
-        method: 'GET',
-        headers: {
-            'Authorization': getBasicAuthHeader()
-        }
-
-    });
-    fetch(userrequest)
-        .then(function (resp) {
-            return resp.json();
-        })
-        .then(function (data) {
-
-            let userArray = [];
-            data.forEach(function (item) {
-                let usernameS = item.user;
-
-                if (userArray.indexOf(usernameS) <= -1) {
-                    userArray.push(usernameS);
-                }
-            });
-
-            userArray.sort();
-            document.getElementById('listul').innerHTML = '';
-            userArray.forEach(function (item) {
-                let userli = document.createElement('li');
-                userli.innerHTML = item;
-                document.getElementById('listul').appendChild(userli);
-            });
-
-        })
-        .catch(function (error) {
-            console.error('Error in listuser:' + error);
-        });
-}
 
 /**
  * Retruns true if a user is in a chat room /false if not
