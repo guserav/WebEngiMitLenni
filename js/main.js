@@ -408,25 +408,27 @@ function listOptions() {
         optionsMenu.style.zIndex = '-5';
     }
 }
+
 /**
  * swapStyleSheet borrowed from http://www.developphp.com/video/JavaScript/Change-Style-Sheet-Using-Tutorial-CSS-Swap-Stylesheet
  */
-function swapStyleSheet(sheet){
-      document.getElementById('pagestyle').setAttribute('href',sheet);
+function swapStyleSheet(sheet) {
+    document.getElementById('pagestyle').setAttribute('href', sheet);
 }
+
 /**
  * applies all options and saves them
  */
 function saveOptions() {
     fontsizeValue = document.getElementById('fontsize').value;
-    styleValue  = document.getElementById('styleSheet').value;
+    styleValue = document.getElementById('styleSheet').value;
     document.getElementsByTagName('body')[0].style.fontSize = fontsizeValue;
 
     swapStyleSheet(styleValue);
-    switch(styleValue) {
+    switch (styleValue) {
         case 'style/style.css':
-             colorBackgroundChannel = '#F2D769';
-             colorBackgroundChannelSelected = '#E0C65B';
+            colorBackgroundChannel = '#F2D769';
+            colorBackgroundChannelSelected = '#E0C65B';
             break;
         case 'style/style2.css':
             colorBackgroundChannel = '#F53240';

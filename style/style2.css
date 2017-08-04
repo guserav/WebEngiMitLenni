@@ -17,8 +17,8 @@ Color Options:
     #EDD983 -> #02C8A7				Chatlogs /chatheader
     #F2D769	-> #F53240			    Button
     #E0C65B	-> #FB7D6D			    Button hover/selected (js)
-    #faf2cb				user list
-    black(font)			button
+    #faf2cb	-> #6FE8D4		        user list
+    black(font)			            button
 
     (Notifications)
     black(background)	            NotifcationRead
@@ -26,9 +26,9 @@ Color Options:
     white(font)			            Notifications
 
     (Chat message)
-    white				chat message firend/input
-    #D1EFA0				chat message self
-    black(font)			chat message
+    white				            chat message firend/input
+    #D1EFA0	-> #C8F574			    chat message self
+    black(font)			            chat message
 
     (Shadows)
     #ccc				box-shadow-chatbox for outers/containers
@@ -272,7 +272,7 @@ body {
     z-index: 1;
     position: absolute;
     margin: -15px;
-    background-color: #faf2cb;
+    background-color: #6FE8D4;
     overflow-x: hidden;
     overflow-y: scroll;
     transition: 0.5s;
