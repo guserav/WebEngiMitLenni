@@ -30,7 +30,7 @@ Display new messages:
 
 
 Display historic messages:
-1. ```unterteilen in beschreibe und unbeschreibene chanels``` (lennart)
+1. ```unterteilen in beschreibe und unbeschreibene chanels``` (done)
 
 List and color users in room:
 1. ```List, button, sortiert```(done)
@@ -51,5 +51,5 @@ CSS:
 User Experience,Accesability:
 1. ```Enter,focus, desgin```
 2. ```Color blind, alt tag für smilieys```
-3. ```font-size is in em```
+3. ```font-size is in em``` (done)
 

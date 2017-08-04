@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>TCC</title>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link id="pagestyle" rel="stylesheet" type="text/css" href="style/style.css">
     <script type="text/javascript" src="js/main.js" async></script>
 
 
@@ -43,8 +43,16 @@
             <option value="22px">22px</option>
             <option value="24px">24px</option>
             <option value="26px">26px</option>
-
         </select>
+        <br>
+        <label>Style:</label>
+        <select id="styleSheet" class="inputOptions">
+            <option value="style/style.css">Name0</option>
+            <option value="style/style2.css">Name1</option>
+            <option value="style/style3.css">Name2</option>
+            <option value="style/style4.css">Name3</option>
+            <option value="style/style5.css">Name4</option>
+                  </select>
         <div id="conButtonOptions">
             <button id="saveOptions">Save</button>
             <button id="cancelOptions">Exit</button>

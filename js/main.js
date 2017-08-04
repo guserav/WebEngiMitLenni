@@ -2,8 +2,8 @@ const apiurl = 'http://danielrutz.de:3000/api';
 const updateIntervall = 5000;
 const cookieNameForDisplayName = 'displayName';
 
-const colorBackgroundChannel = '#F2D769';
-const colorBackgroundChannelSelected = '#E0C65B';
+let colorBackgroundChannel = '#F2D769';
+let colorBackgroundChannelSelected = '#E0C65B';
 
 let apiUserName = null;
 let username = 'UNEXPECTED_USERNAME';
@@ -73,10 +73,15 @@ let textswitch = false;
  */
 let lastSendRoom = '';
 /**
- * Saves the currently selected option for fontsize
+ * Saves the currently selected option for fontsize, default= ''
  * @type {string}
  */
 let fontsizeValue = '';
+/**
+ * Saves the currently selected option for styleValue, default= 'style'
+ * @type {string}
+ */
+let styleValue = 'style/style.css';
 let clockUpdate = null;
 
 /**
@@ -399,16 +404,47 @@ function listOptions() {
         optionsMenu.style.zIndex = '5';
     } else {
         document.getElementById('fontsize').value = fontsizeValue;
+        document.getElementById('styleSheet').value = styleValue;
         optionsMenu.style.zIndex = '-5';
     }
 }
-
+/**
+ * swapStyleSheet borrowed from http://www.developphp.com/video/JavaScript/Change-Style-Sheet-Using-Tutorial-CSS-Swap-Stylesheet
+ */
+function swapStyleSheet(sheet){
+      document.getElementById('pagestyle').setAttribute('href',sheet);
+}
 /**
  * applies all options and saves them
  */
 function saveOptions() {
     fontsizeValue = document.getElementById('fontsize').value;
+    styleValue  = document.getElementById('styleSheet').value;
     document.getElementsByTagName('body')[0].style.fontSize = fontsizeValue;
+
+    swapStyleSheet(styleValue);
+    switch(styleValue) {
+        case 'style/style.css':
+             colorBackgroundChannel = '#F2D769';
+             colorBackgroundChannelSelected = '#E0C65B';
+            break;
+        case 'style/style2.css':
+            colorBackgroundChannel = '#F53240';
+            colorBackgroundChannelSelected = '#FB7D6D';
+            break;
+        case 'style/style3.css':
+            colorBackgroundChannel = '#F2D769';
+            colorBackgroundChannelSelected = '#E0C65B';
+            break;
+        case 'style/style4.css':
+            colorBackgroundChannel = '#F2D769';
+            colorBackgroundChannelSelected = '#E0C65B';
+            break;
+        case 'style/style5.css':
+            colorBackgroundChannel = '#F2D769';
+            colorBackgroundChannelSelected = '#E0C65B';
+            break;
+    }
 
 }
 
@@ -420,8 +456,8 @@ function switchTolobbyOUT() {
         document.getElementById('chatheader').innerHTML = 'No Lobby selected';
 
         switchLobbyView = false;
-        document.getElementById('lobbyOUT').style.backgroundColor = '#E0C65B';
-        document.getElementById('lobbyIN').style.backgroundColor = '#F2D769';
+        document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannelSelected;
+        document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannel;
         lobbyview = false;
         loadlobbys();
     }
@@ -434,8 +470,8 @@ function switchTolobbyIN() {
     if (switchLobbyView && !currentLoad) {
         document.getElementById('chatheader').innerHTML = 'No Lobby selected';
         switchLobbyView = false;
-        document.getElementById('lobbyIN').style.backgroundColor = '#E0C65B';
-        document.getElementById('lobbyOUT').style.backgroundColor = '#F2D769';
+        document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannelSelected;
+        document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannel;
         lobbyview = true;
         loadlobbys();
     }
@@ -639,7 +675,7 @@ function updateRoomMessages(room, data) {
         let lobbys = document.getElementsByClassName('lobbyname');
         for (let i = 0; i < lobbys.length; i++) {
             if (lobbys[i].innerHTML === currentRoom) {
-                lobbys[i].style.backgroundColor = '#E0C65B';
+                lobbys[i].style.backgroundColor = colorBackgroundChannelSelected;
             }
         }
     }
@@ -679,7 +715,7 @@ function loadmessage(room) {
  * */
 function listuser() {
     document.getElementById('userlister').style.width = '25%';
-    userbutton.style.backgroundColor = '#E0C65B';
+    userbutton.style.backgroundColor = colorBackgroundChannelSelected;
 
     let userurl = apiurl + '/chats/' + document.getElementById('chatheader').innerHTML;
 
@@ -829,7 +865,7 @@ function loadforeach(data) {
  */
 function delistuser() {
     document.getElementById('userlister').style.width = '0';
-    userbutton.style.backgroundColor = '#F2D769';
+    userbutton.style.backgroundColor = colorBackgroundChannel;
 }
 
 /**
