@@ -27,7 +27,33 @@
     </div>
 
 </div>
+<div id="optionMenu" class="options">
 
+    <div class="optionsMenuInner">
+        <p>Options</p>
+        <label>Font-Size:</label>
+        <select id="fontsize" class="inputOptions">
+            <option value="">Browser Font-Size</option>
+            <option value="10px">10px</option>
+            <option value="12px">12px</option>
+            <option value="14px">14px</option>
+            <option value="16px">16px</option>
+            <option value="18px">18px</option>
+            <option value="20px">20px</option>
+            <option value="22px">22px</option>
+            <option value="24px">24px</option>
+            <option value="26px">26px</option>
+
+        </select>
+        <div id="conButtonOptions">
+            <button id="saveOptions">Save</button>
+            <button id="cancelOptions">Exit</button>
+
+        </div>
+
+    </div>
+
+</div>
 
 <div class="totalW">
 
@@ -37,8 +63,12 @@
         <p class="name">Toller Chat Client</p>
         <ul class="topbar">
 
-            <li><a href="#">Options</a></li>
-            <li><a href="#">About</a></li>
+            <li>
+                <button id="options">Options</button>
+            </li>
+            <li>
+                <button id="about">About</button>
+            </li>
         </ul>
     </div>
 

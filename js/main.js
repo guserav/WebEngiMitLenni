@@ -72,7 +72,11 @@ let textswitch = false;
  * @type {string}
  */
 let lastSendRoom = '';
-
+/**
+ * Saves the currently selected option for fontsize
+ * @type {string}
+ */
+let fontsizeValue = '';
 let clockUpdate = null;
 
 /**
@@ -218,6 +222,7 @@ const textConverter = {
 };
 
 window.onload = function startup() {
+
     chatlogs = document.getElementById('chatlogs');
     userbutton = document.getElementById('userlist');
     textinput = document.getElementById('textinput');
@@ -231,6 +236,18 @@ window.onload = function startup() {
             listuser();
             isUserListDisplayed = true;
         }
+    });
+    document.getElementById('options').addEventListener('click', function () {
+        listOptions();
+    });
+    document.getElementById('saveOptions').addEventListener('click', function () {
+        saveOptions();
+    });
+    document.getElementById('cancelOptions').addEventListener('click', function () {
+        listOptions();
+    });
+    document.getElementById('about').addEventListener('click', function () {
+        //TODO list all features in a overlay or new page
     });
     document.getElementById('scroll').addEventListener('click', function () {
         scrolldown();
@@ -260,7 +277,6 @@ window.onload = function startup() {
             document.getElementById('topbar').style.width = r + 'px';
         }
     });
-
     /* for multi key maping
      map idea borrowed from https://stackoverflow.com/questions/10655202/detect-multiple-keys-on-single-keypress-event-in-jquery
      */
@@ -283,7 +299,6 @@ window.onload = function startup() {
             map[event.keyCode] = false;
         }
     });
-
     document.getElementById('lobbycreate').addEventListener('click', function () {
         let createdname = document.getElementById('lobbyinput').value;
         createdname = textConverter.applyStyling(textConverter.removeHTML(createdname));
@@ -299,7 +314,6 @@ window.onload = function startup() {
     document.getElementById('lobbyIN').addEventListener('click', function () {
         switchTolobbyIN();
     });
-
     document.getElementById('markAllasSeen').addEventListener('click', function () {
 
         let lobbyA = document.getElementsByClassName('lobbyname');
@@ -325,14 +339,11 @@ window.onload = function startup() {
             document.getElementById('lobbycreate').click();
         }
     });
-
     document.getElementById('password').addEventListener('keypress', function (event) {
         if (event.keyCode === 13) {
             document.getElementById('submitLog').click();
         }
     });
-
-
     document.getElementById('submitLog').addEventListener('click', function () {
         username = document.getElementById('displayname').value;
         apiUserName = document.getElementById('username').value;
@@ -375,10 +386,35 @@ window.onload = function startup() {
                 });
         }
     });
-
     document.getElementById('displayname').value = getCookie(cookieNameForDisplayName);
 };
 
+/**
+ * opens and cloeses the option menu and resetts the values if needed
+ */
+function listOptions() {
+    let optionsMenu = document.getElementById('optionMenu');
+
+    if (optionsMenu.style.zIndex === '-5' || optionsMenu.style.zIndex === '') {
+        optionsMenu.style.zIndex = '5';
+    } else {
+        document.getElementById('fontsize').value = fontsizeValue;
+        optionsMenu.style.zIndex = '-5';
+    }
+}
+
+/**
+ * applies all options and saves them
+ */
+function saveOptions() {
+    fontsizeValue = document.getElementById('fontsize').value;
+    document.getElementsByTagName('body')[0].style.fontSize = fontsizeValue;
+
+}
+
+/**
+ * switch to the "Other"-Lobbyview and reloads the lobbys
+ */
 function switchTolobbyOUT() {
     if (switchLobbyView && !currentLoad) {
         document.getElementById('chatheader').innerHTML = 'No Lobby selected';
@@ -391,6 +427,9 @@ function switchTolobbyOUT() {
     }
 }
 
+/**
+ * switch to the "Used"-Lobbyview and reloads the lobbys
+ */
 function switchTolobbyIN() {
     if (switchLobbyView && !currentLoad) {
         document.getElementById('chatheader').innerHTML = 'No Lobby selected';
