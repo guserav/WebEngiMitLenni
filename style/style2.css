@@ -315,7 +315,7 @@ body {
 .userlist li {
     display: list-item;
     list-style-position: inside;
-    padding: 8px 8px 2px 16px;
+    padding: 8px 8px 8px 16px;
     text-decoration: none;
     font-size: 1.25em;
     word-wrap: break-word;
@@ -855,4 +855,12 @@ body {
 
 .optionsMenuInner button:hover {
     background: #FB7D6D;
+}
+.colorbox{
+    display: inline-block;
+    float: right;
+    align-self: center;
+    height: 1.5em;
+    width: 1.5em;
+    margin-left: 1em;
 }

@@ -691,7 +691,12 @@ function listuser() {
             userArray.forEach(function (item) {
                 let userli = document.createElement('li');
                 userli.innerHTML = item;
-                userli.style.color = getColorForUser(item);
+                let colorSpan = document.createElement('span');
+                //colorSpan.innerHTML = ' '+getColorForUser(item);
+                colorSpan.className = 'colorbox';
+                colorSpan.style.backgroundColor = getColorForUser(item);
+                userli.appendChild(colorSpan);
+
                 document.getElementById('listol').appendChild(userli);
             });
 
