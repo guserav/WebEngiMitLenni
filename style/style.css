@@ -320,7 +320,6 @@ body {
     transition: 0.3s
 }
 
-
 .userlist::-webkit-scrollbar {
     width: 10px;
 }
@@ -856,7 +855,7 @@ body {
     background: #E0C65B;
 }
 
-.colorbox{
+.colorbox {
     display: inline-block;
     float: right;
     align-self: center;

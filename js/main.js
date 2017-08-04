@@ -1,6 +1,7 @@
 const apiurl = 'http://danielrutz.de:3000/api';
 const updateIntervall = 5000;
 const cookieNameForDisplayName = 'displayName';
+const cookieNameForOptionsSettings = 'optionSettings';
 
 let colorBackgroundChannel = '#F2D769';
 let colorBackgroundChannelSelected = '#E0C65B';
@@ -156,6 +157,8 @@ let clockUpdate = null;
  */
 let isUserListDisplayed = false;
 
+let logedIN = false;
+
 /**
  *
  * @type {[{regex:RegExp, url:String, alt:String}]}
@@ -296,6 +299,11 @@ const textConverter = {
 };
 
 window.onload = function startup() {
+    if (getCookie(cookieNameForOptionsSettings) !== '') {
+        saveCookieOptions(JSON.parse(getCookie(cookieNameForOptionsSettings)));
+    }
+
+
     chatlogs = document.getElementById('chatlogs');
     userbutton = document.getElementById('userlist');
     textinput = document.getElementById('textinput');
@@ -447,6 +455,7 @@ window.onload = function startup() {
 
                         setCookie(cookieNameForDisplayName, username, 12);
 
+
                         loadlobbys();
                     } else {
                         alert('Wrong credentials!');
@@ -487,11 +496,37 @@ function swapStyleSheet(sheet) {
 }
 
 /**
- * applies all options and saves them
+ * saves options
  */
 function saveOptions() {
+
     fontsizeValue = document.getElementById('fontsize').value;
     styleValue = document.getElementById('styleSheet').value;
+    let optionsArray = [];
+    optionsArray.push(fontsizeValue, styleValue);
+    setCookie(cookieNameForOptionsSettings, JSON.stringify(optionsArray), 12);
+    applySettings();
+}
+
+/**
+ * gets cookie value and changes the options accordingly
+ */
+function saveCookieOptions(cookieValue) {
+    fontsizeValue = cookieValue[0];
+    styleValue = cookieValue[1];
+    document.getElementById('fontsize').value = fontsizeValue;
+    document.getElementById('styleSheet').value = styleValue;
+    let optionsArray = [];
+    optionsArray.push(fontsizeValue, styleValue);
+    setCookie(cookieNameForOptionsSettings, JSON.stringify(optionsArray), 12);
+    applySettings();
+
+}
+
+/**
+ * applies options
+ */
+function applySettings() {
     //set fontsize
     document.getElementsByTagName('body')[0].style.fontSize = fontsizeValue;
 
@@ -519,18 +554,18 @@ function saveOptions() {
             colorBackgroundChannelSelected = '#E0C65B';
             break;
     }
-    userbutton.style.backgroundColor = colorBackgroundChannel;
-    if (lobbyview) {
-        document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannelSelected;
-        document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannel;
-    } else {
-        document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannelSelected;
-        document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannel;
+    if (userbutton !== null) {
+        userbutton.style.backgroundColor = colorBackgroundChannel;
+        if (lobbyview) {
+            document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannelSelected;
+            document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannel;
+        } else {
+            document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannelSelected;
+            document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannel;
+        }
     }
 
-
 }
-
 
 /**
  * switch to the "Other"-Lobbyview and reloads the lobbys

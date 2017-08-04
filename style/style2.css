@@ -856,7 +856,8 @@ body {
 .optionsMenuInner button:hover {
     background: #FB7D6D;
 }
-.colorbox{
+
+.colorbox {
     display: inline-block;
     float: right;
     align-self: center;
