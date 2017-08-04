@@ -500,7 +500,7 @@ function sendtext() {
                 messageStorage[storedCurrentRoom].messages = data;
                 if (!lobbyview) {
 
-                    
+
                     textswitch = true;
                     lastSendRoom = storedCurrentRoom;
                     switchTolobbyIN();

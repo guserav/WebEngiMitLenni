@@ -56,16 +56,18 @@ body {
     background: #EDD983;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     margin: 5px 0;
     min-height: 1.7em;
+    padding: 5px;
 
 }
 
 .chatheader button {
     background: #F2D769;
-
-    font-size: 16px;
+    font-size: 1em;
     height: 80%;
+    min-height: 1.2em;
     font-weight: bold;
     color: black;
     border: none;
@@ -86,7 +88,7 @@ body {
 
 #chatheader {
 
-    font-size: 18px;
+    font-size: 1.125em;
     font-weight: bold;
     text-align: center;
     order: 2;
@@ -116,7 +118,7 @@ body {
     margin: 5px 10px 0 5px;
     border-radius: 10px;
     color: black;
-    font-size: 16px;
+    font-size: 1em;
 }
 
 .chat .chat-message .emphasis {
@@ -132,8 +134,7 @@ body {
 }
 
 .chat .chat-message .codeInLine {
-/ / TODO format the inline code element
-    font-family: monospace;
+/ / TODO format the inline code element font-family: monospace;
 }
 
 .chat .chat-message .codeBlock {
@@ -206,12 +207,12 @@ body {
 }
 
 .time {
-    font-size: 12px;
+    font-size: 0.75em;
 
 }
 
 .username {
-    font-size: 14px;
+    font-size: 0.875em;
     font-weight: bold;
 }
 
@@ -235,7 +236,7 @@ body {
 .userlist li {
     padding: 8px 8px 8px 16px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 1.25em;
     color: black;
     display: block;
     word-wrap: break-word;
@@ -270,7 +271,7 @@ body {
     border-radius: 10px;
     border: 1px solid #eee;
     resize: none;
-    font-size: 16px;
+    font-size: 1em;
     color: #333;
 }
 
@@ -292,7 +293,7 @@ body {
 .chat-form button {
     background: #F2D769;
     padding: 5px 15px;
-    font-size: 18px;
+    font-size: 1.125em;
     height: 90%;
     font-weight: bold;
     color: black;
@@ -329,27 +330,29 @@ body {
     display: flex;
     flex-direction: column;
 }
-.lobbycreate{
+
+.lobbycreate {
     margin-top: 10px;
     display: flex;
     height: 8%;
     min-height: 50px;
     width: 100%;
 }
+
 #lobbyinput {
     padding: 10px;
     background: white;
     height: 90%;
     width: 80%;
     border: 1px solid #eee;
-    font-size: 14px;
+    font-size: 0.875em;
     color: #333;
 }
 
 .lobbycreate button {
     background: #F2D769;
     padding: 5px 15px;
-    font-size: 14px;
+    font-size: 0.875em;
     height: 90%;
     font-weight: bold;
     color: black;
@@ -378,11 +381,12 @@ body {
     display: flex;
     justify-content: center;
 }
-.markALL button{
+
+.markALL button {
     width: 100%;
     background: #F2D769;
     padding: 5px 15px;
-    font-size: 14px;
+    font-size: 0.875em;
     height: 90%;
     font-weight: bold;
     color: black;
@@ -395,11 +399,11 @@ body {
     -moz-transition: background .2s ease;
     -o-transition: background .2s ease;
 }
+
 .markALL button:hover {
     background: #E0C65B;
 
 }
-
 
 .lobbylogs {
     padding: 10px;
@@ -410,7 +414,7 @@ body {
     overflow-y: scroll;
 }
 
-.lobbyswitchOutter{
+.lobbyswitchOutter {
     width: 100%;
     height: 5%;
     display: flex;
@@ -424,7 +428,7 @@ body {
     width: 100%;
     height: 100%;
     padding: 5px 15px;
-    font-size: 14px;
+    font-size: 0.875em;
     font-weight: bold;
     color: black;
     border: none;
@@ -446,6 +450,7 @@ body {
     background: #E0C65B;
 
 }
+
 .lobbylogs::-webkit-scrollbar {
     width: 5px;
 }
@@ -469,7 +474,7 @@ body {
     max-width: 100%;
     padding: 5px;
     margin: 5px 10px 0 5px;
-    font-size: 18px;
+    font-size: 1.125em;
     background: #F2D769;
     text-align: left;
     font-weight: bold;
@@ -493,7 +498,7 @@ body {
 
 }
 
-.lobbyMessagesRead{
+.lobbyMessagesRead {
     display: block;
     height: 1.5em;
     width: 1.5em;
@@ -506,7 +511,8 @@ body {
     -moz-border-radius: 50%;
     border-radius: 50%;
 }
-.lobbyMessagesUnread{
+
+.lobbyMessagesUnread {
     display: block;
     height: 1.5em;
     width: 1.5em;
@@ -564,7 +570,7 @@ body {
 .topbar a {
     text-decoration: none;
     display: block;
-    font-size: 18px;
+    font-size: 1.125em;
     color: black;
     text-align: center;
     padding: 10px;
@@ -580,7 +586,7 @@ body {
 
     text-decoration: none;
     display: block;
-    font-size: 18px;
+    font-size: 1.125em;
     font-weight: bold;
     color: black;
     background: #EDD983;
@@ -642,18 +648,18 @@ body {
     width: 100%;
     margin: 5px;
     padding: 5px;
-    font-size: 16px;
+    font-size: 1em;
     border: 1px solid #eee;
 }
 
 .loginbox label {
     margin: 5px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.125em;
 }
 
 .loginbox p {
-    font-size: 23px;
+    font-size: 1.4375em;
     font-weight: bold;
     text-align: center;
     margin-bottom: 10px;
@@ -663,7 +669,7 @@ body {
     width: 100%;
     height: 2em;
     margin: 5px;
-    font-size: 18px;
+    font-size: 1.125em;
     background: #F2D769;
     font-weight: bold;
     box-shadow: 0 2px 1px gray;
