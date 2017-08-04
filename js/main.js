@@ -60,6 +60,18 @@ let messageStorage = {};
  * @type {boolean}
  */
 let lobbyview = true;
+/**
+ * If false = do nothing, if true = switch after loadlobbys to the lobby in which you wrote your message
+ * defined in sendtext
+ * @type {boolean}
+ */
+let textswitch = false;
+/**
+ * Stores the last Room in which a message was
+ * used in loadmessages to switch to this room
+ * @type {string}
+ */
+let lastSendRoom = '';
 
 let clockUpdate = null;
 
@@ -486,9 +498,18 @@ function sendtext() {
             })
             .then(function (data) {
                 messageStorage[storedCurrentRoom].messages = data;
-                updateSreenData();
+                if (!lobbyview) {
+
+                    
+                    textswitch = true;
+                    lastSendRoom = storedCurrentRoom;
+                    switchTolobbyIN();
+                } else {
+                    updateSreenData();
+                }
                 scrolldown();
                 textinput.value = '';
+
             })
             .catch(function (error) {
                 console.error('Error in sending message:' + error);
@@ -551,6 +572,8 @@ function updateSreenData() {
             }
         }
     }
+
+
 }
 
 /**
@@ -746,7 +769,10 @@ function loadforeach(data) {
         data.forEach(loadmessage);
         currentLoad = false;
         if (!switchLobbyView) {
-            if (document.getElementById('lobbylogs').firstChild !== null) {
+            if (textswitch) {
+                switchlobby(lastSendRoom);
+                textswitch = false;
+            } else if (document.getElementById('lobbylogs').firstChild !== null) {
                 switchlobby(document.getElementById('lobbylogs').firstChild.firstChild.innerHTML);
             } else {
                 switchlobby(null);
