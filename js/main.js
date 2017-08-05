@@ -700,7 +700,7 @@ function buildmessage(usernameS, textS, timeS) {
     } else {
         divchat.className = 'chat friend';
     }
-    let pchat = document.createElement('p');
+    let pchat = document.createElement('div');
     pchat.className = 'chat-message';
     pchat.innerHTML = '<br />' + textConverter.applyStyling(textConverter.removeHTML(textS));
     let sname = document.createElement('span');
