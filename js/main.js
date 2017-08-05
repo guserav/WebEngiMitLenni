@@ -333,7 +333,15 @@ window.onload = function startup() {
     document.getElementById('cancelOptions').addEventListener('click', function () {
         listOptions();
     });
+    document.getElementById('regex').addEventListener('click', function () {
 
+        document.getElementById('regexList').style.zIndex = '5';
+    });
+    document.getElementById('cancelTextTricks').addEventListener('click', function () {
+
+        document.getElementById('regexList').style.zIndex = '';
+
+    });
     document.getElementById('scroll').addEventListener('click', function () {
         scrolldown();
     });
