@@ -551,7 +551,9 @@ function applySettings() {
     case 'style/style5.css':
         colorBackgroundChannel = '#ffffff';
         colorBackgroundChannelSelected = '#fb742d';
-        displayAllMessages(currentRoom);
+        if(userbutton !== null){
+            displayAllMessages(currentRoom);
+        }
         break;
     }
     if (userbutton !== null) {
@@ -681,7 +683,7 @@ function buildmessage(usernameS, textS, timeS) {
  * @returns {*}
  */
 function getColorForUser(name) {
-    if (name === username || styleValue === 'style/style5.css' ) {
+    if (name === username || styleValue === 'style/style5.css') {
         return '#000000';
     }
     for (let i = 0; i < users2colors.length; i++) {
