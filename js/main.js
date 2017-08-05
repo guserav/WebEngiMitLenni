@@ -562,6 +562,14 @@ function applySettings() {
             document.getElementById('lobbyOUT').style.backgroundColor = colorBackgroundChannelSelected;
             document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannel;
         }
+        let lobbyA = document.getElementsByClassName('lobbyname');
+        for (let i = 0; i < lobbyA.length; i++) {
+            if (lobbyA[i].innerHTML === currentRoom) {
+                lobbyA[i].style.backgroundColor = colorBackgroundChannelSelected;
+            } else {
+                lobbyA[i].style.backgroundColor = colorBackgroundChannel;
+            }
+        }
     }
 
 }
