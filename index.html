@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TCC</title>
+    <link id="pagestyle" rel="stylesheet" type="text/css" href="style/style.css">
+    <script type="text/javascript" src="js/main.js" async></script>
+
+
+</head>
+<body>
+
+<div id="login" class="login">
+
+    <div class="loginbox">
+        <p>Login for Toller Chat Client</p>
+        <label>Displayname</label>
+        <input type="text" placeholder="Enter Displayname" id="displayname" class="inputlogin" autofocus required>
+
+        <label>Username</label>
+        <input type="text" placeholder="Enter Username" id="username" class="inputlogin" required>
+
+        <label>Password</label>
+        <input type="password" placeholder="Enter Password" id="password" class="inputlogin" required>
+        <button id="submitLog">Login</button>
+
+    </div>
+
+</div>
+<div id="optionMenu" class="options">
+
+    <div class="optionsMenuInner">
+        <p>Options</p>
+        <label>Font-Size:</label>
+        <select id="fontsize" class="inputOptions">
+            <option value="">Browser Font-Size</option>
+            <option value="10px">10px</option>
+            <option value="12px">12px</option>
+            <option value="14px">14px</option>
+            <option value="16px">16px</option>
+            <option value="18px">18px</option>
+            <option value="20px">20px</option>
+            <option value="22px">22px</option>
+            <option value="24px">24px</option>
+            <option value="26px">26px</option>
+        </select>
+        <br>
+        <label>Style:</label>
+        <select id="styleSheet" class="inputOptions">
+            <option value="style/style.css">YellowHeaven</option>
+            <option value="style/style2.css">ColorDrop</option>
+            <option value="style/style3.css">CleanOrange</option>
+            <option value="style/style4.css">NightMode</option>
+            <option value="style/style5.css">ColorBlindMode</option>
+        </select>
+        <div id="conButtonOptions">
+            <button id="saveOptions">Save</button>
+            <button id="cancelOptions">Exit</button>
+
+        </div>
+
+    </div>
+</div>
+<div id="regexList">
+
+    <div id="regexListInner">
+        <p>TextTricks!</p>
+        <label>Create a code block:</label><br>
+        <ul>
+            <li>```</li>
+            <li>text</li>
+            <li>```</li>
+        </ul>
+        <label>Create a quote:</label><br>
+        <ul>
+            <li>>text</li>
+        </ul>
+        <label>Create a code line:</label><br>
+        <ul>
+            <li>`text`</li>
+        </ul>
+        <label>Create a horizontal line:</label><br>
+        <ul>
+            <li>--- or *** or * * * or - - -</li>
+        </ul>
+        <label>Create Headings, Heading 1 to 6 possible:</label><br>
+        <ul>
+            <li>#text</li>
+        </ul>
+        <label>Create italic text:</label><br>
+        <ul>
+            <li>_text_</li>
+        </ul>
+        <label>Create a strikethrough for your text:</label><br>
+        <ul>
+            <li>~text~</li>
+        </ul>
+        <label>Make the text bold!:</label><br>
+        <ul>
+            <li>*text*</li>
+        </ul>
+        <button id="cancelTextTricks">Exit</button>
+    </div>
+
+</div>
+<div class="totalW">
+
+
+    <!--Topbar-->
+    <div id="topbar" class="topbar">
+        <p class="name">Toller Chat Client</p>
+        <ul class="topbar">
+
+            <li>
+                <button id="options">Options</button>
+            </li>
+            <li>
+                <button id="regex">TextTricks</button>
+            </li>
+            <li>
+                <button id="about">About
+                </button>
+            </li>
+
+        </ul>
+    </div>
+
+
+    <div id="mainW" class="wrapper">
+
+        <!-- Linkes Menü -->
+        <div id="sideM" class="sidemenu">
+            <!-- Userlist -->
+            <div id="lobbysiwtch" class="lobbyswitchOutter">
+                <button id="lobbyIN" class="lobbyswitch">Used</button>
+                <button id="lobbyOUT" class="lobbyswitch">Other</button>
+            </div>
+            <div id="lobbylogs" class="lobbylogs">
+                <!--Nachher raus machen, beispiel lobbynamen
+                        <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">LennartXLennart</button></div>
+                        <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">Public</button></div>
+                        <div class="lobby"><button class="lobbyname" onclick="switchlobby(this.innerHTML)">Lobby3</button></div>
+                -->
+            </div>
+            <div class="markALL">
+                <button id="markAllasSeen">Mark all as read</button>
+            </div>
+            <div class="lobbycreate">
+
+                <input id="lobbyinput" placeholder="Lobby">
+                <button id="lobbycreate">Create/Switch</button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Rechtes Menü -->
+        <div id="mainM" class="chatbox">
+            <div class="chatheader">
+                <p id="chatheader">No Lobby selected</p>
+
+                <button id="userlist">Users</button>
+                <button id="scroll">Jump</button>
+            </div>
+
+
+            <div id="chatlogs" class="chatlogs">
+
+                <!-- beispiel chat nachrichten
+                <div class="chat friend">  <p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>  Hey </p></div>
+                <div class="chat self">    <p class="chat-message"><span class="username">Name</span><span class="time">Zeit</span><br>ey, was geht </p></div>
+                -->
+
+                <!--This is the template for the messages
+                <div class="chat friend/self">
+                    <p class="chat-message">
+                        <span class="username">{{username}}</span>
+                        <span class="time">{{time}}</span><br>
+                        {{text}}
+                    </p>
+                </div>
+                -->
+            </div>
+            <div class="chat-form">
+                <textarea id="textinput" placeholder="Write a message..."></textarea>
+                <button id="textsend">Send</button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>
