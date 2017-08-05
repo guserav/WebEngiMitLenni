@@ -10,7 +10,7 @@
 
 This ReadMe incldues a list of features for our Chat Client.
 
-We used the server of Daniel Rutz with your Backend. The Server can be changed via the global variable 'apiurl'. 
+We used the server of Daniel Rutz with your Backend (URL = 'http://danielrutz.de:3000/api'). The Server can be changed via the global variable 'apiurl' in the first line of our Javascript file. 
 
 @Gerrit Schmitz
 The List of Features should be an inspiration for you to find features worthy of points for a certain category. You are free to decide which feature falls under which category and free to declare other things in our chat client as feature. 
