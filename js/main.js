@@ -542,6 +542,7 @@ function applySettings() {
     case 'style/style.css':
         colorBackgroundChannel = '#F2D769';
         colorBackgroundChannelSelected = '#E0C65B';
+        displayAllMessages(currentRoom);
         break;
     case 'style/style2.css':
         colorBackgroundChannel = '#F53240';
@@ -558,12 +559,11 @@ function applySettings() {
     case 'style/style5.css':
         colorBackgroundChannel = '#ffffff';
         colorBackgroundChannelSelected = '#fb742d';
-        if(userbutton !== null){
-            displayAllMessages(currentRoom);
-        }
+
         break;
     }
     if (userbutton !== null) {
+        displayAllMessages(currentRoom);
         userbutton.style.backgroundColor = colorBackgroundChannel;
         if (lobbyview) {
             document.getElementById('lobbyIN').style.backgroundColor = colorBackgroundChannelSelected;
