@@ -291,10 +291,16 @@ const textConverter = {
             .replace(/'/g, '&apos;');
     },
 
+    /**
+     * Replaces every emoji in string
+     * @param string {String} the in wich the emojis are
+     * @returns {String} the new string with replaced emojis
+     */
     replaceEmojis: function (string) {
         emojis.forEach(function (obj) {
-            string.replace(obj.regex, obj.unicode);
+            string = string.replace(obj.regex, obj.unicode);
         });
+        return string;
     }
 };
 
