@@ -13,16 +13,16 @@ px	%			em
 Color Options:
     Hex/Name/RGB    	Usage
     (Container/Inner/Buttons/Overlays)
-    #7CD8D5 -> #ffffff      	Outer/Container Color
-    #02C8A7	-> #f6f6f6			Chatlogs /chatheader
-    #F53240	-> #fb742d		    Button
-    #FB7D6D	-> #FC9057	        Button hover/selected (js)
-    #6FE8D4	-> #F3EFEF          user list
+    #ffffff -> #142634	        Outer/Container Color
+    #f6f6f6	-> #7E8889       	Chatlogs /chatheader
+    #fb742d	-> #5A666B         Button
+    #FC9057	-> #BDC7C1       Button hover/selected (js)
+    #F3EFEF -> #676960          user list
     black(font)			            button
 
     (Notifications)
     black(background)	            NotifcationRead
-    #DE2F2F			                NotificationUnRead
+    #DE2F2F -> #D48872			                NotificationUnRead
     white(font)			            Notifications
 
     (Chat message)
@@ -38,7 +38,7 @@ Color Options:
 
     (Similar on each Version)
     0, 0, 0, .1			scrollbar
-    128, 128, 128, 0.3	draken overlay, highlighter for popup window
+    0, 0, 0, 0.6	    draken overlay, highlighter for popup window
     black(font)			Name in userlist(will change for colored users)
 
  */
@@ -52,7 +52,7 @@ Color Options:
 }
 
 body {
-    background: #ffffff;
+    background: #142634;
 }
 
 /*start outer chat*/
@@ -60,7 +60,7 @@ body {
     width: 500px;
     min-width: 390px;
     min-height: 150px;
-    background: #ffffff;
+    background: #142634;
     padding: 15px;
     margin: 0 auto;
     height: 95vh;
@@ -78,7 +78,7 @@ body {
     padding: 15px;
     width: 100%;
     height: 87%;
-    background: #f6f6f6;
+    background: #7E8889;
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -98,7 +98,7 @@ body {
 .chatheader {
     width: 100%;
     height: 5%;
-    background: #f6f6f6;
+    background: #7E8889;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -109,7 +109,7 @@ body {
 }
 
 .chatheader button {
-    background: #fb742d;
+    background: #5A666B;
     font-size: 1em;
     height: 80%;
     min-height: 1.2em;
@@ -127,7 +127,7 @@ body {
 }
 
 .chatheader button:hover {
-    background: #FC9057 !important;
+    background: #BDC7C1 !important;
 
 }
 
@@ -306,7 +306,7 @@ body {
     z-index: 1;
     position: absolute;
     margin: -15px;
-    background-color: #F3EFEF;
+    background-color: #C3D5D7;
     overflow-x: hidden;
     overflow-y: scroll;
     transition: 0.5s;
@@ -348,7 +348,7 @@ body {
     height: 90%;
     width: 100%;
     border-radius: 10px;
-    border: 1px solid #000000;
+    border: 1px solid #BDC7C1;
     resize: none;
     font-size: 1em;
     color: #333;
@@ -370,7 +370,7 @@ body {
 }
 
 .chat-form button {
-    background: #fb742d;
+    background: #5A666B;
     padding: 5px 15px;
     font-size: 1.125em;
     height: 90%;
@@ -389,7 +389,7 @@ body {
 }
 
 .chat-form button:hover {
-    background: #FC9057;
+    background: #BDC7C1;
 
 }
 
@@ -398,7 +398,7 @@ body {
     height: 95vh;
     min-height: 150px;
     max-width: 250px;
-    background: #ffffff;
+    background: #142634;
     padding: 15px;
     margin: 0 auto;
     box-shadow: 0 2px 5px #ccc;
@@ -423,13 +423,13 @@ body {
     background: white;
     height: 90%;
     width: 80%;
-    border: 1px solid #000000;
+    border: 1px solid #BDC7C1;
     font-size: 0.875em;
     color: #333;
 }
 
 .lobbycreate button {
-    background: #fb742d;
+    background: #5A666B;
     padding: 5px 15px;
     font-size: 0.875em;
     height: 90%;
@@ -448,7 +448,7 @@ body {
 }
 
 .lobbycreate button:hover {
-    background: #FC9057;
+    background: #BDC7C1;
 
 }
 
@@ -463,7 +463,7 @@ body {
 
 .markALL button {
     width: 100%;
-    background: #fb742d;
+    background: #5A666B;
     padding: 5px 15px;
     font-size: 0.875em;
     height: 90%;
@@ -480,7 +480,7 @@ body {
 }
 
 .markALL button:hover {
-    background: #FC9057;
+    background: #BDC7C1;
 
 }
 
@@ -488,7 +488,7 @@ body {
     padding: 10px;
     width: 100%;
     height: 100%;
-    background: #f6f6f6;
+    background: #7E8889;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -516,17 +516,17 @@ body {
     -webkit-animation: background .2s ease;
     -moz-transition: background .2s ease;
     -o-transition: background .2s ease;
-    background: #fb742d;
+    background: #5A666B;
 
 }
 
 .lobbyswitchOutter button:hover {
-    background: #FC9057;
+    background: #BDC7C1;
 
 }
 
 #lobbyIN {
-    background: #FC9057;
+    background: #BDC7C1;
 
 }
 
@@ -554,7 +554,7 @@ body {
     padding: 5px;
     margin: 5px 10px 0 5px;
     font-size: 1.125em;
-    background: #fb742d;
+    background: #5A666B;
     text-align: left;
     font-weight: bold;
     box-shadow: 0 2px 1px gray;
@@ -573,7 +573,7 @@ body {
 }
 
 .lobby button:hover {
-    background: #FC9057 !important;
+    background: #BDC7C1 !important;
 
 }
 
@@ -597,7 +597,7 @@ body {
     width: 1.5em;
     line-height: 1.5em;
     font-weight: bold;
-    background-color: #DE2F2F;
+    background-color: #E4704F;
     color: white;
     text-align: center;
     font-size: 1em;
@@ -635,7 +635,7 @@ body {
 
 /*start topbar*/
 .topbar {
-    background: #f6f6f6;
+    background: #7E8889;
     margin: 0;
     display: -webkit-box;
     display: -moz-box;
@@ -656,7 +656,7 @@ body {
     cursor: pointer;
     outline: none;
     border: none;
-    background: #f6f6f6;
+    background: #7E8889;
 
     -webkit-animation: background .2s ease;
     -moz-transition: background .2s ease;
@@ -665,7 +665,7 @@ body {
 }
 
 .topbar button:hover {
-    background: #FC9057;
+    background: #BDC7C1;
 }
 
 .topbar ul {
@@ -680,14 +680,14 @@ body {
     font-size: 1.125em;
     font-weight: bold;
     color: black;
-    background: #f6f6f6;
+    background: #7E8889;
     text-align: center;
     padding: 10px;
 
 }
 
 .topbar a:hover {
-    background: #FC9057;
+    background: #BDC7C1;
 }
 
 /*start totalW*/
@@ -717,14 +717,14 @@ body {
     z-index: 100;
     top: 0;
     left: 0;
-    background: #ffffff;
+    background: #142634;
 
 }
 
 .loginbox {
     position: absolute;
 
-    background: #f6f6f6;
+    background: #7E8889;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -740,7 +740,7 @@ body {
     margin: 5px;
     padding: 5px;
     font-size: 1em;
-    border: 1px solid #000000;
+    border: 1px solid #BDC7C1;
 }
 
 .loginbox label {
@@ -761,7 +761,7 @@ body {
     height: 2em;
     margin: 5px;
     font-size: 1.125em;
-    background: #fb742d;
+    background: #5A666B;
     font-weight: bold;
     box-shadow: 0 2px 1px gray;
     cursor: pointer;
@@ -776,7 +776,7 @@ body {
 }
 
 .loginbox button:hover {
-    background: #FC9057;
+    background: #BDC7C1;
 }
 
 /*start options*/
@@ -790,12 +790,12 @@ body {
     top: 0;
     left: 0;
 
-    background-color: rgba(128, 128, 128, 0.3);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .optionsMenuInner {
     position: absolute;
-    background: #f6f6f6;
+    background: #7E8889;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -823,7 +823,7 @@ body {
     margin: 5px;
     padding: 5px;
     font-size: 1em;
-    border: 1px solid #000000;
+    border: 1px solid #BDC7C1;
     outline: none;
 
 }
@@ -839,7 +839,7 @@ body {
     height: 2em;
     margin: 5px;
     font-size: 1.125em;
-    background: #fb742d;
+    background: #5A666B;
     font-weight: bold;
     box-shadow: 0 2px 1px gray;
     cursor: pointer;
@@ -854,7 +854,7 @@ body {
 }
 
 .optionsMenuInner button:hover {
-    background: #FC9057;
+    background: #BDC7C1;
 }
 
 .colorbox {
