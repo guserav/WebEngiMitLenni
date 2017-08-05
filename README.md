@@ -1,20 +1,25 @@
-[![Build Status](https://api.travis-ci.org/guserav/WebEngiMitLenni.png)](https://travis-ci.org/guserav/WebEngiMitLenni)
-# WebEngiMitLenni
-## Setup
-Have cygwin and node.js installed
+# Web-Engineering Chat Client
 
-Start cygwin and switch to your project directory with
-cd /cygdrive/pathofproject
+**Students**: Erik Zeiske, Lennart Purucker 
+**Lecturer**: Gerrit Schmitz
+**Due date**: Sunday, 6 August 2017, 12:00 AM
 
-example:
-"cd /cygdrive/C/Users/puruckel/WebstormProjects/WebEngiMitLenni"
+This ReadMe incldues a list of features for our Chat Client.
 
+## List of Features
 
+### Login
+* Displayname is your Username in the Chat Client. Displayname will be saved in a Cookie after you loged in. 
+* Username and Password are the needed credentials for the Backend which will be used to verify our requests to the Backend.(Username= 'dhbw',Password= 'dhbw-pw')
+* Autofocus and 'Enter press' in Password input field supported.
 
-1. ```npm install```
-2. ```npm run watch```
-3. ```open a new cygwin window```
-3. ```npm start (in new window)``` 
-4. start developing
-5. in the first window will be all information
+## Buttons of the Main page
 
+### Options (Top-Right)
+* Open option menu
+* (Font-Size)You are able to change the font-size of the chat client or use the font-size of your browser
+* (Style) You are able to select a style you like. Every style has its own style sheet.
+    * 5 styles possible
+    * 2 are proven colorblind tested ('ColorDrop' and 'ColorBlindMode' for more information see style sheet 5)
+* You have to press save to store the information and apply them. Information will also be stored in a cookie. 
+* Press exit to leave the menu again

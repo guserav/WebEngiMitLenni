@@ -215,9 +215,9 @@ const textConverter = {
         for (let i = 0; i < lines.length; i++) {
             if (/^((&gt;)*) ?```$/.test(lines[i])) {
                 if (!inCodeBlock) {//start Code block
-                    result += '<p class="codeBlock">';
+                    result += '<pre class="codeBlock">';
                 } else {//end Code block
-                    result += '</p>';
+                    result += '</pre>';
                 }
                 inCodeBlock = !inCodeBlock;
             } else {
@@ -245,6 +245,7 @@ const textConverter = {
                     }
 
                     const quoteLevelThisLine = countOccurrences((/(&gt;)*/g.exec(lines[i]) || [''])[0], '&gt;');
+                    lines[i] = lines[i].replace(/^(&gt;)*/g, '');//Remove leading > from displayed string because they aren't needed
                     if (quoteLevelThisLine !== quoteLevel) {
                         for (let j = quoteLevel; j < quoteLevelThisLine; j++) {
                             result += '<span class="quote">';
@@ -268,8 +269,8 @@ const textConverter = {
 
         //close left open tags
         if (inCodeBlock) {
-            result += '</p>';
-            console.log("i was also here and ended a paragraph");
+            result += '</pre>';
+            console.log("i was also here and ended the code");
         }
         for (let j = quoteLevel; j > 0; j--) {
             result += '</span>';
