@@ -551,6 +551,7 @@ function applySettings() {
     case 'style/style5.css':
         colorBackgroundChannel = '#ffffff';
         colorBackgroundChannelSelected = '#fb742d';
+        displayAllMessages(currentRoom);
         break;
     }
     if (userbutton !== null) {

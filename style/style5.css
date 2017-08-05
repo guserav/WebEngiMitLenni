@@ -9,14 +9,20 @@ px	%			em
 12	75 = 0.75em
 */
 /*
-ÜBerall Border hinzufügen
+
+This style sheet was intensively tested with http://www.color-blindness.com/coblis-color-blindness-simulator/
+    Every possible page of the Website with this stylesheet is distinguishable for every kind of color blindness according to this website.
+
+    (Other Options are: stylesheet2 and stylesheet3 but not as good as this one)
+    (Stylesheet1 and 4 should not be used by someone who has a color blindness)
+
 Color Options:
     Hex/Name/RGB    	Usage
     (Container/Inner/Buttons/Overlays)
     #ffffff      		Outer/Container Color
-    #ffffff			Chatlogs /chatheader
+    #ffffff			    Chatlogs /chatheader
     #ffffff				Button
-    #E0C65B	 ->		fb742d	Button hover/selected (js)
+    #fb742d	            Button hover/selected (js)
     #faf2cb	  ->			user list
     black(font)			button
 
@@ -40,6 +46,9 @@ Color Options:
     0, 0, 0, .1			scrollbar
     128, 128, 128, 0.3	draken overlay, highlighter for popup window
     black(font)			Name in userlist(will change for colored users)
+
+Borders for every object were added!
+
 
  */
 
@@ -263,13 +272,13 @@ body {
 }
 
 .friend .chat-message {
-    background: white;
+    background:  #f6f6f6;
     text-align: left;
     word-wrap: break-word;
 }
 
 .self .chat-message {
-    background: #D1EFA0;
+    background: #f6f6f6;
     text-align: left;
     word-wrap: break-word;
 }
@@ -306,12 +315,16 @@ body {
 
 /*userlist*/
 .userlist {
+   border: 3px solid black;
+    border-left: none;
+    border-top: none;
+
     height: 78%;
     width: 0;
     z-index: 1;
     position: absolute;
     margin: -15px;
-    background-color: #faf2cb;
+    background-color: #ffffff;
     overflow-x: hidden;
     overflow-y: scroll;
     transition: 0.5s;
