@@ -166,10 +166,10 @@ let isUserListDisplayed = false;
  * @type {[{regex:RegExp, unicode:String}]}
  */
 const emojis = [
-    {regex: /:-?\)/g, unicode:'😀'},
-    {regex: /o\)/g, unicode:'😱'},
-    {regex: /:D/g, unicode:'😁'},
-    {regex: /(^|\s)lol(\s|$)/g, unicode:'$1😂$2'}
+    {regex: /:-?\)/g, unicode: '😀'},
+    {regex: /o\)/g, unicode: '😱'},
+    {regex: /:D/g, unicode: '😁'},
+    {regex: /(^|\s)lol(\s|$)/g, unicode: '$1😂$2'}
 ];
 
 /**
@@ -348,21 +348,7 @@ window.onload = function startup() {
     });
     //function um die größe richtig zu machen
     window.addEventListener('resize', function () {
-        if (document.getElementById('login') !== null) {
-            let d = document.getElementById('topbar').offsetHeight;
-            let e = document.getElementById('mainM').offsetHeight;
-            let a = document.getElementById('sideM').offsetWidth;
-            let b = document.getElementById('mainM').offsetWidth;
-            let s = d + e;
-            let r = a + b;
-            document.getElementById('login').style.width = r + 'px';
-            document.getElementById('login').style.height = s + 'px';
-        } else {
-            let a = document.getElementById('sideM').offsetWidth;
-            let b = document.getElementById('mainM').offsetWidth;
-            let r = a + b;
-            document.getElementById('topbar').style.width = r + 'px';
-        }
+        resize();
     });
     /* for multi key maping
      map idea borrowed from https://stackoverflow.com/questions/10655202/detect-multiple-keys-on-single-keypress-event-in-jquery
@@ -461,7 +447,7 @@ window.onload = function startup() {
                         logindiv.parentNode.removeChild(logindiv);
 
                         setCookie(cookieNameForDisplayName, username, 12);
-
+                        resize();
 
                         loadlobbys();
                     } else {
@@ -478,6 +464,34 @@ window.onload = function startup() {
 
 
 };
+
+function resize() {
+    if (document.getElementById('login') !== null) {
+        let d = document.getElementById('topbar').offsetHeight;
+        let e = document.getElementById('mainM').offsetHeight;
+        let a = document.getElementById('sideM').offsetWidth;
+        let b = document.getElementById('mainM').offsetWidth;
+        let s = d + e;
+        let r = a + b;
+        document.getElementById('login').style.width = r + 'px';
+        document.getElementById('login').style.height = s + 'px';
+        document.getElementById('optionMenu').style.width = r + 'px';
+        document.getElementById('optionMenu').style.height = s + 'px';
+    } else {
+        let a = document.getElementById('sideM').offsetWidth;
+        let b = document.getElementById('mainM').offsetWidth;
+        let d = document.getElementById('topbar').offsetHeight;
+        let e = document.getElementById('mainM').offsetHeight;
+        let s = d + e;
+
+        let r = a + b;
+        document.getElementById('optionMenu').style.width = r + 'px';
+        document.getElementById('optionMenu').style.height = s + 'px';
+        document.getElementById('topbar').style.width = r + 'px';
+
+
+    }
+}
 
 /**
  * opens and cloeses the option menu and resetts the values if needed
@@ -536,14 +550,13 @@ function saveCookieOptions(cookieValue) {
 function applySettings() {
     //set fontsize
     document.getElementsByTagName('body')[0].style.fontSize = fontsizeValue;
-
+    resize();
     //swap stylesheet and change js colors
     swapStyleSheet(styleValue);
     switch (styleValue) {
     case 'style/style.css':
         colorBackgroundChannel = '#F2D769';
         colorBackgroundChannelSelected = '#E0C65B';
-        displayAllMessages(currentRoom);
         break;
     case 'style/style2.css':
         colorBackgroundChannel = '#F53240';
@@ -1134,9 +1147,9 @@ function createlobby(name) {
             }
         }
     } else if (secView.indexOf(name) > -1) {
-        if(lobbyview){
+        if (lobbyview) {
             switchTolobbyOUT();
-        }else{
+        } else {
             switchTolobbyIN();
         }
         for (let i = 0; i < lobbyA.length; i++) {

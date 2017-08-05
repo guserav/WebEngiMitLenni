@@ -422,8 +422,9 @@ body {
 }
 
 .lobbycreate button {
+    width: 16ex;
+    padding: 5px;
     background: #fb742d;
-    padding: 5px 15px;
     font-size: 0.875em;
     height: 90%;
     font-weight: bold;

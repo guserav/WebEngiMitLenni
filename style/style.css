@@ -61,6 +61,7 @@ body {
     min-height: 150px;
     background: #F6E69C;
     padding: 15px;
+
     margin: 0 auto;
     height: 95vh;
     display: flex;
@@ -414,14 +415,18 @@ body {
     background: white;
     height: 90%;
     width: 80%;
+    min-height: 50px;
     border: 1px solid #eee;
     font-size: 0.875em;
     color: #333;
+
 }
 
 .lobbycreate button {
+    width: 16ex;
+    padding: 5px;
+
     background: #F2D769;
-    padding: 5px 15px;
     font-size: 0.875em;
     height: 90%;
     font-weight: bold;
@@ -628,6 +633,7 @@ body {
 .topbar {
     background: #EDD983;
     margin: 0;
+    max-height: 48px;
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
