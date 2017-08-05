@@ -186,12 +186,11 @@ body {
 }
 
 .chat .chat-message .codeBlock {
-    /*  font-family: monospace;
+    font-family: monospace;
     background-color: #D7F2AD;
     border: 1px solid rgba(128, 128, 128, 0.4);
     border-radius: 2px;
-    padding: 1px 4px;*/
-/ / TODO format the code blocks
+    padding: 1px 4px;
 }
 
 .chat .chat-message .quote {
@@ -247,12 +246,6 @@ body {
     font-size: 0.67em;
     -webkit-margin-before: 2.33em;
     -webkit-margin-after: 2.33em;
-}
-
-.emoji {
-/ / TODO format writly display: inline-block;
-    width: 1.2em;
-    height: 1.2em;
 }
 
 .friend .chat-message {
@@ -862,4 +855,8 @@ body {
     height: 1.5em;
     width: 1.5em;
     margin-left: 1em;
+}
+
+a {
+    text-decoration: none;
 }
