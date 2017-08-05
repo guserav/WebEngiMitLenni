@@ -541,8 +541,8 @@ function applySettings() {
         colorBackgroundChannelSelected = '#FB7D6D';
         break;
     case 'style/style3.css':
-        colorBackgroundChannel = '#F2D769';
-        colorBackgroundChannelSelected = '#E0C65B';
+        colorBackgroundChannel = '#fb742d';
+        colorBackgroundChannelSelected = '#FC9057';
         break;
     case 'style/style4.css':
         colorBackgroundChannel = '#F2D769';
