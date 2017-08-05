@@ -545,12 +545,12 @@ function applySettings() {
         colorBackgroundChannelSelected = '#FC9057';
         break;
     case 'style/style4.css':
-        colorBackgroundChannel = '#5A666B';
+        colorBackgroundChannel = '#ffffff';
         colorBackgroundChannelSelected = '#BDC7C1';
         break;
     case 'style/style5.css':
-        colorBackgroundChannel = '#F2D769';
-        colorBackgroundChannelSelected = '#E0C65B';
+        colorBackgroundChannel = '#ffffff';
+        colorBackgroundChannelSelected = '#fb742d';
         break;
     }
     if (userbutton !== null) {
@@ -680,7 +680,7 @@ function buildmessage(usernameS, textS, timeS) {
  * @returns {*}
  */
 function getColorForUser(name) {
-    if (name === username) {
+    if (name === username || styleValue === 'style/style5.css' ) {
         return '#000000';
     }
     for (let i = 0; i < users2colors.length; i++) {
