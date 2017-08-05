@@ -258,7 +258,7 @@ const textConverter = {
 
                     if (/^#{1,6} ?.+$/g.test(lines[i])) {
                         const headingType = countOccurrences(/#{1,6}/.exec(lines[i])[0], '#');
-                        result += lines[i].replace(/^ ?#{1,6}(.+?)#*$/g, '<span class="heading h"' + headingType + '>$1</span>');
+                        result += lines[i].replace(/^ ?#{1,6}(.+?)#*$/g, '<span class="heading h' + headingType + '">$1</span>');
                         continue;
                     }
                     result += lines[i] + '<br />';
