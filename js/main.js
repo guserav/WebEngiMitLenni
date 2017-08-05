@@ -84,8 +84,8 @@ for (let key in  Colors.names) {
  * global array save for asyncrhon tasks
  * allRooms = copy of all lobbys
  * userCheck = array of all users in the current needed room
- * currentView = all Lobbys that a "Used"-view
- * secView = all Lobbys that a in "Others"-View
+ * currentView = all Lobbys that a in your current-view
+ * secView = all Lobbys that a in your secnd-View
  * @type {Array}
  */
 let allRooms = [];
@@ -1129,13 +1129,14 @@ function createlobby(name) {
             if (lobbyA[i].innerHTML === name) {
                 switchlobby(name);
                 create = false;
+                break;
             }
         }
     } else if (secView.indexOf(name) > -1) {
-        if (lobbyview) {
-            switchTolobbyIN();
-        } else {
+        if(lobbyview){
             switchTolobbyOUT();
+        }else{
+            switchTolobbyIN();
         }
         for (let i = 0; i < lobbyA.length; i++) {
             if (lobbyA[i].innerHTML === name) {
@@ -1144,10 +1145,9 @@ function createlobby(name) {
             }
         }
     }
+
     if (create) {
-        switchTolobbyIN();
-
-
+        switchTolobbyOUT();
         const newlobby = apiurl + '/chats/' + name;
         const newlobbyrequest = new Request(newlobby, {
             method: 'POST',
