@@ -659,6 +659,7 @@ body {
     display: flex;
     justify-content: space-between;
     border-bottom: 3px solid black;
+    max-height: 48px;
 
 }
 

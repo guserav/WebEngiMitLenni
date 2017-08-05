@@ -641,6 +641,7 @@ body {
     display: -webkit-flex;
     display: flex;
     justify-content: space-between;
+    max-height: 48px;
 
 }
 
