@@ -333,9 +333,7 @@ window.onload = function startup() {
     document.getElementById('cancelOptions').addEventListener('click', function () {
         listOptions();
     });
-    document.getElementById('about').addEventListener('click', function () {
-        //TODO list all features in a overlay or new page
-    });
+
     document.getElementById('scroll').addEventListener('click', function () {
         scrolldown();
     });
