@@ -105,7 +105,7 @@ let currentLoad = false;
  */
 let switchLobbyView = false;
 /**
- * Stores the name to check if after loadlobbys a switch should occur
+ * Stores  name to check if after loadlobbys a switch should occur
  * @type {String}
  */
 let doswitch = '';
@@ -159,18 +159,17 @@ let isUserListDisplayed = false;
 
 
 /**
+ * Holds all emojis that are supported from this chat client
  *
- * @type {[{regex:RegExp, url:String, alt:String}]}
+ * The regex is used to find the emojis and the unicode field is used for the replacement of them.
+ *
+ * @type {[{regex:RegExp, unicode:String}]}
  */
 const emojis = [
-    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
-    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
-    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
-    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
-    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
-    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
-    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'},
-    {regex: /:\)/g, url: 'TODO', alt: 'Smiling Face'}
+    {regex: /:-?\)/g, unicode:'😀'},
+    {regex: /o\)/g, unicode:'😱'},
+    {regex: /:D/g, unicode:'😁'},
+    {regex: /(^|\s)lol(\s|$)/g, unicode:'$1😂$2'}
 ];
 
 /**
@@ -233,6 +232,8 @@ const textConverter = {
                     let splitLine = lines[i].split('`');
                     lines[i] = '';
                     for (let j = 0; j < splitLine.length; j += 2) {
+                        //emojis
+                        splitLine[j] = textConverter.replaceEmojis(splitLine[j]);
                         //emphasis text
                         splitLine[j] = splitLine[j].replace(/\*([^*]+)\*/g, '<span class="emphasis">$1</span>');
                         //strike through text
@@ -290,10 +291,16 @@ const textConverter = {
             .replace(/'/g, '&apos;');
     },
 
+    /**
+     * Replaces every emoji in string
+     * @param string {String} the in wich the emojis are
+     * @returns {String} the new string with replaced emojis
+     */
     replaceEmojis: function (string) {
         emojis.forEach(function (obj) {
-            string.replace(obj.regex, '<img class="emoji" src="' + obj.url + '" alt="' + obj.alt + '" />');
+            string = string.replace(obj.regex, obj.unicode);
         });
+        return string;
     }
 };
 
