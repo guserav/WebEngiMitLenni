@@ -534,6 +534,11 @@ function saveOptions() {
     setCookie(cookieNameForOptionsSettings, JSON.stringify(optionsArray), 12);
     applySettings();
 }
+ /** take from https://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window-using-javascript*/
+function openInNewTab(url) {
+    let win = window.open(url, '_blank');
+    win.focus();
+}
 
 /**
  * gets cookie value and changes the options accordingly
