@@ -752,7 +752,9 @@ function listuser() {
                 }
             });
 
-            userArray.sort();
+            userArray.sort(function (first, sec) {
+                return first.toLowerCase().localeCompare(sec.toLowerCase());
+            });
             document.getElementById('listol').innerHTML = '';
             userArray.forEach(function (item) {
                 let userli = document.createElement('li');
